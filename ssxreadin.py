@@ -46,7 +46,7 @@ import subprocess as sb
 import shlex
 import numpy as np
 from numpy import array, transpose, zeros, arange, where, ma
-import math_func as mf
+import ssxmathfuncs as mf
 
 #import ssx_data_read_old as sdr_old
 
