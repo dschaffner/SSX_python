@@ -3,7 +3,7 @@ Modifications:
 ssxreadin:
 Line 76: change to location of data folder (forward for mac, double backward for PC)
 
-Line 252: (inside process filename) change direction of slashes (forward for Pc, single backward for PC)
+Line 252: (inside process filename) change direction of slashes (forward for mac, single backward for PC)
 
 ssxdefaults:
 Line 31: change to location of data folder (forward for mac, double backward for PC)

@@ -73,7 +73,7 @@ httpDir = 'data'
 #else:
 #    basedir = '~/Documents/data'
 
-basedir = 'C:\Users\dschaffner\Google Drive\Data Deposit'
+basedir = '/Users/ccartagena/Desktop/'
 
 # I like to store may data elsewhere.  Others can put it where they want.
 #if os.getlogin() != 'tgray':
@@ -247,10 +247,10 @@ class ssx_data(ssx_base):
 
     def _processFilename(self):
         """Construct full filename on local computer."""
-        #basename = "%s/%s/%sr%i-%s%s" % (self.runYear, self.runDate,
-        #    self.runDate, int(self.runNumber), self.fileString, self.fileExt)
-        basename = "%s\%s\%sr%i-%s%s" % (self.runYear, self.runDate,
+        basename = "%s/%s/%sr%i-%s%s" % (self.runYear, self.runDate,
             self.runDate, int(self.runNumber), self.fileString, self.fileExt)
+        #basename = "%s\%s\%sr%i-%s%s" % (self.runYear, self.runDate,
+        #    self.runDate, int(self.runNumber), self.fileString, self.fileExt)
         self.filename = ssxutil.ssxPath(basename,'data')
 
     def _processRemFilename(self):
