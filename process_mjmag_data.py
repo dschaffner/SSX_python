@@ -98,4 +98,4 @@ def process_mjmag_data(shot):
     Bmod25 = np.zeros([25,7391])
     for j in np.arange(25):
         Bmod25[j,:] = np.sqrt(B25[0,j,:]**2+B25[1,j,:]**2+B25[2,j,:]**2)
-    return data.time,Bdot25,timeB,B25,Bmod25
+    return data.time,Bdot25,timeB,B25,Bmod25,data
