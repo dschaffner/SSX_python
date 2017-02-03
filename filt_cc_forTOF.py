@@ -15,8 +15,8 @@ sep_dist = 7e-5#in km (7cm)between each loop
 ### LOAD SHOT ####
 print 'Loading Shot ',shot
 time,bdot,timeb,b,bmod,fulldata = mj.process_mjmag_data(day+str(shot))
-tindex1=ssxuf.tindex_min(time,22.0)
-tindex2=ssxuf.tindex_min(time,35.0)
+tindex1=ssxuf.tindex_min(time,20.0)
+tindex2=ssxuf.tindex_min(time,40.0)
 time = time[tindex1:tindex2]
 b = b[:,:,tindex1:tindex2]
 bx25 = b[0,24,:]
@@ -24,6 +24,7 @@ bx24 = b[0,23,:]
 bx23 = b[0,22,:]
 bx22 = b[0,21,:]
 bx21 = b[0,20,:]
+
 
 #bdoty = bdot[1,:,:]
 #bdotz = bdot[2,:,:]

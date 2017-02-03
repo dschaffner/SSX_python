@@ -20,7 +20,7 @@ def get_corr(t,sig1,sig2,detrend=pylab.detrend_linear,
     #detrend
     #pylab.plot(sig1)
     #sig1 = detrend(sig1)
-    print 'This one!!!'
+    #print 'This one!!!'
     meansig1 = numpy.mean(sig1)
     sig1_sub = sig1-meansig1
     #pylab.plot(sig1)
