@@ -16,4 +16,5 @@ import find_TOFvelocity as tof
 day='123016'
 shot=51
 
-velocity = tof.find_TOF(day,shot,20.0,40.0)
+for shot in np.arange(1,10):
+    velocity = tof.find_TOF(day,shot,20.0,40.0)
