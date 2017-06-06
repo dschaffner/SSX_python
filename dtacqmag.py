@@ -145,8 +145,10 @@ class hiresmag_data(sdr.dtac_diag):
         self.unCalibData = np.ma.masked_array(self.unCalibData)
         # self.fullData = np.ma.masked_outside(self.unCalibData, -2.5, 2.5)
         if hasattr(self, 'simplecalib'):
+            #print self.unCalibData
             self.unCalibData = (self.unCalibData *
                 np.expand_dims(self.simplecalib, 2))
+            #print self.unCalibData
 
 
         for p, calibFile in enumerate(calibFiles):
@@ -1166,13 +1168,13 @@ def getMJMagData(shot, probe = 'm2',gain=1.0):
             else:
                 filestrings = ['mag1', 'mag2', 'mag3']
                 #calibFiles = ['calib-121611-hires2.txt',]
-                calibFiles = ['calib-123016-mjmag.txt',]
+                calibFiles = ['calib-123016-mjmag_1.txt',]
         diag = 'hires2'
         # calibFiles = None
     simplecalib = array([
-        [1 ,  1, -1, -1, -1, -1,  1,  1,  1, -1, 1,  1, -1, -1,  1, -1],
-        [-1, -1,  1,  1,  1,  1,  1,  1, -1, -1, 1, -1,  1, -1,  1, 1],
-        [1 ,  1,  1, -1,  1, -1, -1, -1,  1,  1, 1,  1, -1, -1, -1, 1]])
+        [1 , 1, 1, 1, 1, 1,  1,  1,  1, 1, 1,  1, 1, 1,  1, 1],
+        [1 , 1, 1, 1, 1, 1,  1,  1,  1, 1, 1,  1, 1, 1,  1, 1],
+        [1 , 1, 1, 1, 1, 1,  1,  1,  1, 1, 1,  1, 1, 1,  1, 1],])
     magdata = hiresmag_data(shot, probe, gain=gain,filestrings=filestrings,
         diagname = diag, calibFiles=calibFiles, simplecalib = simplecalib)
 

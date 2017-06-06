@@ -7,6 +7,7 @@ import matplotlib.pylab as plt
 
 def process_mjmag_data(shot):
     data = hdr.getMJMagData(shot)
+    #print data.settings
 
     #recast array into [3,25]
     Bdot25 = np.zeros([3,25,8192])
