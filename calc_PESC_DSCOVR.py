@@ -12,7 +12,8 @@ from calc_PE_SC import PE, CH
 #calc_PESC_DSCOVR.py
 day='052817'
 datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\DSCOVR Data\\NPZ_files\\'
-fileheader='mag_gse_1sec_'
+magheader='mag_gse_1sec_'
+velheader='proton_speed_3sec_'
 npz='.npz'
 
 ###Storage Arrays###
@@ -28,6 +29,14 @@ by_PEs = np.zeros([100,1])
 by_SCs = np.zeros([100,1])
 bz_PEs = np.zeros([100,1])
 bz_SCs = np.zeros([100,1])
+ps_PEs = np.zeros([100,1])
+ps_SCs = np.zeros([100,1])
+vx_PEs = np.zeros([100,1])
+vx_SCs = np.zeros([100,1])
+vy_PEs = np.zeros([100,1])
+vy_SCs = np.zeros([100,1])
+vz_PEs = np.zeros([100,1])
+vz_SCs = np.zeros([100,1])
 
 for loop_delay in np.arange(1,num_delays+1):
     if np.mod(loop_delay,10)==0: print 'On Delay',loop_delay
