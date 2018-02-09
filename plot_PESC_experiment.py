@@ -63,9 +63,9 @@ hspace = 0.1   # the amount of height reserved for white space between subplots
 plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
 
 
-ax1=plt.subplot(1,1,1)
+ax1=plt.subplot(2,1,2)
 plt.semilogx(taus_mag,SCs1[1:],color=colors[1,:],label=r'$B_{r}$ 1.0mWb')
-plt.semilogx(taus_mach,SCs2[1:],color=colors[2,:],label=r'$M_{z}$ 1.0mWb')
+plt.semilogx(taus_mach,SCs2[1:],color=colors[3,:],label=r'$M_{z}$ 1.0mWb')
 
 #plt.vlines(81,0,1,color='red',linestyle='dotted',linewidth=0.5)
 
@@ -77,43 +77,27 @@ plt.ylabel('Complexity',fontsize=9)
 #plt.xlim(1,250)
 #plt.ylim(0,0.5)
 plt.grid(b=True,which='both',axis='x',linestyle='dotted',linewidth=0.05)
-plt.legend(loc='upper right',fontsize=5,frameon=False,handlelength=5)
+#plt.legend(loc='upper right',fontsize=5,frameon=False,handlelength=5)
 
 
-savefilename='SC_magandmachdata_1p0mWb_embed5.png'
-savefile = os.path.normpath(datadir+savefilename)
-plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
-
-
-
-
-fig=plt.figure(num=2,figsize=(3.5,3.5),dpi=300,facecolor='w',edgecolor='k')
-left  = 0.2  # the left side of the subplots of the figure
-right = 0.94    # the right side of the subplots of the figure
-bottom = 0.2  # the bottom of the subplots of the figure
-top = 0.96      # the top of the subplots of the figure
-wspace = 0.2   # the amount of width reserved for blank space between subplots
-hspace = 0.1   # the amount of height reserved for white space between subplots
-plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
-
-ax1=plt.subplot(1,1,1)
+ax1=plt.subplot(2,1,1)
 plt.semilogx(taus_mag,PEs1[1:],color=colors[1,:],label=r'$B_{r}$ 1.0mWb')
-plt.semilogx(taus_mach,PEs2[1:],color=colors[2,:],label=r'$M_{z}$ 1.0mWb')
+plt.semilogx(taus_mach,PEs2[1:],color=colors[3,:],label=r'$M_{z}$ 1.0mWb')
 
 #plt.vlines(81,0,1,color='red',linestyle='dotted',linewidth=0.5)
 
 plt.xticks(fontsize=9)
 plt.yticks(fontsize=9)
-plt.xlabel(r'$\tau$[s]',fontsize=9)
-#ax1.set_xticklabels([])
-plt.ylabel('Permutation Entropy',fontsize=9)
+#plt.xlabel(r'$\tau$[s]',fontsize=9)
+ax1.set_xticklabels([])
+plt.ylabel('Perm Entropy',fontsize=9)
 #plt.xlim(1,250)
 #plt.ylim(0,0.5)
 plt.grid(b=True,which='both',axis='x',linestyle='dotted',linewidth=0.05)
 plt.legend(loc='lower right',fontsize=5,frameon=False,handlelength=5)
 
 
-savefilename='PE_magandmachdata_1p0mWb_embed5.png'
+savefilename='PEandSC_magandmachdata_1p0mWb_embed5.png'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
 """

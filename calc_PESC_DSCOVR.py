@@ -7,60 +7,88 @@ Created on Mon Jul 17 21:00:45 2017
 import numpy as np
 import matplotlib.pylab as plt
 from loadnpzfile import loadnpzfile
-from calc_PE_SC import PE, CH
+from calc_PE_SC import PE, CH, PE_dist, PE_calc_only
+from collections import Counter
+from math import factorial
 
 #calc_PESC_DSCOVR.py
-day='052817'
+days=['052417',
+      '052517',
+      '052617',
+      '052717',
+      '052817',
+      '052917',
+      '060217',
+      '060317',
+      '060517',
+      '061017',
+      '061717',
+      '061917',
+      '062017',
+      '062917',
+      '063017',
+      '071217',
+      '071317',
+      '071417',
+      '071517',
+      '072717',
+      '072917',
+      '080317']
+ndays = len(days)
 datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\DSCOVR Data\\NPZ_files\\'
 magheader='mag_gse_1sec_'
 velheader='proton_speed_3sec_'
 npz='.npz'
+
+datatype = 'proton_vz_gse'
+if datatype == 'bx': bcomp=0
+if datatype == 'by': bcomp=1
+if datatype == 'bz': bcomp=2  
+if datatype == 'bt': bcomp=3  
+if datatype == 'vx': vcomp=1
+if datatype == 'bx_gse' or datatype == 'by_gse' or datatype == 'bz_gse' or datatype == 'bt': 
+    fileheader=magheader
+    timelabel = '1s'
+if datatype == 'proton_vx_gse' or datatype == 'proton_vy_gse' or datatype == 'proton_vz_gse': 
+    fileheader=velheader
+    timelabel = '3s'
+
+print fileheader, timelabel
+
+embeddelay = 5
+nfac = factorial(embeddelay)
 
 ###Storage Arrays###
 delta_t = 1.0
 delays = np.arange(1,101) #248 elements
 taus = delays*delta_t
 freq = 1.0/taus
-bt_PEs = np.zeros([100,1])
-bt_SCs = np.zeros([100,1])
-bx_PEs = np.zeros([100,1])
-bx_SCs = np.zeros([100,1])
-by_PEs = np.zeros([100,1])
-by_SCs = np.zeros([100,1])
-bz_PEs = np.zeros([100,1])
-bz_SCs = np.zeros([100,1])
-ps_PEs = np.zeros([100,1])
-ps_SCs = np.zeros([100,1])
-vx_PEs = np.zeros([100,1])
-vx_SCs = np.zeros([100,1])
-vy_PEs = np.zeros([100,1])
-vy_SCs = np.zeros([100,1])
-vz_PEs = np.zeros([100,1])
-vz_SCs = np.zeros([100,1])
+num_delays = 310
+PEs = np.zeros([num_delays+1])
+SCs = np.zeros([num_delays+1])
+
 
 for loop_delay in np.arange(1,num_delays+1):
     if np.mod(loop_delay,10)==0: print 'On Delay',loop_delay
     permstore_counter = []
     permstore_counter = Counter(permstore_counter)
     tot_perms = 0
-    for day in np.arange(0,1):#(1,120):
-        print '###### On Day '+day+' #####'
-        datafile = loadnpzfile(datadir+fileheader+day+npz)
-    bt = datafile['bt']
-    bx = datafile['bx_gse']
-    by = datafile['by_gse']
-    bz = datafile['bz_gse']
-    for d in delays:
-        print 'On Delay ', d
-        bt_PEs[d-delays[0],shot],bt_SCs[d-delays[0],shot] = CH(bt,6,delay=d)
-        bx_PEs[d-delays[0],shot],bx_SCs[d-delays[0],shot] = CH(bx,6,delay=d)
-        by_PEs[d-delays[0],shot],by_SCs[d-delays[0],shot] = CH(by,6,delay=d)
-        bz_PEs[d-delays[0],shot],bz_SCs[d-delays[0],shot] = CH(bz,6,delay=d)
+    for day in np.arange(ndays):#(1,120):
+        print '###### On Day '+days[day]+' #####'
+        datafile = loadnpzfile(datadir+fileheader+days[day]+npz)
+        b = datafile[datatype]
+        
+        arr,nperms = PE_dist(b,embeddelay,delay=loop_delay)
+        permstore_counter = permstore_counter+arr
+        tot_perms = tot_perms+nperms
+    PE_tot,PE_tot_Se = PE_calc_only(permstore_counter,tot_perms)
+    C =  -2.*((PE_tot_Se - 0.5*PE_tot - 0.5*np.log2(nfac))
+                /((1 + 1./nfac)*np.log2(nfac+1) - 2*np.log2(2*nfac) 
+                + np.log2(nfac))*(PE_tot/np.log2(nfac)))
+    PEs[loop_delay]=PE_tot/np.log2(nfac)
+    SCs[loop_delay]=C
+    
 
 savedir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\DSCOVR Data\\NPZ_files\\'
-filename='PE_SC_DSCOVR_bxbybzbt_1s_embed6_'+day+'.npz'
-np.savez(savedir+filename,
-         bt_PEs=bt_PEs,bt_SCs=bt_SCs,
-         bx_PEs=bx_PEs,bx_SCs=bx_SCs,
-         by_PEs=by_PEs,by_SCs=by_SCs,
-         bz_PEs=bz_PEs,bz_SCs=bz_SCs,delta_t=delta_t,taus=taus,delays=delays,freq=freq)
+filename='PE_SC_DSCOVR_'+datatype+'_'+timelabel+'_embeddelay'+str(embeddelay)+'_over'+str(ndays)+'_days.npz'
+np.savez(savedir+filename,PEs=PEs,SCs=SCs)

@@ -17,21 +17,31 @@ import os
 #calc_PESC_fluid.py
 
 datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\DSCOVR Data\\NPZ_files\\'
-fileheader = 'PE_SC_DSCOVR_bxbybzbt_1s_embed6_052517'
+fileheader = 'PE_SC_DSCOVR_bz_gse_1s_embeddelay5_over22_days'
+
 npy='.npz'
 
 delta_t = 1
-delayindex = np.arange(1,100)*delta_t
+delayindex = np.arange(1,311)*delta_t
+taus = delayindex
 
 
 datafile = loadnpzfile(datadir+fileheader+npy)
-bx_PE = datafile['bx_PEs']
-by_PE = datafile['by_PEs']
-bz_PE = datafile['bz_PEs']
-bx_SC = datafile['bx_SCs']
-by_SC = datafile['by_SCs']
-bz_SC = datafile['bz_SCs']
+#bx_PE = datafile['bx_PEs']
+#by_PE = datafile['by_PEs']
+bz_PE = datafile['PEs'][1:]
+#bx_SC = datafile['bx_SCs']
+#by_SC = datafile['by_SCs']
+bz_SC = datafile['SCs'][1:]
 
+fileheader = 'PE_SC_DSCOVR_proton_vz_gse_3s_embeddelay5_over22_days'
+datafile = loadnpzfile(datadir+fileheader+npy)
+#bx_PE = datafile['bx_PEs']
+#by_PE = datafile['by_PEs']
+vz_PE = datafile['PEs'][1:]
+#bx_SC = datafile['bx_SCs']
+#by_SC = datafile['by_SCs']
+vz_SC = datafile['SCs'][1:]
 
 #datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Corrsin Wind Tunnel Data\\NPZ_files\\m50_5mm\\streamwise\\'
 #fileheader = 'PE_SC_m50_5mm_embed6'
@@ -42,7 +52,7 @@ bz_SC = datafile['bz_SCs']
 #PEs2 = np.mean(PEs2,axis=1)
 #SCs2 = np.mean(SCs2,axis=1)
 
-taus = datafile['taus']
+#taus = datafile['taus']
 
 colors = np.zeros([7,4])
 for i in np.arange(7):
@@ -68,10 +78,11 @@ hspace = 0.1   # the amount of height reserved for white space between subplots
 plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
 
 
-ax1=plt.subplot(1,1,1)
-plt.semilogx(taus,bx_SC,color=colors[1,:],label='Bx')
-plt.semilogx(taus,by_SC,color=colors[3,:],label='By')
-plt.semilogx(taus,bz_SC,color=colors[5,:],label='Bz')
+ax1=plt.subplot(2,1,2)
+#plt.semilogx(taus,bx_SC,color=colors[1,:],label='Bx')
+#plt.semilogx(taus,by_SC,color=colors[3,:],label='By')
+plt.semilogx(taus,bz_SC,color=colors[1,:],label='Bz')
+plt.semilogx(taus,vz_SC,color=colors[3,:],label='Vz')
 
 #plt.vlines(81,0,1,color='red',linestyle='dotted',linewidth=0.5)
 
@@ -86,39 +97,25 @@ plt.grid(b=True,which='both',axis='x',linestyle='dotted',linewidth=0.05)
 plt.legend(loc='upper right',fontsize=5,frameon=False,handlelength=5)
 
 
-savefilename='SC_DSCOVR_mag052517_embed6.png'
-savefile = os.path.normpath(datadir+savefilename)
-plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
-
-
-fig=plt.figure(num=2,figsize=(3.5,3.5),dpi=300,facecolor='w',edgecolor='k')
-left  = 0.2  # the left side of the subplots of the figure
-right = 0.94    # the right side of the subplots of the figure
-bottom = 0.2  # the bottom of the subplots of the figure
-top = 0.97      # the top of the subplots of the figure
-wspace = 0.2   # the amount of width reserved for blank space between subplots
-hspace = 0.1   # the amount of height reserved for white space between subplots
-plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
-
-
-ax1=plt.subplot(1,1,1)
-plt.semilogx(taus,bx_PE,color=colors[1,:],label='Bx')
-plt.semilogx(taus,by_PE,color=colors[3,:],label='By')
-plt.semilogx(taus,bz_PE,color=colors[5,:],label='Bz')
+ax1=plt.subplot(2,1,1)
+#plt.semilogx(taus,bx_PE,color=colors[1,:],label='Bx')
+#plt.semilogx(taus,by_PE,color=colors[3,:],label='By')
+plt.semilogx(taus,bz_PE,color=colors[1,:],label='Bz')
+plt.semilogx(taus,vz_PE,color=colors[3,:],label='Vz')
 
 #plt.vlines(81,0,1,color='red',linestyle='dotted',linewidth=0.5)
 
 plt.xticks(fontsize=9)
 plt.yticks(fontsize=9)
-plt.xlabel(r'$\tau$[s]',fontsize=9)
-#ax1.set_xticklabels([])
-plt.ylabel('Permutation Entropy',fontsize=9)
+#plt.xlabel(r'$\tau$[s]',fontsize=9)
+ax1.set_xticklabels([])
+plt.ylabel('Perm Entropy',fontsize=9)
 #plt.xlim(1,250)
 #plt.ylim(0,1.0)
 plt.grid(b=True,which='both',axis='x',linestyle='dotted',linewidth=0.05)
 plt.legend(loc='lower right',fontsize=5,frameon=False,handlelength=5)
 
-savefilename='PE_DSCOVR_052517_embed6.png.png'
+savefilename='PEandSC_DSCOVR_22days_embed5.png'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
 

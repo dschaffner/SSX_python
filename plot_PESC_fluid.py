@@ -17,7 +17,7 @@ import os
 #calc_PESC_fluid.py
 
 datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Corrsin Wind Tunnel Data\\NPZ_files\\m20_5mm\\streamwise\\'
-fileheader = 'PE_SC_m20_5mm_embed6'
+fileheader = 'PE_SC_m20_5mm_embed5'
 npy='.npz'
 
 delta_t = 2.5e-5
@@ -64,9 +64,9 @@ hspace = 0.1   # the amount of height reserved for white space between subplots
 plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
 
 
-ax1=plt.subplot(1,1,1)
+ax1=plt.subplot(2,1,2)
 plt.semilogx(taus,SCs1,color=colors[1,:],label='20m 5mm')
-plt.semilogx(taus,SCs2,color=colors[3,:],label='50m 5mm')
+#plt.semilogx(taus,SCs2,color=colors[3,:],label='50m 5mm')
 
 #plt.vlines(81,0,1,color='red',linestyle='dotted',linewidth=0.5)
 
@@ -81,38 +81,39 @@ plt.grid(b=True,which='both',axis='x',linestyle='dotted',linewidth=0.05)
 plt.legend(loc='upper right',fontsize=5,frameon=False,handlelength=5)
 
 
-savefilename='SC_fluid_streamwise_embed6.png'
-savefile = os.path.normpath(datadir+savefilename)
-plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
+#savefilename='SC_fluid_streamwise_embed5.png'
+#savefile = os.path.normpath(datadir+savefilename)
+#plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
 
 
-fig=plt.figure(num=2,figsize=(3.5,3.5),dpi=300,facecolor='w',edgecolor='k')
-left  = 0.2  # the left side of the subplots of the figure
-right = 0.94    # the right side of the subplots of the figure
-bottom = 0.2  # the bottom of the subplots of the figure
-top = 0.97      # the top of the subplots of the figure
-wspace = 0.2   # the amount of width reserved for blank space between subplots
-hspace = 0.1   # the amount of height reserved for white space between subplots
-plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
+#fig=plt.figure(num=2,figsize=(3.5,3.5),dpi=300,facecolor='w',edgecolor='k')
+#left  = 0.2  # the left side of the subplots of the figure
+#right = 0.94    # the right side of the subplots of the figure
+#bottom = 0.2  # the bottom of the subplots of the figure
+#top = 0.97      # the top of the subplots of the figure
+#wspace = 0.2   # the amount of width reserved for blank space between subplots
+#hspace = 0.1   # the amount of height reserved for white space between subplots
+#plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
 
 
-ax1=plt.subplot(1,1,1)
+ax1=plt.subplot(2,1,1)
 plt.semilogx(taus,PEs1,color=colors[1,:],label='20m 5mm')
-plt.semilogx(taus,PEs2,color=colors[3,:],label='50m 5mm')
+#plt.semilogx(taus,PEs2,color=colors[3,:],label='50m 5mm')
 
 #plt.vlines(81,0,1,color='red',linestyle='dotted',linewidth=0.5)
 
 plt.xticks(fontsize=9)
 plt.yticks(fontsize=9)
-plt.xlabel(r'$\tau$[s]',fontsize=9)
+#plt.xlabel(r'$\tau$[s]',fontsize=9)
 #ax1.set_xticklabels([])
-plt.ylabel('Permutation Entropy',fontsize=9)
+plt.ylabel('Perm. Entropy',fontsize=9)
+ax1.set_xticklabels([])
 #plt.xlim(1,250)
 #plt.ylim(0,1.0)
 plt.grid(b=True,which='both',axis='x',linestyle='dotted',linewidth=0.05)
 plt.legend(loc='lower right',fontsize=5,frameon=False,handlelength=5)
 
-savefilename='PE_fluid_streamwise_embed6.png.png'
+savefilename='PEandSC_fluid_streamwise_embed5.png.png'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
 
