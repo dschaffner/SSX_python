@@ -14,7 +14,8 @@ def fbm(N,H,tag=0):		#Saves an fBm time series for a particular length N and Hur
     mu, sigma = 0, 1 
     v = np.random.normal(mu, sigma, N)
     w=M.dot(v)
-    address = 'C:\\Users\\dschaffner\\Documents\\GitHub\\SSX_python\\PE_SC\\The Essentials\\fbm_data\\fbm_H'+str(H)+'_N'+str(N)+'_'+str(tag)+'.npz'
+    #address = 'C:\\Users\\dschaffner\\Documents\\GitHub\\SSX_python\\PE_SC\\The Essentials\\fbm_data\\fbm_H'+str(H)+'_N'+str(N)+'_'+str(tag)+'.npz'
+    address = 'C:\\Users\\dschaffner.BRYNMAWR\\Documents\\GitHub\\SSX_python\\PE_SC\\The Essentials\\fbm_data\\fbm_H'+str(H)+'_N'+str(N)+'_'+str(tag)+'.npz'
     np.savez_compressed(address, x=w)
     return w
 

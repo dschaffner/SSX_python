@@ -5,7 +5,7 @@ import numpy as np
 from collections import Counter
 
 datadir = 'C:\\Users\\dschaffner.BRYNMAWR\\OneDrive - brynmawr.edu\\Solar Wind Data\\NPZ_files\\'
-fileheader = 'Cluster20030212'
+fileheader = 'Wind20050101'
 npz='.npz'
 
 ###Storage Arrays###
@@ -27,7 +27,7 @@ s,su,du,dstar = ql.q_PESC_calc(permstore_counter,tot_perms,d=5,qnum=500000)
 H=s[1:]/su[1:]
 C=(H*du[1:])/dstar[1:]
 plt.plot(H,C)
-filename='C:\\Users\\dschaffner.BRYNMAWR\\OneDrive - brynmawr.edu\\Solar Wind Data\\NPZ_files\\clusterbx_PESCqlog_d5_t1_qnum500000_0to50.npz'
+filename='C:\\Users\\dschaffner.BRYNMAWR\\OneDrive - brynmawr.edu\\Solar Wind Data\\NPZ_files\\windbx_PESCqlog_d5_t1_qnum500000_0to50.npz'
 np.savez(filename,s=s,su=su,du=du,dstar=dstar)
 
 permstore_counter = []
@@ -41,7 +41,7 @@ s,su,du,dstar = ql.q_PESC_calc(permstore_counter,tot_perms,d=5,qnum=500000)
 H=s[1:]/su[1:]
 C=(H*du[1:])/dstar[1:]
 plt.plot(H,C)
-filename='C:\\Users\\dschaffner.BRYNMAWR\\OneDrive - brynmawr.edu\\Solar Wind Data\\NPZ_files\\clusterby_PESCqlog_d5_t1_qnum500000_0to50.npz'
+filename='C:\\Users\\dschaffner.BRYNMAWR\\OneDrive - brynmawr.edu\\Solar Wind Data\\NPZ_files\\windby_PESCqlog_d5_t1_qnum500000_0to50.npz'
 np.savez(filename,s=s,su=su,du=du,dstar=dstar)
 
 permstore_counter = []
@@ -55,5 +55,5 @@ s,su,du,dstar = ql.q_PESC_calc(permstore_counter,tot_perms,d=5,qnum=500000)
 H=s[1:]/su[1:]
 C=(H*du[1:])/dstar[1:]
 plt.plot(H,C)
-filename='C:\\Users\\dschaffner.BRYNMAWR\\OneDrive - brynmawr.edu\\Solar Wind Data\\NPZ_files\\clusterbz_PESCqlog_d5_t1_qnum500000_0to50.npz'
+filename='C:\\Users\\dschaffner.BRYNMAWR\\OneDrive - brynmawr.edu\\Solar Wind Data\\NPZ_files\\windbz_PESCqlog_d5_t1_qnum500000_0to50.npz'
 np.savez(filename,s=s,su=su,du=du,dstar=dstar)
