@@ -7,7 +7,7 @@ import os
 import matplotlib.pylab as plt
 
 #custom funcs
-import spectrum
+import spectrum_wwind
 
 def compute_wavelet(array,time,mother='Morlet',maxscale=2,notes=256,order=6,scaling='log',Bfield=True):
     if mother == 'Morlet': wavelet=wv.Morlet
@@ -39,7 +39,7 @@ def compute_wavelet(array,time,mother='Morlet',maxscale=2,notes=256,order=6,scal
         pwr = Bpwr
         scalespec = Bscalespec
     #Calculate B-field spectrum from Bdot spectrum for FFT
-    fftfreq,comp,fft_pw,fft_mag,phase,cos_phase,dt = spectrum.spectrum(array,time*1e-6)
+    fftfreq,freq2,comp,fft_pw,fft_mag,phase,cos_phase,dt = spectrum_wwind.spectrum_wwind(array,time*1e-6,window='hanning')
     if Bfield:
         Bfft = fft_pw/(fftfreq**2)
         fft_pw = Bfft

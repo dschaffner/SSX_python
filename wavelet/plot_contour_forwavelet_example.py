@@ -31,9 +31,9 @@ plt.rc('xtick.minor',width=0.75)
 plt.rc('ytick.minor',width=0.75)
 
 fig=plt.figure(num=1,figsize=(6,3.5),dpi=300,facecolor='w',edgecolor='k')
-left  = 0.2  # the left side of the subplots of the figure
+left  = 0.15  # the left side of the subplots of the figure
 right = 0.95    # the right side of the subplots of the figure
-bottom = 0.15   # the bottom of the subplots of the figure
+bottom = 0.2   # the bottom of the subplots of the figure
 top = 0.96      # the top of the subplots of the figure
 wspace = 0.2   # the amount of width reserved for blank space between subplots
 hspace = 0.1   # the amount of height reserved for white space between subplots
