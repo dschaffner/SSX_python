@@ -13,6 +13,8 @@ from collections import Counter
 from math import factorial
 import matplotlib.cm as cm
 import os
+import spectrum_wwind as spec
+import compute_wavelet_spectrum as cw
 
 #calc_PESC_fluid.py
 
@@ -20,18 +22,38 @@ datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data
 
 npy='.npy'
 fileheader = 'IDdatabase_Type_1_data_4000'
-type1short = loadnpyfile(datadir+fileheader+npy)
-fileheader = 'IDdatabase_Type_2_data_4000'
-type2short = loadnpyfile(datadir+fileheader+npy)
-fileheader = 'IDdatabase_Type_31_data_4000'
-type31short = loadnpyfile(datadir+fileheader+npy)
-fileheader = 'IDdatabase_Type_32_data_4000'
-type32short = loadnpyfile(datadir+fileheader+npy)
-fileheader = 'IDdatabase_Type_4_data_4000'
-type4short = loadnpyfile(datadir+fileheader+npy)
+type1_4000 = loadnpyfile(datadir+fileheader+npy)
+#fileheader = 'IDdatabase_Type_2_data_4000'
+#type2short = loadnpyfile(datadir+fileheader+npy)
+#fileheader = 'IDdatabase_Type_31_data_4000'
+#type31short = loadnpyfile(datadir+fileheader+npy)
+#fileheader = 'IDdatabase_Type_32_data_4000'
+#type32short = loadnpyfile(datadir+fileheader+npy)
+#fileheader = 'IDdatabase_Type_4_data_4000'
+#type4short = loadnpyfile(datadir+fileheader+npy)
 
+type1_wvspectra = np.zeros([12,2304])#12 bins of spectra
+type1_spectra = np.zeros([12,2001])#12 bins of spectra
+bincount = np.zeros(12)
 
+time = np.arange(4000)*1e5#years
+time_Myr = time/1e6
+time_secs = time*3.154e7
+time_us = time_secs*1e6
+num_orbits = int(type1_4000.shape[0])
+bins = np.arange(4.7,7.3,0.2)
+bin_index = np.arange(bins.shape[0])
+"""
+for orbit in np.arange(num_orbits):
+    print 'On orbit ',orbit
+    freq, freq2, comp, pwr, mag, phase2, cos_phase, dt = spec.spectrum_wwind(type1_4000[orbit,:],time_secs,window='None')
+    waveletpwr,wavtot,wvfreq,fft,fftfreq = cw.compute_wavelet(type1_4000[orbit,:],time_secs)
+    for bin in bin_index:
+        if type1_4000[orbit,0]>=bins[bin] and type1_4000[orbit,0]<bins[bin+1]:
+            type1_wvspectra[bin,:]=type1_wvspectra[bin,:]+wavtot
+            bincount[bin]+=1
 
+"""
 """
 colors = np.zeros([7,4])
 for i in np.arange(7):

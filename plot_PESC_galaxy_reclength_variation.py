@@ -18,8 +18,8 @@ import os
 
 classtype = 'Class_1'
 
-datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\'
-fileheader = 'PE_SC_New_DavidData_'+classtype+'_249_delays_500_timesteps'
+datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\GalpyData_July2018\\'
+fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000orbits_500_timesteps'
 npy='.npz'
 
 delayindex = np.arange(1,250)
@@ -28,31 +28,62 @@ datafile = loadnpzfile(datadir+fileheader+npy)
 PEs500 = datafile['PEs']
 SCs500 = datafile['SCs']
 
-fileheader = 'PE_SC_New_DavidData_'+classtype+'_249_delays_1000_timesteps'
+fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000_orbits_galpy0718'
 datafile = loadnpzfile(datadir+fileheader+npy)
 PEs1000 = datafile['PEs']
 SCs1000 = datafile['SCs']
 
-fileheader = 'PE_SC_New_DavidData_'+classtype+'_249_delays_2000_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs2000 = datafile['PEs']
-SCs2000 = datafile['SCs']
+#fileheader = 'PE_SC_New_DavidData_'+classtype+'_249_delays_2000_timesteps'
+#datafile = loadnpzfile(datadir+fileheader+npy)
+#PEs2000 = datafile['PEs']
+#SCs2000 = datafile['SCs']
 
-fileheader = 'PE_SC_New_DavidData_'+classtype+'_249_delays_750_timesteps'
+fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000orbits_550_timesteps'
+datafile = loadnpzfile(datadir+fileheader+npy)
+PEs550 = datafile['PEs']
+SCs550 = datafile['SCs']
+
+fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000orbits_600_timesteps'
+datafile = loadnpzfile(datadir+fileheader+npy)
+PEs600 = datafile['PEs']
+SCs600 = datafile['SCs']
+
+fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000orbits_650_timesteps'
+datafile = loadnpzfile(datadir+fileheader+npy)
+PEs650 = datafile['PEs']
+SCs650 = datafile['SCs']
+
+fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000orbits_700_timesteps'
+datafile = loadnpzfile(datadir+fileheader+npy)
+PEs700 = datafile['PEs']
+SCs700 = datafile['SCs']
+
+fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000orbits_750_timesteps'
 datafile = loadnpzfile(datadir+fileheader+npy)
 PEs750 = datafile['PEs']
 SCs750 = datafile['SCs']
 
-fileheader = 'PE_SC_New_DavidData_'+classtype+'_249_delays_850_timesteps'
+fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000orbits_800_timesteps'
+datafile = loadnpzfile(datadir+fileheader+npy)
+PEs800 = datafile['PEs']
+SCs800 = datafile['SCs']
+
+fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000orbits_850_timesteps'
 datafile = loadnpzfile(datadir+fileheader+npy)
 PEs850 = datafile['PEs']
 SCs850 = datafile['SCs']
 
-fileheader = 'PE_SC_New_DavidData_'+classtype+'_249_delays_950_timesteps'
+fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000orbits_900_timesteps'
+datafile = loadnpzfile(datadir+fileheader+npy)
+PEs900 = datafile['PEs']
+SCs900 = datafile['SCs']
+
+fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000orbits_950_timesteps'
 datafile = loadnpzfile(datadir+fileheader+npy)
 PEs950 = datafile['PEs']
 SCs950 = datafile['SCs']
 
+"""
 fileheader = 'PE_SC_New_DavidData_'+classtype+'_249_delays_1150_timesteps'
 datafile = loadnpzfile(datadir+fileheader+npy)
 PEs1150 = datafile['PEs']
@@ -146,6 +177,7 @@ plt.rc('ytick.major',width=0.75)
 plt.rc('xtick.minor',width=0.75)
 plt.rc('ytick.minor',width=0.75)
 plt.rc('lines',markersize=2,markeredgewidth=0.0)
+
 
 plt.rc('lines',markersize=1.5,markeredgewidth=0.0)
 fig=plt.figure(num=1,figsize=(3.5,3.5),dpi=300,facecolor='w',edgecolor='k')
@@ -293,13 +325,20 @@ plt.legend(loc='lower center',fontsize=5,frameon=False,handlelength=0)
 savefilename='CH_recordlengthvariation_'+classtype+'.png'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
+"""
 
-
-colors = np.zeros([10,4])
-for i in np.arange(10):
-    c = cm.spectral(i/10.,1)
+colors = np.zeros([11,4])
+for i in np.arange(11):
+    c = cm.spectral(i/11.,1)
     colors[i,:]=c
 points = ['o','v','s','p','*','h','^','D','+','>','H','d','x','<']
+
+plt.rc('axes',linewidth=0.75)
+plt.rc('xtick.major',width=0.75)
+plt.rc('ytick.major',width=0.75)
+plt.rc('xtick.minor',width=0.75)
+plt.rc('ytick.minor',width=0.75)
+plt.rc('lines',markersize=2,markeredgewidth=0.0)
 
 fig=plt.figure(num=4,figsize=(3.5,3.5),dpi=300,facecolor='w',edgecolor='k')
 left  = 0.25  # the left side of the subplots of the figure
@@ -312,17 +351,17 @@ plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspac
 
 
 ax1=plt.subplot(1,1,1)
-plt.plot(delayindex[0:123],SCs500old[1:124],color=colors[0,:],label='500 timesteps')
-plt.plot(delayindex[0:136],SCs550old[1:137],color=colors[1,:],label='550 timesteps')
-plt.plot(delayindex[0:149],SCs600old[1:150],color=colors[2,:],label='600 timesteps')
-plt.plot(delayindex[0:161],SCs650old[1:162],color=colors[3,:],label='650 timesteps')
-plt.plot(delayindex[0:174],SCs700old[1:175],color=colors[4,:],label='700 timesteps')
-plt.plot(delayindex[0:186],SCs750old[1:187],color=colors[5,:],label='750 timesteps')
-plt.plot(delayindex[0:199],SCs800old[1:200],color=colors[6,:],label='800 timesteps')
-plt.plot(delayindex[0:211],SCs850old[1:212],color=colors[7,:],label='850 timesteps')
-plt.plot(delayindex[0:219],SCs900old[1:220],color=colors[8,:],label='900 timesteps')
-plt.plot(delayindex[0:229],SCs950old[1:230],color=colors[9,:],label='950 timesteps')
-
+plt.plot(delayindex[0:123],SCs500[1:124],color=colors[0,:],label='500 timesteps')
+plt.plot(delayindex[0:136],SCs550[1:137],color=colors[1,:],label='550 timesteps')
+plt.plot(delayindex[0:149],SCs600[1:150],color=colors[2,:],label='600 timesteps')
+plt.plot(delayindex[0:161],SCs650[1:162],color=colors[3,:],label='650 timesteps')
+plt.plot(delayindex[0:174],SCs700[1:175],color=colors[4,:],label='700 timesteps')
+plt.plot(delayindex[0:186],SCs750[1:187],color=colors[5,:],label='750 timesteps')
+plt.plot(delayindex[0:199],SCs800[1:200],color=colors[6,:],label='800 timesteps')
+plt.plot(delayindex[0:211],SCs850[1:212],color=colors[7,:],label='850 timesteps')
+plt.plot(delayindex[0:219],SCs900[1:220],color=colors[8,:],label='900 timesteps')
+plt.plot(delayindex[0:229],SCs950[1:230],color=colors[9,:],label='950 timesteps')
+plt.plot(delayindex[0:229],SCs1000[1:230],color=colors[10,:],label='1000 timesteps')
 #plt.vlines(81,0,1,color='red',linestyle='dotted',linewidth=0.5)
 
 plt.xticks(np.array([1,40,80,120,160,200,240]),[1,40,80,120,160,200,240],fontsize=9)
@@ -335,10 +374,10 @@ plt.ylim(0,0.4)
 plt.legend(loc='lower right',fontsize=5,frameon=False,handlelength=5)
 
 
-savefilename='SC_recordlengthvariation_Class_3_old.png'
+savefilename='SC_recordlengthvariation_Type2_galpy0718.png'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
-
+"""
 fig=plt.figure(num=46,figsize=(3.5,3.5),dpi=300,facecolor='w',edgecolor='k')
 left  = 0.25  # the left side of the subplots of the figure
 right = 0.94    # the right side of the subplots of the figure
@@ -418,3 +457,4 @@ plt.legend(loc='lower right',fontsize=5,frameon=False,handlelength=5)
 savefilename='SC_recordlengthvariation_Class_3vsClass_1.png'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
+"""

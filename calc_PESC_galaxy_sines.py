@@ -4,6 +4,7 @@ Created on Mon Jul 17 21:00:45 2017
 
 @author: dschaffner
 """
+from IPython import embed
 import numpy as np
 import matplotlib.pylab as plt
 from loadnpyfile import loadnpyfile
@@ -19,14 +20,21 @@ datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data
 
 #fileheader = 'IDdatabase_Type_1_data_4000' #3227 orbits
 #fileheader = 'IDdatabase_Type_2_data_4000' #25387 orbits
-fileheader = 'IDdatabase_Type_31_data_2000' #5770 orbits
+#fileheader = 'IDdatabase_Type_31_data_2000' #5770 orbits
 #fileheader = 'IDdatabase_Type_32_data_2000'#9798 orbits
 #fileheader = 'IDdatabase_Type_4_data_4000' #5818 orbits
+fileheader = 'Sinewave_Period40ts'
 npy='.npy'
 
 
 
-datafile = loadnpyfile(datadir+fileheader+npy)
+#datafile = loadnpyfile(datadir+fileheader+npy)
+x=np.arange(100000)
+T=40
+y=np.sin(2*np.pi*x/T)
+datafile = np.zeros([1,100000])
+datafile[0,:]=y
+#embed()
 """
 import glob
 data=glob.glob(datadir+'*data.npy')
@@ -38,7 +46,7 @@ print datafile.shape
 propfile = loadnpyfile(prop[1000])
 print propfile.shape
 """
-num_orbits = int(datafile.shape[0])
+num_orbits = 1#int(datafile.shape[0])
 #record length
 length=int(datafile.shape[1])
 #num_orbits = 3000
@@ -66,9 +74,9 @@ for loop_delay in np.arange(1,num_delays+1):
     num_orbits_computed = 0
     num_orbits_skipped = 0
     for shot in np.arange(num_orbits):#(1,120):
-        if np.min(datafile[shot,1:length])<0.1: 
-            num_orbits_skipped+=1
-            continue
+        #if np.min(datafile[shot,1:length])<0.1: 
+            #num_orbits_skipped+=1
+            #continue
         if (shot%1000)==0: print 'On Orbit: ',shot
         arr, nperms = PE_dist(datafile[shot,1:length],5,delay=loop_delay)
         permstore_counter = permstore_counter+arr

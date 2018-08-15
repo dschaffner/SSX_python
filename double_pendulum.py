@@ -8,8 +8,11 @@ L1, L2 = 1, 1
 m1, m2 = 1, 1
 # The gravitational acceleration (m.s-2).
 g = 9.81
+g = 4.9
+g = 20.0
+gs = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
-def deriv(y, t, L1, L2, m1, m2):
+def deriv(y, t, L1, L2, m1, m2, g):
     """Return the first derivatives of y = theta1, z1, theta2, z2."""
     theta1, z1, theta2, z2 = y
 
@@ -26,77 +29,81 @@ def deriv(y, t, L1, L2, m1, m2):
 # Maximum time, time point spacings and the time grid (all in s).
 tmax, dt = 100, 0.001
 t = np.arange(0, tmax+dt, dt)
-# Initial conditions.
-y0=[0.2,0.0,0.2828,0.0]#ICP1
-y0=[0.05, 0, 0.08, 0.0]#ICP2
-y0=[3.14, 10.0, 3.14, 10.0]#ICP3
-y0=[1.57, 0.0, 0.0, 0.0]#ICQ1
-y0=[1.0, 1.5, 1.0, 1.5]#ICQ2
-y0=[0.2, 0, -0.2, 0.0]#ICQ3
-y0=[0.0, 10.0, 0, 0.0]#ICQ4
-y0=[3.2, 0.5, 3.2, 0.0]#ICC1
-y0=[2.0, 0.0, 3.14, 0.0]#ICC2
-y0=[0.0, 10.0, 0, -10.0]#ICC3
-
-# Do the numerical integration of the equations of motion
-y = odeint(deriv, y0, t, args=(L1, L2, m1, m2))
-# Unpack z and theta as a function of time
-theta1, theta2 = y[:,0], y[:,2]
 
 
-y0=[0.2+1e-9,0.0,0.2828,0.0]#ICP1
-y0=[0.05+1e-9, 0, 0.08, 0.0]#ICP2
-y0=[3.14+1e-9, 10.0, 3.14, 10.0]#ICP3
-y0=[1.57+1e-9, 0.0, 0.0, 0.0]#ICQ1
-y0=[1.0+1e-9, 1.5, 1.0, 1.5]#ICQ2
-y0=[0.2+1e-9, 0, -0.2, 0.0]#ICQ3
-y0=[0.0+1e-9, 10.0, 0, 0.0]#ICQ4
-y0=[3.2+1e-9, 0.5, 3.2, 0.0]#ICC1
-y0=[2.0+1e-9, 0.0, 3.14, 0.0]#ICC2
-y0=[0.0+1e-9, 10.0, 0, -10.0]#ICC3
+for gravity in gs:
 
-y = odeint(deriv, y0, t, args=(L1, L2, m1, m2))
-theta3, theta4 = y[:,0], y[:,2]
+    # Initial conditions.
+    y0=[0.2,0.0,0.2828,0.0]#ICP1
+    y0=[0.05, 0, 0.08, 0.0]#ICP2
+    y0=[3.14, 10.0, 3.14, 10.0]#ICP3
+    y0=[1.57, 0.0, 0.0, 0.0]#ICQ1
+    y0=[1.0, 1.5, 1.0, 1.5]#ICQ2
+    y0=[0.2, 0, -0.2, 0.0]#ICQ3
+    y0=[0.0, 10.0, 0, 0.0]#ICQ4
+    y0=[3.2, 0.5, 3.2, 0.0]#ICC1
+    #y0=[2.0, 0.0, 3.14, 0.0]#ICC2
+    #y0=[0.0, 10.0, 0, -10.0]#ICC3
 
-#y0 = [0.2, 0.0, 0.2828, 0]
-#y = odeint(deriv, y0, t, args=(L1, L2, m1, m2))
-#theta5, theta6 = y[:,0], y[:,2]
-
-#lya=np.log(theta3-theta1)
-#plt.plot(t,lya)
-
-#plt.figure(2)
-#plt.plot(t,theta1)
-#plt.plot(t,theta3)
-
-
-# Convert to Cartesian coordinates of the two bob positions.
-x1 = L1 * np.sin(theta1)
-y1 = -L1 * np.cos(theta1)
-x2 = x1 + L2 * np.sin(theta2)
-y2 = y1 - L2 * np.cos(theta2)
-
-x3 = L1 * np.sin(theta3)
-y3 = -L1 * np.cos(theta3)
-x4 = x3 + L2 * np.sin(theta4)
-y4 = y3 - L2 * np.cos(theta4)
-
-#x5 = L1 * np.sin(theta5)
-#y5 = -L1 * np.cos(theta5)
-#x6 = x5 + L2 * np.sin(theta6)
-#y6 = y5 - L2 * np.cos(theta6)
-
-#plt.figure(3)
-#plt.plot(t,x1)
-#plt.plot(t,x3)
-
-#lyax = np.log(x3-x1)
-#plt.figure(4)
-#plt.plot(t,lyax)
-
-datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\DoublePendulum\\'
-filename='DoubPen_LsMsEq1_9p8_ICC3.npz'
-np.savez(datadir+filename,x1=x1,x2=x2,x3=x3,x4=x4,y1=y1,y2=y2,y3=y3,y4=y4,ic=y0) 
+    # Do the numerical integration of the equations of motion
+    y = odeint(deriv, y0, t, args=(L1, L2, m1, m2, gravity))
+    # Unpack z and theta as a function of time
+    theta1, theta2 = y[:,0], y[:,2]
+    
+    
+    y0=[0.2+1e-9,0.0,0.2828,0.0]#ICP1
+    y0=[0.05+1e-9, 0, 0.08, 0.0]#ICP2
+    y0=[3.14+1e-9, 10.0, 3.14, 10.0]#ICP3
+    y0=[1.57+1e-9, 0.0, 0.0, 0.0]#ICQ1
+    y0=[1.0+1e-9, 1.5, 1.0, 1.5]#ICQ2
+    y0=[0.2+1e-9, 0, -0.2, 0.0]#ICQ3
+    y0=[0.0+1e-9, 10.0, 0, 0.0]#ICQ4
+    y0=[3.2+1e-9, 0.5, 3.2, 0.0]#ICC1
+    #y0=[2.0+1e-9, 0.0, 3.14, 0.0]#ICC2
+    #y0=[0.0+1e-9, 10.0, 0, -10.0]#ICC3
+    
+    y = odeint(deriv, y0, t, args=(L1, L2, m1, m2, gravity))
+    theta3, theta4 = y[:,0], y[:,2]
+    
+    #y0 = [0.2, 0.0, 0.2828, 0]
+    #y = odeint(deriv, y0, t, args=(L1, L2, m1, m2))
+    #theta5, theta6 = y[:,0], y[:,2]
+    
+    #lya=np.log(theta3-theta1)
+    #plt.plot(t,lya)
+    
+    #plt.figure(2)
+    #plt.plot(t,theta1)
+    #plt.plot(t,theta3)
+    
+    
+    # Convert to Cartesian coordinates of the two bob positions.
+    x1 = L1 * np.sin(theta1)
+    y1 = -L1 * np.cos(theta1)
+    x2 = x1 + L2 * np.sin(theta2)
+    y2 = y1 - L2 * np.cos(theta2)
+    
+    x3 = L1 * np.sin(theta3)
+    y3 = -L1 * np.cos(theta3)
+    x4 = x3 + L2 * np.sin(theta4)
+    y4 = y3 - L2 * np.cos(theta4)
+    
+    #x5 = L1 * np.sin(theta5)
+    #y5 = -L1 * np.cos(theta5)
+    #x6 = x5 + L2 * np.sin(theta6)
+    #y6 = y5 - L2 * np.cos(theta6)
+    
+    #plt.figure(3)
+    #plt.plot(t,x1)
+    #plt.plot(t,x3)
+    
+    #lyax = np.log(x3-x1)
+    #plt.figure(4)
+    #plt.plot(t,lyax)
+    
+    datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\DoublePendulum\\'
+    filename='DoubPen_LsMsEq1_grav'+str(gravity)+'_ICC1.npz'
+    np.savez(datadir+filename,x1=x1,x2=x2,x3=x3,x4=x4,y1=y1,y2=y2,y3=y3,y4=y4,ic=y0) 
 
 """
 plt.plot(t,theta1)

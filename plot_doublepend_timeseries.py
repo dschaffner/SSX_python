@@ -34,8 +34,53 @@ y4=datafile['y4']
 embeddelay = 5
 nfac = factorial(embeddelay)
 
+
+
 tmax, dt = 100, 0.001
 t = np.arange(0, tmax+dt, dt)
+
+
+
+
+gs = np.arange(1,21,1)
+for gravity in gs:
+    
+    fileheader = 'DoubPen_LsMsEq1_grav'+str(gravity)+'_ICC1'
+    datafile = loadnpzfile(datadir+fileheader+npz)
+    x1=datafile['x1']
+    x2=datafile['x2']
+    
+    
+    plt.rc('lines',markersize=1.5,markeredgewidth=0.0)
+    fig=plt.figure(num=gravity,figsize=(6,3.5),dpi=300,facecolor='w',edgecolor='k')
+    left  = 0.2  # the left side of the subplots of the figure
+    right = 0.94    # the right side of the subplots of the figure
+    bottom = 0.17  # the bottom of the subplots of the figure
+    top = 0.9      # the top of the subplots of the figure
+    wspace = 0.2   # the amount of width reserved for blank space between subplots
+    hspace = 0.1   # the amount of height reserved for white space between subplots
+    plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
+    
+    
+    ax1=plt.subplot(1,1,1)
+    plt.plot(t,x1,color='blue',label='Gravity = '+str(gravity)+r'$m/s^2$')
+    
+    #plt.vlines(81,0,1,color='red',linestyle='dotted',linewidth=0.5)
+    
+    plt.xticks(fontsize=9)
+    plt.yticks(fontsize=9)
+    plt.xlabel('Time [s]',fontsize=9)
+    plt.ylabel('Mass 1 x-Position')
+    plt.xlim(0,50.0)
+    plt.title('Gravity Scan Chaotic - '+str(gravity)+r'$m/s^2$')
+    #plt.ylim(0,0.4)
+    #plt.legend(loc='lower right',fontsize=5,frameon=False,handlelength=5)
+    
+    
+    savefilename='Gravity_ScanTimeseries_ICC1_gravity'+str(gravity)+'.png'
+    savefile = os.path.normpath(datadir+savefilename)
+    plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
+    plt.clf()
 
 ###Storage Arrays###
 #delta_t = 1.0
@@ -55,7 +100,7 @@ plt.rc('ytick.major',width=0.75)
 plt.rc('xtick.minor',width=0.75)
 plt.rc('ytick.minor',width=0.75)
 plt.rc('lines',markersize=2,markeredgewidth=0.0)
-
+"""
 plt.rc('lines',markersize=1.5,markeredgewidth=0.0)
 fig=plt.figure(num=1,figsize=(6,3.5),dpi=300,facecolor='w',edgecolor='k')
 left  = 0.2  # the left side of the subplots of the figure
@@ -355,3 +400,4 @@ plt.legend(loc='upper left',fontsize=5,frameon=False,handlelength=5)
 savefilename='LogDistance_Lyapanov_ICC1.png'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
+"""
