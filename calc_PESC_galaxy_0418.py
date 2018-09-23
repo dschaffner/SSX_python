@@ -16,11 +16,11 @@ from math import factorial
 
 datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\GalpyData_July2018\\'
 #fileheader = 'New_DavidData_Class_2'
-fileheader = 'IDdatabase_Type_1_data' #3227 orbits
+#fileheader = 'IDdatabase_Type_1_data_4000' #3227 orbits
 #fileheader = 'IDdatabase_Type_2_data' #25387 orbits
 #fileheader = 'IDdatabase_Type_31_data' #5770 orbits
 #fileheader = 'IDdatabase_Type_32_data'#9798 orbits
-#fileheader = 'IDdatabase_Type_4_data' #5818 orbits
+fileheader = 'IDdatabase_Type_4_data_4000' #5818 orbits
 #fileheader= 'Sine_700period_randomphase'
 #fileheader = 'Sine_300period_androot2lessperiod_randomphase'
 #fileheader = 'Sine_2000period_wp5timesroot2-180percent_randomphase'
@@ -61,7 +61,7 @@ start_orbit = 0
 #delays = np.arange(2,250) #248 elements
 #taus = delays*delta_t
 #freq = 1.0/taus
-num_delays = 1#249
+num_delays = 499
 PEs = np.zeros([num_delays+1])
 SCs = np.zeros([num_delays+1])
 

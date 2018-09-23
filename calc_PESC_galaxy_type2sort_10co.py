@@ -18,7 +18,7 @@ import time
 datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\GalpyData_July2018\\'
 #fileheader = 'New_DavidData_Class_2'
 #fileheader = 'IDdatabase_Type_1_data' #3227 orbits
-fileheader = 'IDdatabase_Type_2_data_4000' #25387 orbits
+fileheader = 'IDdatabase_Type_2_10co_data_1000' #25387 orbits
 #fileheader = 'IDdatabase_Type_31_data' #5770 orbits
 #fileheader = 'IDdatabase_Type_32_data'#9798 orbits
 #fileheader = 'IDdatabase_Type_4_data' #5818 orbits
@@ -46,12 +46,15 @@ num_orbits = datafile.shape[0]
 
 #num_orbits = int(len(data))
 
+#histogram of initial points
+#plt.hist(datafile[:,0])
+
 ###Storage Arrays###
 #delta_t = 1.0/(40000.0)
 #delays = np.arange(2,250) #248 elements
 #taus = delays*delta_t
 #freq = 1.0/taus
-num_delays = 749
+num_delays = 249#749
 PEs1 = np.zeros([num_delays+1])
 SCs1 = np.zeros([num_delays+1])
 PEs2 = np.zeros([num_delays+1])
@@ -72,62 +75,62 @@ start_time = time.time()
 for loop_delay in np.arange(1,num_delays+1):
     print 'On Delay ',loop_delay
     print("--- %s minutes ---" % np.round((time.time() - start_time)/60.0,4))
-    #Initial Radius - [0,3.5)
+    #Initial Radius - [6,8)
     permstore_counter1 = []
     permstore_counter1 = Counter(permstore_counter1)
     tot_perms1 = 0
     totshots1 = 0
     
-    #Initial Radius - [3.5,4)
+    #Initial Radius - [8,10)
     permstore_counter2 = []
     permstore_counter2 = Counter(permstore_counter2)
     tot_perms2 = 0
     totshots2 = 0
     
-    #Initial Radius - [4,4.5)
+    #Initial Radius - [10,12)
     permstore_counter3 = []
     permstore_counter3 = Counter(permstore_counter3)
     tot_perms3 = 0
     totshots3 = 0
     
-    #Initial Radius - [4.5,5.5)
+    #Initial Radius - [12,14)
     permstore_counter4 = []
     permstore_counter4 = Counter(permstore_counter4)
     tot_perms4 = 0
     totshots4 = 0
     
-    #Initial Radius - [7,9]
+    #Initial Radius - [0,16]
     permstore_counter5 = []
     permstore_counter5 = Counter(permstore_counter5)
-    tot_perms5 = 0
-    totshots5 = 0
+    tot_perms5 = 1
+    totshots5 = 1
     
     for shot in np.arange(num_orbits):#(1,120):
         if (shot%1000)==0: print 'On Orbit: ',shot
         #datafile = loadnpyfile(datadir+fileheader+npy)
         arr, nperms = PE_dist(datafile[shot,:],5,delay=loop_delay)
         
-        if datafile[shot,0]>=0.0 and datafile[shot,0]<3.5:
+        if datafile[shot,0]>=6.0 and datafile[shot,0]<8.0:
             permstore_counter1 = permstore_counter1+arr
             tot_perms1 = tot_perms1+nperms
             totshots1+=1
     
-        if datafile[shot,0]>=3.5 and datafile[shot,0]<4.0:
+        if datafile[shot,0]>=8.0 and datafile[shot,0]<10.0:
             permstore_counter2 = permstore_counter2+arr
             tot_perms2 = tot_perms2+nperms
             totshots2+=1
             
-        if datafile[shot,0]>=4.0 and datafile[shot,0]<4.5:
+        if datafile[shot,0]>=10.0 and datafile[shot,0]<12.0:
             permstore_counter3 = permstore_counter3+arr
             tot_perms3 = tot_perms3+nperms
             totshots3+=1
             
-        if datafile[shot,0]>=4.5 and datafile[shot,0]<5.5:
+        if datafile[shot,0]>=12.0 and datafile[shot,0]<14.0:
             permstore_counter4 = permstore_counter4+arr
             tot_perms4 = tot_perms4+nperms
             totshots4+=1
             
-        if datafile[shot,0]>=7.0 and datafile[shot,0]<9.0:
+        if datafile[shot,0]>=0.0 and datafile[shot,0]<16.0:
             permstore_counter5 = permstore_counter5+arr
             tot_perms5 = tot_perms5+nperms
             totshots5+=1
@@ -183,7 +186,7 @@ for loop_delay in np.arange(1,num_delays+1):
 #    PE_arr1 = PE_dist(datafile[shot,1:],5,delay=1)
     #PEs[shot],SCs[shot]=CH(datafile[shot,1:],5,delay=1)
 
-filename='PE_SC_'+fileheader+'_'+str(num_delays)+'_delays_'+str(num_orbits)+'_orbits_galpy0718_type2icsort.npz'
+filename='PE_SC_'+fileheader+'_'+str(num_delays)+'_delays_'+str(num_orbits)+'_orbits_galpy0718_type2icsort_10co.npz'
 #filename='Data_0418_type4_'+str(num_delays)+'_delays.npz'
 #filename='Data_twosins300and300divroot2_ranphasestart_'+str(num_delays)+'_delays.npz'
 #filename='Data_sine500period_ranphasestart_1k_'+str(num_delays)+'_delays.npz'

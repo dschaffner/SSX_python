@@ -24,102 +24,23 @@ npy='.npz'
 
 
 
-
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs1 = datafile['PEs']
-SCs1 = datafile['SCs']
-
-fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000_orbits_galpy0718'
-#fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_galpy0718'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs2 = datafile['PEs']
-SCs2 = datafile['SCs']
-
-#fileheader = 'PE_SC_IDdatabase_Type_31_data_249_delays_3000_orbits_galpy0718'
-#fileheader = 'PE_SC_IDdatabase_Type_31_data_249_delays_galpy0718'
-fileheader = 'PE_SC_IDdatabase_Type_31_data_2000_499_delays_4212orbits_2000_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs31 = datafile['PEs']
-SCs31 = datafile['SCs']
-
-#fileheader = 'PE_SC_IDdatabase_Type_32_data_249_delays_3000_orbits_galpy0718'
-#fileheader = 'PE_SC_IDdatabase_Type_32_data_249_delays_galpy0718'
 fileheader = 'PE_SC_IDdatabase_Type_32_data_2000_499_delays_5000orbits_2000_timesteps'
 datafile = loadnpzfile(datadir+fileheader+npy)
-PEs32 = datafile['PEs']
-SCs32 = datafile['SCs']
+PEsCR6 = datafile['PEs']
+SCsCR6 = datafile['SCs']
 
-fileheader = 'PE_SC_IDdatabase_Type_32_data_249_delays_3000_orbits_galpy0718_range2'
+fileheader = 'PE_SC_IDdatabase_Type_32_10co_data_3000_499_delays_735orbits_2000_timesteps'
 datafile = loadnpzfile(datadir+fileheader+npy)
-PEs32_2 = datafile['PEs']
-SCs32_2 = datafile['SCs']
+PEsCR10 = datafile['PEs']
+SCsCR10 = datafile['SCs']
 
-fileheader = 'PE_SC_IDdatabase_Type_32_data_249_delays_3000_orbits_galpy0718_range3'
+fileheader = 'PE_SC_IDdatabase_Type_32_8co_data_8000_499_delays_2120orbits_2000_timesteps'
 datafile = loadnpzfile(datadir+fileheader+npy)
-PEs32_3 = datafile['PEs']
-SCs32_3 = datafile['SCs']
+PEsCR8 = datafile['PEs']
+SCsCR8 = datafile['SCs']
 
-#fileheader = 'PE_SC_IDdatabase_Type_4_data_249_delays_3000_orbits_galpy0718'
-#fileheader = 'PE_SC_IDdatabase_Type_4_data_249_delays_galpy0718'
-fileheader = 'PE_SC_IDdatabase_Type_4_data_4000_499_delays_5000orbits_2000_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs4 = datafile['PEs']
-SCs4 = datafile['SCs']
 
-#fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_25387_orbits_galpy0718_type2icsort'
-fileheader = 'PE_SC_IDdatabase_Type_2_data_4000_749_delays_25387_orbits_galpy0718_type2icsort'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEsT21 = datafile['PEs1']
-SCsT21 = datafile['SCs1']
-PEsT22 = datafile['PEs2']
-SCsT22 = datafile['SCs2']
-PEsT23 = datafile['PEs3']
-SCsT23 = datafile['SCs3']
-PEsT24 = datafile['PEs4']
-SCsT24 = datafile['SCs4']
-PEsT25 = datafile['PEs5']
-SCsT25 = datafile['SCs5']
 
-"""
-fileheader = 'Data_sine100period_ranphasestart_249_delays'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs100 = datafile['PEs']
-SCs100 = datafile['SCs']
-fileheader = 'Data_sine200period_ranphasestart_249_delays'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs200 = datafile['PEs']
-SCs200 = datafile['SCs']
-
-fileheader = 'Data_sine300period_ranphasestart_249_delays'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs300 = datafile['PEs']
-SCs300 = datafile['SCs']
-
-fileheader = 'Data_sine400period_ranphasestart_249_delays'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs400 = datafile['PEs']
-SCs400 = datafile['SCs']
-
-fileheader = 'Data_sine500period_ranphasestart_249_delays'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs500 = datafile['PEs']
-SCs500 = datafile['SCs']
-
-fileheader = 'Data_sine600period_ranphasestart_249_delays'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs600 = datafile['PEs']
-SCs600 = datafile['SCs']
-
-fileheader = 'Data_sine700period_ranphasestart_249_delays'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs700 = datafile['PEs']
-SCs700 = datafile['SCs']
-
-#fileheader = 'PE_SC_sinewave_249_delays'
-#datafile = loadnpzfile(datadir+fileheader+npy)
-#PEsin = datafile['PEs']
-#SCsin = datafile['SCs']
-"""
 
 colors = np.zeros([5,4])
 for i in np.arange(5):
@@ -148,12 +69,9 @@ delayindex = np.arange(1,500)
 timeindex=(delayindex*1e5)/(1e6)
 
 ax1=plt.subplot(2,1,1)
-plt.plot(timeindex,SCs1[1:500],color=colors[0,:],label='Type 1')
-plt.plot(timeindex,SCsT25[1:500],color=colors[1,:],label='Type 2 [Beyond CR]')
-plt.plot(timeindex,SCs31[1:],color='green',label='Type 3-1')
-plt.plot(timeindex,SCs32[1:],color='red',label='Type 3-2')
-plt.plot(timeindex,SCs4[1:],color='purple',label='Type 4')
-#plt.plot(delayindex,SCsin[1:],color='black',label='Sine Wave')
+plt.plot(timeindex,SCsCR6[1:],color=colors[0,:],label='CR6')
+plt.plot(timeindex,SCsCR8[1:],color=colors[1,:],label='CR8')
+plt.plot(timeindex,SCsCR10[1:],color='green',label='CR10')
 
 #plt.vlines(85,0,1,color='red',linestyle='dotted',linewidth=0.5)
 delayarray = np.array([0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250])
@@ -184,12 +102,9 @@ plt.text(0.07,0.92,'(a)',horizontalalignment='center',verticalalignment='center'
 
 
 ax1=plt.subplot(2,1,2)
-plt.plot(timeindex,PEs1[1:500],color=colors[0,:],label='Type 1')
-plt.plot(timeindex,PEsT25[1:500],color=colors[1,:],label='Type 2 [Beyond CR]')
-plt.plot(timeindex,PEs31[1:],color='green',label='Type 3-1')
-plt.plot(timeindex,PEs32[1:],color='red',label='Type 3-2')
-plt.plot(timeindex,PEs4[1:],color='purple',label='Type 4')
-#plt.plot(delayindex,PEsin[1:],color='black',label='Sine Wave')
+plt.plot(timeindex,PEsCR6[1:],color=colors[0,:],label='CR6')
+plt.plot(timeindex,PEsCR8[1:],color=colors[1,:],label='CR8')
+plt.plot(timeindex,PEsCR10[1:],color='green',label='CR10')
 
 #plt.vlines(81,0,1,color='red',linestyle='dotted',linewidth=0.5)
 delayarray = np.array([0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250])
@@ -206,13 +121,13 @@ plt.ylim(0,1.0)
 plt.legend(loc='lower right',fontsize=6,frameon=False,handlelength=5)
 plt.text(0.07,0.92,'(b)',horizontalalignment='center',verticalalignment='center',transform=ax1.transAxes)
 
-savefilename='SC_and_PE_galpy0718_CR6_2000plustimesteps_3000plusorbits.eps'
+savefilename='SC_and_PE_CRscan_2000timesteps.png'
 #savefilename='PE_galpy0718_1000timesteps_all_orbits.png'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
 
 
-
+"""
 ndim=5
 #Plot C vs H as a CHplane
 Cminx, Cminy, Cmaxx, Cmaxy = cpl.Cmaxmin(1000,ndim)
@@ -257,6 +172,7 @@ savefilename='CH_galpy0718_2000plustimesteps_timestep'+str(timestep)+'_3000pluso
 #savefilename='CH_galpy0718_1000timesteps_timestep'+str(timestep)+'_all_orbits.png'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
+"""
 """
 fig=plt.figure(num=4,figsize=(3.5,3.5),dpi=300,facecolor='w',edgecolor='k')
 left  = 0.25  # the left side of the subplots of the figure
@@ -341,54 +257,3 @@ savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
 """
 
-
-colors = np.zeros([5,4])
-for i in np.arange(5):
-    c = cm.spectral(i/5.,1)
-    colors[i,:]=c
-points = ['o','v','s','p','*','h','^','D','+','>','H','d','x','<']
-        
-plt.rc('axes',linewidth=0.75)
-plt.rc('xtick.major',width=0.75)
-plt.rc('ytick.major',width=0.75)
-plt.rc('xtick.minor',width=0.75)
-plt.rc('ytick.minor',width=0.75)
-plt.rc('lines',markersize=2,markeredgewidth=0.0)
-
-plt.rc('lines',markersize=1.5,markeredgewidth=0.0)
-fig=plt.figure(num=3,figsize=(6,3.5),dpi=300,facecolor='w',edgecolor='k')
-left  = 0.15  # the left side of the subplots of the figure
-right = 0.94    # the right side of the subplots of the figure
-bottom = 0.2  # the bottom of the subplots of the figure
-top = 0.96      # the top of the subplots of the figure
-wspace = 0.2   # the amount of width reserved for blank space between subplots
-hspace = 0.1   # the amount of height reserved for white space between subplots
-plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
-
-delayindex = np.arange(1,750)
-timeindex=(delayindex*1e5)/(1e6)
-
-ax1=plt.subplot(1,1,1)
-plt.plot(timeindex,SCsT21[1:],color='black',label='Type 2 (NT) [0,3.5)')
-plt.plot(timeindex,SCsT22[1:],color='blue',label='Type 2 (NT) [3.5,4)')
-plt.plot(timeindex,SCsT23[1:],color='green',label='Type 2 (NT) [4,4.5)')
-plt.plot(timeindex,SCsT24[1:],color='red',label='Type 2 (NT) [4.5,5.5)')
-plt.plot(timeindex,SCsT25[1:],color='purple',label='Type 2 (NT) [7,9]')
-
-#delayarray = np.array([0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250])
-delayarray = np.array([0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340,360,380,400,420,440,460,480,500,520,540,560,580,600,620,640,660,680,700,720,740])
-
-timearray = (delayarray*1e5)/(1e6)
-timelist = list(timearray.astype(int))
-plt.xticks(timearray,timelist,fontsize=8)
-plt.yticks(np.array([0.0,0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40]),[0.0,0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40],fontsize=9)
-plt.xlabel('Delay Time [Myr]',fontsize=9)
-#ax1.set_xticklabels([])
-plt.ylabel('Statistical Complexity',fontsize=9)
-#plt.xlim(8.5,10.5)
-#plt.ylim(0.34,0.36)
-plt.legend(loc='lower right',fontsize=5,frameon=False,handlelength=5)
-
-savefilename='SC_galpy0718_4000timesteps_Type2_diffIC.png'
-savefile = os.path.normpath(datadir+savefilename)
-plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')

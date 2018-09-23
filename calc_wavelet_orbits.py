@@ -21,27 +21,39 @@ import time as tm
 datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\GalpyData_July2018\\'
 
 npy='.npy'
-fileheader = 'IDdatabase_Type_1_data_4000'
-type1_4000 = loadnpyfile(datadir+fileheader+npy)
+#fileheader = 'IDdatabase_Type_1_data_4000'
+#datafile = loadnpyfile(datadir+fileheader+npy)
 #fileheader = 'IDdatabase_Type_2_data_4000'
 #type2short = loadnpyfile(datadir+fileheader+npy)
-#fileheader = 'IDdatabase_Type_31_data_4000'
-#type31short = loadnpyfile(datadir+fileheader+npy)
-#fileheader = 'IDdatabase_Type_32_data_4000'
-#type32short = loadnpyfile(datadir+fileheader+npy)
+#fileheader = 'IDdatabase_Type_31_data_2000'
+#datafile = loadnpyfile(datadir+fileheader+npy)
+#fileheader = 'IDdatabase_Type_32_data_2000'
+#datafile = loadnpyfile(datadir+fileheader+npy)
 #fileheader = 'IDdatabase_Type_4_data_4000'
 #type4short = loadnpyfile(datadir+fileheader+npy)
+fileheader = 'IDdatabase_Type_1_8co_data_8000'
+datafile = loadnpyfile(datadir+fileheader+npy)
+print datafile.shape
+#wvnums
+#with maxscale = 1
+#8000 steps ==> 2816
+#4000 steps ==> 2560
+#2000 steps ==> 2304
 
-type1_wvspectra = np.zeros([12,2560])#12 bins of spectra
-type1_spectra = np.zeros([12,2001])#12 bins of spectra
-bincount = np.zeros(12)
+#bin sizes
+#type1 ==> 12
 
-time = np.arange(4000)*1e5#years
+wvspectra = np.zeros([1,2816])#12 bins of spectra
+spectra = np.zeros([1,((int(datafile.shape[1]))/2)+1])#12 bins of spectra
+bincount = np.zeros(2)
+
+time = np.arange(int(datafile.shape[1]))*1e5#years
 time_Myr = time/1e6
 time_secs = time*3.154e7
 time_us = time_secs*1e6
-num_orbits = 500#int(type1_4000.shape[0])
-bins = np.arange(4.7,7.3,0.2)
+num_orbits = int(datafile.shape[0])
+#bins = np.arange(4.7,7.3,0.2)#12 bins
+bins = np.arange(0,17,8)#2 bins
 bin_index = np.arange(bins.shape[0])
 
 start_time = tm.time()
@@ -49,15 +61,19 @@ for orbit in np.arange(num_orbits):
     
     print 'On orbit ',orbit
     print("--- %s minutes ---" % np.round((tm.time() - start_time)/60.0,4))
-    freq, freq2, comp, pwr, mag, phase2, cos_phase, dt = spec.spectrum_wwind(type1_4000[orbit,:],time_secs,window='None')
+    #freq, freq2, comp, pwr, mag, phase2, cos_phase, dt = spec.spectrum_wwind(type1_4000[orbit,:],time_secs,window='None')
     #waveletpwr,wavtot,wvfreq,fft,fftfreq = cw.compute_wavelet(type1_4000[orbit,:],time_secs,mother='Paul',maxscale=1,order=4)
-    waveletpwr,wavtot,wvfreq,fft,fftfreq = cw.compute_wavelet(type1_4000[orbit,:],time_secs,maxscale=1,order=2)
-    
-    for bin in bin_index:
-        if type1_4000[orbit,0]>=bins[bin] and type1_4000[orbit,0]<bins[bin+1]:
-            type1_wvspectra[bin,:]=type1_wvspectra[bin,:]+wavtot
-            bincount[bin]+=1
+    waveletpwr,wavtot,wvfreq,fft,fftfreq = cw.compute_wavelet(datafile[orbit,:],time_secs,maxscale=1,order=2)
+    wvspectra[0,:]=wvspectra[0,:]+wavtot
+    spectra[0,:]=spectra[0,:]+fft
+    #sorting bins for Type1
+    #for bin in bin_index:
+    #    if type1_4000[orbit,0]>=bins[bin] and type1_4000[orbit,0]<bins[bin+1]:
+    #        type1_wvspectra[bin,:]=type1_wvspectra[bin,:]+wavtot
+    #        bincount[bin]+=1
 
+filename='Spectra_'+fileheader+'_'+str(num_orbits)+'orbits.npz'
+np.savez(datadir+filename,wvspectra=wvspectra,spectra=spectra,num_orbits=num_orbits,wvfreq=wvfreq,fftfreq=fftfreq)#,delta_t=delta_t,taus=taus,delays=delays,freq=freq)
 
 """
 colors = np.zeros([7,4])
