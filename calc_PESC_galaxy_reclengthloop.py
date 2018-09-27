@@ -23,16 +23,16 @@ datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data
 #fileheader = 'IDdatabase_Type_32_data_3000'#9798 orbits
 #fileheader = 'IDdatabase_Type_4_data_4000' #5818 orbits
 
-#fileheader = 'IDdatabase_Type_1_10co_data_1000' #3226 orbits
+fileheader = 'IDdatabase_Type_1_10co_data_3000' #3226 orbits
 #fileheader = 'IDdatabase_Type_2_10co_data_1000' #8972 orbits
 #fileheader = 'IDdatabase_Type_31_10co_data_3000' #370 orbits
 #fileheader = 'IDdatabase_Type_32_10co_data_3000'#920 orbits
 #fileheader = 'IDdatabase_Type_4_10co_data_1000' #11511 orbits
 
-#fileheader = 'IDdatabase_Type_1_8co_data_1000'#1621
+#fileheader = 'IDdatabase_Type_1_8co_data_3000'#1621
 #fileheader = 'IDdatabase_Type_2_8co_data_1000'#11370
 #fileheader = 'IDdatabase_Type_31_8co_data_1000'#2212
-fileheader = 'IDdatabase_Type_32_8co_data_3000'#4157
+#fileheader = 'IDdatabase_Type_32_8co_data_3000'#4157
 #fileheader = 'IDdatabase_Type_4_8co_data_1000'#5637
 npy='.npy'
 
@@ -55,7 +55,7 @@ num_orbits = int(datafile.shape[0])
 #length=[500,550,600,650,700,750,800,850,900,950,1000,1050,1100,1150,1200,1250]#,1300,1350,1400,1450,1500,1550,1600,1650,1700,1750,1800,1850,1900,1950,2000]
 length=[500,550,600,650,700,750,800,850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1450,1500,1550,1600,1650,1700,1750,1800,1850,1900,1950,2000,2200,2500,3000]
 #length=[500,550,600,650,700,750,800,850,900,950,1000]#,1050,1100,1150,1200,1250,1300,1350,1400]
-#length=[2200,2500,3000]
+length=[2000]
 #num_orbits = 3000
 
 ###Storage Arrays###
