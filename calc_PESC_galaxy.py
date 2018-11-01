@@ -17,11 +17,11 @@ import time
 
 datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\GalpyData_July2018\\'
 
-#fileheader = 'IDdatabase_Type_1_data_4000' #3227 orbits
-#fileheader = 'IDdatabase_Type_2_data_4000' #25387 orbits
-fileheader = 'IDdatabase_Type_31_data_2000' #5770 orbits
-#fileheader = 'IDdatabase_Type_32_data_2000'#9798 orbits
-#fileheader = 'IDdatabase_Type_4_data_4000' #5818 orbits
+fileheader = 'IDdatabase_Type_1_7co_data_3000' #3227 orbits
+fileheader = 'IDdatabase_Type_2_7co_data_3000' #25387 orbits
+fileheader = 'IDdatabase_Type_31_7co_data_3000' #5770 orbits
+fileheader = 'IDdatabase_Type_32_7co_data_3000'#9798 orbits
+fileheader = 'IDdatabase_Type_4_7co_data_3000' #5818 orbits
 npy='.npy'
 
 
@@ -39,10 +39,12 @@ propfile = loadnpyfile(prop[1000])
 print propfile.shape
 """
 num_orbits = int(datafile.shape[0])
+print num_orbits
 #record length
 length=int(datafile.shape[1])
+print length
 #num_orbits = 3000
-
+"""
 ###Storage Arrays###
 #delta_t = 1.0/(40000.0)
 #delays = np.arange(2,250) #248 elements
@@ -100,3 +102,4 @@ for loop_delay in np.arange(1,num_delays+1):
 
 filename='PE_SC_'+fileheader+'_'+str(num_delays)+'_delays_'+str(num_orbits)+'orbits_'+str(length)+'_timesteps.npz'
 np.savez(datadir+filename,PEs=PEs,SCs=SCs,num_orbits=num_orbits_computed,num_skipped=num_orbits_skipped)#,delta_t=delta_t,taus=taus,delays=delays,freq=freq)
+"""

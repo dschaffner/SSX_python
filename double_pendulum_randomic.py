@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
 
 # Pendulum rod lengths (m), bob masses (kg).
-L1, L2 = 1, 1
+L1, L2 = 0.1, 0.1
 m1, m2 = 1, 1
 # The gravitational acceleration (m.s-2).
 g = 9.81
@@ -28,11 +28,48 @@ def deriv(y, t, L1, L2, m1, m2, g):
     return theta1dot, z1dot, theta2dot, z2dot
 
 # Maximum time, time point spacings and the time grid (all in s).
-tmax, dt = 100, 0.002
+tmax, dt = 100, 0.001
 #tmax, dt = 1000, 0.01
 t = np.arange(0, tmax+dt, dt)
 
+for ic in np.arange(10):
+    ic_t1 = round(np.random.uniform(0,3),1)
+    ic_t2 = round(np.random.uniform(0,3),1)
+    ic_z1 = round(np.random.uniform(0,0.2),1)
+    ic_z2 = round(np.random.uniform(0,0.2),1)
+    y0=[ic_t1,ic_z1,ic_t2,ic_z2]
 
+    
+    # Do the numerical integration of the equations of motion
+    y = odeint(deriv, y0, t, args=(L1, L2, m1, m2, 9.81))
+    # Unpack z and theta as a function of time
+    theta1, theta2 = y[:,0], y[:,2]
+
+    print y0
+    y0=[ic_t1+1e-9,ic_z1,ic_t2,ic_z2]
+    y = odeint(deriv, y0, t, args=(L1, L2, m1, m2, 9.81))
+    theta3, theta4 = y[:,0], y[:,2]
+    
+    # Convert to Cartesian coordinates of the two bob positions.
+    x1 = L1 * np.sin(theta1)
+    y1 = -L1 * np.cos(theta1)
+    x2 = x1 + L2 * np.sin(theta2)
+    y2 = y1 - L2 * np.cos(theta2)
+    
+    x3 = L1 * np.sin(theta3)
+    y3 = -L1 * np.cos(theta3)
+    x4 = x3 + L2 * np.sin(theta4)
+    y4 = y3 - L2 * np.cos(theta4)
+    
+    lyax = np.log(x3-x1)
+    idx = np.isfinite(t[0:2000]) & np.isfinite(lyax[0:2000])
+    z=np.polyfit(t[idx],lyax[idx],1)
+    print '2000fit ly exp=',round(z[0],4)
+    idx = np.isfinite(t[0:10000]) & np.isfinite(lyax[0:10000])
+    z=np.polyfit(t[idx],lyax[idx],1)
+    print '10000fit ly exp=',round(z[0],4)
+    
+"""   
 for gravity in gs:
 
     # Initial conditions.
@@ -107,6 +144,7 @@ for gravity in gs:
     filename='DoubPen_LsEq1_MsEq1_grav'+str(gravity)+'_ICC1_tstep0p002.npz'
     np.savez(datadir+filename,x1=x1,x2=x2,x3=x3,x4=x4,y1=y1,y2=y2,y3=y3,y4=y4,ic=y0) 
 
+"""
 """
 plt.plot(t,theta1)
 plt.plot(t,theta2)

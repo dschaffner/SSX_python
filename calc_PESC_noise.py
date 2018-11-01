@@ -17,58 +17,17 @@ import time
 
 datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\GalpyData_July2018\\'
 
-#fileheader = 'IDdatabase_Type_1_4co_data_3000'#1621
-#fileheader = 'IDdatabase_Type_2_4co_data_3000'#11370
-#fileheader = 'IDdatabase_Type_31_4co_data_3000'#2212
-#fileheader = 'IDdatabase_Type_32_4co_data_3000'#4157
-#fileheader = 'IDdatabase_Type_4_4co_data_3000'#5637
+fileheader = 'noise_data_8000'#4157
 
-#fileheader = 'IDdatabase_Type_1_data_3000' #3227 orbits
-#fileheader = 'IDdatabase_Type_2_data_4000' #25387 orbits
-#fileheader = 'IDdatabase_Type_31_data_3000' #5770 orbits
-#fileheader = 'IDdatabase_Type_32_data_3000'#9798 orbits
-#fileheader = 'IDdatabase_Type_4_data_4000' #5818 orbits
-
-#fileheader = 'IDdatabase_Type_1_10co_data_3000' #3226 orbits
-#fileheader = 'IDdatabase_Type_2_10co_data_1000' #8972 orbits
-#fileheader = 'IDdatabase_Type_31_10co_data_3000' #370 orbits
-#fileheader = 'IDdatabase_Type_32_10co_data_8000'#920 orbits
-#fileheader = 'IDdatabase_Type_4_10co_data_1000' #11511 orbits
-
-#fileheader = 'IDdatabase_Type_1_7co_data_3000'#1621
-#fileheader = 'IDdatabase_Type_2_7co_data_3000'#11370
-#fileheader = 'IDdatabase_Type_31_7co_data_3000'#2212
-#fileheader = 'IDdatabase_Type_32_7co_data_3000'#4157
-#fileheader = 'IDdatabase_Type_4_7co_data_3000'#5637
-
-#fileheader = 'IDdatabase_Type_1_8co_data_3000'#1621
-#fileheader = 'IDdatabase_Type_2_8co_data_1000'#11370
-#fileheader = 'IDdatabase_Type_31_8co_data_1000'#2212
-fileheader = 'IDdatabase_Type_32_8co_data_8000'#4157
-#fileheader = 'IDdatabase_Type_4_8co_data_1000'#5637
 npy='.npy'
 
-
-
-datafile = loadnpyfile(datadir+fileheader+npy)
-"""
-import glob
-data=glob.glob(datadir+'*data.npy')
-prop=glob.glob(datadir+'*prop.npy')
-
-datafile = loadnpyfile(data[1000])
-print datafile.shape
-
-propfile = loadnpyfile(prop[1000])
-print propfile.shape
-"""
-num_orbits = int(datafile.shape[0])
+num_orbits = int(1000)
 #record length
 #length=[500,550,600,650,700,750,800,850,900,950,1000,1050,1100,1150,1200,1250]#,1300,1350,1400,1450,1500,1550,1600,1650,1700,1750,1800,1850,1900,1950,2000]
 length=[500,550,600,650,700,750,800,850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1450,1500,1550,1600,1650,1700,1750,1800,1850,1900,1950,2000,2200,2500,3000]
 #length=[500,550,600,650,700,750,800,850,900,950,1000]#,1050,1100,1150,1200,1250,1300,1350,1400]
-length=[6000]
-length=[3500]
+length=[8000]
+#length=[500,700,900,1000,1200,1500,1800,2000,2500,3000]
 
 #num_orbits = 3000
 
@@ -98,10 +57,11 @@ for length_loop in length:
         num_orbits_skipped = 0
         for shot in np.arange(num_orbits):#(1,120):
             if (shot%1000)==0: print 'On Orbit: ',shot
-            if np.min(datafile[shot,1:length_loop])<0.1: 
-                num_orbits_skipped+=1
-                continue
-            arr, nperms = PE_dist(datafile[shot,1:length_loop],5,delay=loop_delay)
+            #if np.min(datafile[shot,1:length_loop])<0.1: 
+            #    num_orbits_skipped+=1
+            #    continue
+            datafile=np.random.uniform(1,10,size=8001)
+            arr, nperms = PE_dist(datafile[1:length_loop],5,delay=loop_delay)
             permstore_counter = permstore_counter+arr
             tot_perms = tot_perms+nperms
             num_orbits_computed+=1

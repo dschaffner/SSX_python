@@ -18,6 +18,7 @@ fileheader='DoubPen_L1-1_L2-1_m1-1_m2-1_9p8_chaos'
 fileheader = 'DoubPen_LsMsEq1_9p8_ICQ4'
 fileheader ='DoubPen_LsMsEq1_9p8_ICC1'
 fileheader ='DoubPen_LsMsEq1_4p9_ICC1'
+fileheader = 'DoubPen_LsEq10_MsEq1_grav9.81_ICC1'
 
 gs = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 gs = [9.8]
@@ -25,7 +26,9 @@ gs = [9.8]
 for gravity in gs:
     print 'Analyzing for gravity of ',gravity,' m/s^2'
     #fileheader ='DoubPen_LsMsEq1_grav'+str(gravity)+'_ICC1'
-    fileheader ='DoubPen_LsMsEq1_9p8_ICC1'
+    #fileheader ='DoubPen_LsEq100_MsEq1_grav9p8_ICC1'
+    #fileheader ='DoubPen_LsEq100_MsEq1_grav9p8_ICC1'
+    fileheader = 'DoubPen_LsEq1_MsEq1_grav9p8_ICC1_tstep0p002'
     npz='.npz'
     datafile = loadnpzfile(datadir+fileheader+npz)
     #initial_theta1s=datafile['initial_theta1s']
@@ -95,8 +98,8 @@ for gravity in gs:
     PEsy4 = np.zeros([num_delays])
     SCsy4 = np.zeros([num_delays])
     
-    #for loop_delay in np.arange(len(delay_array)):
-    for loop_delay in np.arange(150,151):
+    for loop_delay in np.arange(len(delay_array)):
+    #for loop_delay in np.arange(150,151):
         if (loop_delay%100)==0: print 'On Delay ',delay_array[loop_delay]
         permstore_counter = []
         permstore_counter = Counter(permstore_counter)
@@ -223,15 +226,14 @@ for gravity in gs:
         PEsy4[loop_delay]=PE_tot/np.log2(nfac)
         SCsy4[loop_delay]=C
     print 'y4 completed'
-    
-    filename='PE_SC_DP'+fileheader+'_embeddelay'+str(embeddelay)+'_'+str(num_delays)+'_delays.npz'
-    np.savez(datadir+filename,PEsx1=PEsx1,SCsx1=SCsx1,
-                              PEsx2=PEsx2,SCsx2=SCsx2,
-                              PEsx3=PEsx3,SCsx3=SCsx3, 
-                              PEsx4=PEsx4,SCsx4=SCsx4, 
-                              PEsy1=PEsy1,SCsy1=SCsy1, 
-                              PEsy2=PEsy2,SCsy2=SCsy2, 
-                              PEsy3=PEsy3,SCsy3=SCsy3, 
-                              PEsy4=PEsy4,SCsy4=SCsy4, 
-                              delays=delay_array)
 """
+filename='PE_SC_DP'+fileheader+'_embeddelay'+str(embeddelay)+'_'+str(num_delays)+'_delays.npz'
+np.savez(datadir+filename,PEsx1=PEsx1,SCsx1=SCsx1,
+                              #PEsx2=PEsx2,SCsx2=SCsx2,
+                              #PEsx3=PEsx3,SCsx3=SCsx3, 
+                              #PEsx4=PEsx4,SCsx4=SCsx4, 
+                              #PEsy1=PEsy1,SCsy1=SCsy1, 
+                              #PEsy2=PEsy2,SCsy2=SCsy2, 
+                              #PEsy3=PEsy3,SCsy3=SCsy3, 
+                              #PEsy4=PEsy4,SCsy4=SCsy4, 
+                              delays=delay_array)

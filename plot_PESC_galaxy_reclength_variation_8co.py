@@ -23,11 +23,11 @@ fileheader = 'PE_SC_IDdatabase_Type_32_data_2000_499_delays_5000orbits_2000_time
 npy='.npz'
 
 delayindex = np.arange(1,501)#250
-timestep_arr = [500,550,600,650,700,750,800,850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1600,1800,2000,3000,4000]#,1450,1500,1550,1600,1650,1700,1750,1800,1850,1900,1950,2000]
+timestep_arr = [500,550,600,650,700,750,800,850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1600,1800,2000,3000,3500,4000,6000,8000]#,1450,1500,1550,1600,1650,1700,1750,1800,1850,1900,1950,2000]
 timeindex = (delayindex*1e5)/(1e6)
 
-PEs_32 = np.zeros([24,500])
-SCs_32 = np.zeros([24,500])
+PEs_32 = np.zeros([27,500])
+SCs_32 = np.zeros([27,500])
 for file in np.arange(len(timestep_arr)):
     #fileheader = 'PE_SC_IDdatabase_Type_32_10co_data_8000_499_delays_329orbits_'+str(timestep_arr[file])+'_timesteps'
     fileheader = 'PE_SC_IDdatabase_Type_32_8co_data_8000_499_delays_2120orbits_'+str(timestep_arr[file])+'_timesteps'
@@ -183,7 +183,7 @@ datafile = loadnpzfile(datadir+fileheader+npy)
 PEs950old = datafile['PEs']
 SCs950old = datafile['SCs']
 """
-ncolors=24
+ncolors=27
 colors = np.zeros([ncolors,4])
 for i in np.arange(ncolors):
     c = cm.spectral(i/float(ncolors),1)
@@ -231,7 +231,10 @@ SCs_32_1600_endarray=np.where(SCs_32[19,1:]==0)[0][0]
 SCs_32_1800_endarray=np.where(SCs_32[20,1:]==0)[0][0]
 SCs_32_2000_endarray=500
 SCs_32_3000_endarray=500
+SCs_32_3500_endarray=500
 SCs_32_4000_endarray=500
+SCs_32_6000_endarray=500
+SCs_32_8000_endarray=500
 
 
 ax1=plt.subplot(1,1,1)
@@ -263,17 +266,10 @@ plt.plot(timeindex[:SCs_32_1600_endarray-1],SCs_32[19,1:SCs_32_1600_endarray],co
 plt.plot(timeindex[:SCs_32_1800_endarray-1],SCs_32[20,1:SCs_32_1800_endarray],color=colors[20,:],label='1800 timesteps')
 plt.plot(timeindex[:SCs_32_2000_endarray-1],SCs_32[21,1:SCs_32_2000_endarray],color=colors[21,:],label='2000 timesteps')
 plt.plot(timeindex[:SCs_32_3000_endarray-1],SCs_32[22,1:SCs_32_3000_endarray],color=colors[22,:],label='3000 timesteps')
-plt.plot(timeindex[:SCs_32_4000_endarray-1],SCs_32[23,1:SCs_32_4000_endarray],color=colors[23,:],label='4000 timesteps')
-
-#plt.plot(timeindex,SCs_32[23,:],color=colors[23,:],label='1650 timesteps')
-#plt.plot(timeindex,SCs_32[24,:],color=colors[24,:],label='1700 timesteps')
-#plt.plot(timeindex,SCs_32[25,:],color=colors[25,:],label='1750 timesteps')
-#plt.plot(timeindex,SCs_32[26,:],color=colors[26,:],label='1800 timesteps')
-
-#plt.plot(timeindex,SCs_32[27,:],color=colors[27,:],label='1850 timesteps')
-#plt.plot(timeindex,SCs_32[28,:],color=colors[28,:],label='1900 timesteps')
-#plt.plot(timeindex,SCs_32[29,:],color=colors[29,:],label='1950 timesteps')
-#plt.plot(timeindex,SCs_32[30,:],color=colors[30,:],label='2000 timesteps')
+plt.plot(timeindex[:SCs_32_3500_endarray-1],SCs_32[23,1:SCs_32_3500_endarray],color=colors[23,:],label='3500 timesteps')
+plt.plot(timeindex[:SCs_32_4000_endarray-1],SCs_32[24,1:SCs_32_4000_endarray],color=colors[24,:],label='4000 timesteps')
+plt.plot(timeindex[:SCs_32_6000_endarray-1],SCs_32[25,1:SCs_32_6000_endarray],color=colors[25,:],label='6000 timesteps')
+plt.plot(timeindex[:SCs_32_8000_endarray-1],SCs_32[26,1:SCs_32_8000_endarray],color=colors[26,:],label='8000 timesteps')
 
 
 
@@ -292,7 +288,7 @@ plt.ylim(0.15,0.4)
 leg=plt.legend(loc='lower right',fontsize=2,frameon=False,handlelength=5)
 leg.set_title('Analysis Length',prop={'size':5})
 
-savefilename='SC_recordlengthvariation_type32_8000steps_8co_500to4000.png'
+savefilename='SC_recordlengthvariation_type32_8000steps_8co_500to8000.png'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
 

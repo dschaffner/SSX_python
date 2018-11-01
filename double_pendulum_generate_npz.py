@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
 
 # Pendulum rod lengths (m), bob masses (kg).
-L1, L2 = 1, 1
+L1, L2 = 10, 10
 m1, m2 = 1, 1
 # The gravitational acceleration (m.s-2).
 g = 9.81
@@ -47,7 +47,7 @@ for th1 in np.arange(len(initial_theta1s)):
     theta2s[th1,:]=theta2
 
 datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\DoublePendulum\\'
-filename='DoubPen_L1-1_L2-1_m1-1_m2-1_9p8_scan_theta1_ic.npz'
+filename='DoubPen_L1-10_L2-10_m1-1_m2-1_9p8_scan_theta1_ic.npz'
 np.savez(datadir+filename,theta1s=theta1s,theta2s=theta2s,initial_theta1s=initial_theta1s)#,delta_t=delta_t,taus=taus,delays=delays,freq=freq)    
 """
 # Convert to Cartesian coordinates of the two bob positions.

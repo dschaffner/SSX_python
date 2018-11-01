@@ -22,167 +22,30 @@ datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data
 npy='.npz'
 
 delayindex = np.arange(1,501)#250
-timestep_arr = [500,550,600,650,700,750,800,850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1450,1500,1550,1600,1650,1700,1750,1800,1850,1900,1950,2000,2200,2500,3000]
+timestep_arr = [500,550,600,650,700,750,800,850,900,950,1000,1250,1500,2000,4000,6000,8000]
 timeindex = (delayindex*1e5)/(1e6)
+num_timesteps = 17
 
-PEs_32 = np.zeros([34,500])
-SCs_32 = np.zeros([34,500])
+PEs_32 = np.zeros([num_timesteps,500])
+SCs_32 = np.zeros([num_timesteps,500])
 for file in np.arange(len(timestep_arr)):
-    fileheader = 'PE_SC_IDdatabase_Type_32_10co_data_3000_499_delays_735orbits_'+str(timestep_arr[file])+'_timesteps'
+    fileheader = 'PE_SC_IDdatabase_Type_32_10co_data_8000_499_delays_329orbits_'+str(timestep_arr[file])+'_timesteps'
     datafile = loadnpzfile(datadir+fileheader+npy)
     PEs_32[file,:]=datafile['PEs']
     SCs_32[file,:]=datafile['SCs']    
 
     
-PEs_31 = np.zeros([34,500])
-SCs_31 = np.zeros([34,500])
-for file in np.arange(len(timestep_arr)):
-    fileheader = 'PE_SC_IDdatabase_Type_31_10co_data_3000_499_delays_253orbits_'+str(timestep_arr[file])+'_timesteps'
-    datafile = loadnpzfile(datadir+fileheader+npy)
-    PEs_31[file,:]=datafile['PEs']
-    SCs_31[file,:]=datafile['SCs']
+#PEs_31 = np.zeros([34,500])
+#SCs_31 = np.zeros([34,500])
+#for file in np.arange(len(timestep_arr)):
+#    fileheader = 'PE_SC_IDdatabase_Type_31_10co_data_3000_499_delays_253orbits_'+str(timestep_arr[file])+'_timesteps'
+#    datafile = loadnpzfile(datadir+fileheader+npy)
+#    PEs_31[file,:]=datafile['PEs']
+#    SCs_31[file,:]=datafile['SCs']
 
 
-"""
-fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000_orbits_galpy0718'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs1000 = datafile['PEs']
-SCs1000 = datafile['SCs']
 
-#fileheader = 'PE_SC_New_DavidData_'+classtype+'_249_delays_2000_timesteps'
-#datafile = loadnpzfile(datadir+fileheader+npy)
-#PEs2000 = datafile['PEs']
-#SCs2000 = datafile['SCs']
-
-fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000orbits_550_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs550 = datafile['PEs']
-SCs550 = datafile['SCs']
-
-fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000orbits_600_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs600 = datafile['PEs']
-SCs600 = datafile['SCs']
-
-fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000orbits_650_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs650 = datafile['PEs']
-SCs650 = datafile['SCs']
-
-fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000orbits_700_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs700 = datafile['PEs']
-SCs700 = datafile['SCs']
-
-fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000orbits_750_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs750 = datafile['PEs']
-SCs750 = datafile['SCs']
-
-fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000orbits_800_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs800 = datafile['PEs']
-SCs800 = datafile['SCs']
-
-fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000orbits_850_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs850 = datafile['PEs']
-SCs850 = datafile['SCs']
-
-fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000orbits_900_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs900 = datafile['PEs']
-SCs900 = datafile['SCs']
-
-fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000orbits_950_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs950 = datafile['PEs']
-SCs950 = datafile['SCs']
-"""
-
-"""
-fileheader = 'PE_SC_New_DavidData_'+classtype+'_249_delays_1150_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs1150 = datafile['PEs']
-SCs1150 = datafile['SCs']
-
-fileheader = 'PE_SC_New_DavidData_'+classtype+'_249_delays_1250_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs1250 = datafile['PEs']
-SCs1250 = datafile['SCs']
-
-fileheader = 'PE_SC_New_DavidData_'+classtype+'_249_delays_1500_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs1500 = datafile['PEs']
-SCs1500 = datafile['SCs']
-
-fileheader = 'PE_SC_New_DavidData_'+classtype+'_249_delays_2500_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs2500 = datafile['PEs']
-SCs2500 = datafile['SCs']
-
-fileheader = 'PE_SC_New_DavidData_'+classtype+'_249_delays_5000_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs5000 = datafile['PEs']
-SCs5000 = datafile['SCs']
-
-fileheader = 'PE_SC_New_DavidData_'+classtype+'_249_delays_10000_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs10000 = datafile['PEs']
-SCs10000 = datafile['SCs']
-
-
-fileheader = 'PE_SC_DavidData_Class_3_249_delays_500_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs500old = datafile['PEs']
-SCs500old = datafile['SCs']
-
-fileheader = 'PE_SC_DavidData_Class_3_249_delays_550_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs550old = datafile['PEs']
-SCs550old = datafile['SCs']
-
-fileheader = 'PE_SC_DavidData_Class_3_249_delays_600_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs600old = datafile['PEs']
-SCs600old = datafile['SCs']
-
-fileheader = 'PE_SC_DavidData_Class_3_249_delays_650_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs650old = datafile['PEs']
-SCs650old = datafile['SCs']
-
-fileheader = 'PE_SC_DavidData_Class_3_249_delays_700_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs700old = datafile['PEs']
-SCs700old = datafile['SCs']
-
-fileheader = 'PE_SC_DavidData_Class_3_249_delays_750_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs750old = datafile['PEs']
-SCs750old = datafile['SCs']
-
-fileheader = 'PE_SC_DavidData_Class_3_249_delays_800_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs800old = datafile['PEs']
-SCs800old = datafile['SCs']
-
-fileheader = 'PE_SC_DavidData_Class_3_249_delays_850_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs850old = datafile['PEs']
-SCs850old = datafile['SCs']
-
-fileheader = 'PE_SC_DavidData_Class_3_249_delays_900_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs900old = datafile['PEs']
-SCs900old = datafile['SCs']
-
-fileheader = 'PE_SC_DavidData_Class_3_249_delays_950_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs950old = datafile['PEs']
-SCs950old = datafile['SCs']
-"""
-ncolors=34
+ncolors=num_timesteps
 colors = np.zeros([ncolors,4])
 for i in np.arange(ncolors):
     c = cm.spectral(i/float(ncolors),1)
@@ -218,29 +81,31 @@ SCs_32_850_endarray=np.where(SCs_32[7,1:]==0)[0][0]
 SCs_32_900_endarray=np.where(SCs_32[8,1:]==0)[0][0]
 SCs_32_950_endarray=np.where(SCs_32[9,1:]==0)[0][0]
 SCs_32_1000_endarray=np.where(SCs_32[10,1:]==0)[0][0]
-SCs_32_1050_endarray=np.where(SCs_32[11,1:]==0)[0][0]
-SCs_32_1100_endarray=np.where(SCs_32[12,1:]==0)[0][0]
-SCs_32_1150_endarray=np.where(SCs_32[13,1:]==0)[0][0]
-SCs_32_1200_endarray=np.where(SCs_32[14,1:]==0)[0][0]
-SCs_32_1250_endarray=np.where(SCs_32[15,1:]==0)[0][0]
-SCs_32_1300_endarray=np.where(SCs_32[16,1:]==0)[0][0]
-SCs_32_1350_endarray=np.where(SCs_32[17,1:]==0)[0][0]
-SCs_32_1400_endarray=np.where(SCs_32[18,1:]==0)[0][0]
-SCs_32_1450_endarray=np.where(SCs_32[19,1:]==0)[0][0]
-SCs_32_1500_endarray=np.where(SCs_32[20,1:]==0)[0][0]
-SCs_32_1550_endarray=np.where(SCs_32[21,1:]==0)[0][0]
-SCs_32_1600_endarray=np.where(SCs_32[22,1:]==0)[0][0]
-SCs_32_1650_endarray=np.where(SCs_32[23,1:]==0)[0][0]
-SCs_32_1700_endarray=np.where(SCs_32[24,1:]==0)[0][0]
-SCs_32_1750_endarray=np.where(SCs_32[25,1:]==0)[0][0]
-SCs_32_1800_endarray=np.where(SCs_32[26,1:]==0)[0][0]
-SCs_32_1850_endarray=np.where(SCs_32[27,1:]==0)[0][0]
-SCs_32_1900_endarray=np.where(SCs_32[28,1:]==0)[0][0]
-SCs_32_1950_endarray=np.where(SCs_32[29,1:]==0)[0][0]
+#SCs_32_1050_endarray=np.where(SCs_32[11,1:]==0)[0][0]
+#SCs_32_1100_endarray=np.where(SCs_32[12,1:]==0)[0][0]
+#SCs_32_1150_endarray=np.where(SCs_32[13,1:]==0)[0][0]
+#SCs_32_1200_endarray=np.where(SCs_32[14,1:]==0)[0][0]
+SCs_32_1250_endarray=np.where(SCs_32[11,1:]==0)[0][0]
+#SCs_32_1300_endarray=np.where(SCs_32[16,1:]==0)[0][0]
+#SCs_32_1350_endarray=np.where(SCs_32[17,1:]==0)[0][0]
+#SCs_32_1400_endarray=np.where(SCs_32[18,1:]==0)[0][0]
+#SCs_32_1450_endarray=np.where(SCs_32[19,1:]==0)[0][0]
+SCs_32_1500_endarray=np.where(SCs_32[12,1:]==0)[0][0]
+#SCs_32_1550_endarray=np.where(SCs_32[21,1:]==0)[0][0]
+#SCs_32_1600_endarray=np.where(SCs_32[22,1:]==0)[0][0]
+#SCs_32_1650_endarray=np.where(SCs_32[23,1:]==0)[0][0]
+#SCs_32_1700_endarray=np.where(SCs_32[24,1:]==0)[0][0]
+#SCs_32_1750_endarray=np.where(SCs_32[25,1:]==0)[0][0]
+#SCs_32_1800_endarray=np.where(SCs_32[26,1:]==0)[0][0]
+#SCs_32_1850_endarray=np.where(SCs_32[27,1:]==0)[0][0]
+#SCs_32_1900_endarray=np.where(SCs_32[28,1:]==0)[0][0]
+#SCs_32_1950_endarray=np.where(SCs_32[29,1:]==0)[0][0]
 SCs_32_2000_endarray=500
-SCs_32_2200_endarray=500
-SCs_32_2500_endarray=500
-SCs_32_3000_endarray=500
+#SCs_32_2200_endarray=500
+#SCs_32_2500_endarray=500
+SCs_32_4000_endarray=500
+SCs_32_6000_endarray=500
+SCs_32_8000_endarray=500
 
 ax1=plt.subplot(1,1,1)
 plt.plot(timeindex[:SCs_32_500_endarray-1],SCs_32[0,1:SCs_32_500_endarray],color=colors[0,:],label='500 timesteps')
@@ -255,34 +120,37 @@ plt.plot(timeindex[:SCs_32_900_endarray-1],SCs_32[8,1:SCs_32_900_endarray],color
 plt.plot(timeindex[:SCs_32_950_endarray-1],SCs_32[9,1:SCs_32_950_endarray],color=colors[9,:],label='950 timesteps')
 plt.plot(timeindex[:SCs_32_1000_endarray-1],SCs_32[10,1:SCs_32_1000_endarray],color=colors[10,:],label='1000 timesteps')
 
-plt.plot(timeindex[:SCs_32_1050_endarray-1],SCs_32[11,1:SCs_32_1050_endarray],color=colors[11,:],label='1050 timesteps')
-plt.plot(timeindex[:SCs_32_1100_endarray-1],SCs_32[12,1:SCs_32_1100_endarray],color=colors[12,:],label='1100 timesteps')
-plt.plot(timeindex[:SCs_32_1150_endarray-1],SCs_32[13,1:SCs_32_1150_endarray],color=colors[13,:],label='1150 timesteps')
-plt.plot(timeindex[:SCs_32_1200_endarray-1],SCs_32[14,1:SCs_32_1200_endarray],color=colors[14,:],label='1200 timesteps')
-plt.plot(timeindex[:SCs_32_1250_endarray-1],SCs_32[15,1:SCs_32_1250_endarray],color=colors[15,:],label='1250 timesteps')
+#plt.plot(timeindex[:SCs_32_1050_endarray-1],SCs_32[11,1:SCs_32_1050_endarray],color=colors[11,:],label='1050 timesteps')
+#plt.plot(timeindex[:SCs_32_1100_endarray-1],SCs_32[12,1:SCs_32_1100_endarray],color=colors[12,:],label='1100 timesteps')
+#plt.plot(timeindex[:SCs_32_1150_endarray-1],SCs_32[13,1:SCs_32_1150_endarray],color=colors[13,:],label='1150 timesteps')
+#plt.plot(timeindex[:SCs_32_1200_endarray-1],SCs_32[14,1:SCs_32_1200_endarray],color=colors[14,:],label='1200 timesteps')
+plt.plot(timeindex[:SCs_32_1250_endarray-1],SCs_32[11,1:SCs_32_1250_endarray],color=colors[11,:],label='1250 timesteps')
 
-plt.plot(timeindex[:SCs_32_1300_endarray-1],SCs_32[16,1:SCs_32_1300_endarray],color=colors[16,:],label='1300 timesteps')
-plt.plot(timeindex[:SCs_32_1350_endarray-1],SCs_32[17,1:SCs_32_1350_endarray],color=colors[17,:],label='1350 timesteps')
-plt.plot(timeindex[:SCs_32_1400_endarray-1],SCs_32[18,1:SCs_32_1400_endarray],color=colors[18,:],label='1400 timesteps')
-plt.plot(timeindex[:SCs_32_1450_endarray-1],SCs_32[19,1:SCs_32_1450_endarray],color=colors[19,:],label='1450 timesteps')
-plt.plot(timeindex[:SCs_32_1500_endarray-1],SCs_32[20,1:SCs_32_1500_endarray],color=colors[20,:],label='1500 timesteps')
-plt.plot(timeindex[:SCs_32_1550_endarray-1],SCs_32[21,1:SCs_32_1550_endarray],color=colors[21,:],label='1550 timesteps')
-plt.plot(timeindex[:SCs_32_1600_endarray-1],SCs_32[22,1:SCs_32_1600_endarray],color=colors[22,:],label='1600 timesteps')
+#plt.plot(timeindex[:SCs_32_1300_endarray-1],SCs_32[16,1:SCs_32_1300_endarray],color=colors[16,:],label='1300 timesteps')
+#plt.plot(timeindex[:SCs_32_1350_endarray-1],SCs_32[17,1:SCs_32_1350_endarray],color=colors[17,:],label='1350 timesteps')
+#plt.plot(timeindex[:SCs_32_1400_endarray-1],SCs_32[18,1:SCs_32_1400_endarray],color=colors[18,:],label='1400 timesteps')
+#plt.plot(timeindex[:SCs_32_1450_endarray-1],SCs_32[19,1:SCs_32_1450_endarray],color=colors[19,:],label='1450 timesteps')
+plt.plot(timeindex[:SCs_32_1500_endarray-1],SCs_32[12,1:SCs_32_1500_endarray],color=colors[12,:],label='1500 timesteps')
+#plt.plot(timeindex[:SCs_32_1550_endarray-1],SCs_32[21,1:SCs_32_1550_endarray],color=colors[21,:],label='1550 timesteps')
+#plt.plot(timeindex[:SCs_32_1600_endarray-1],SCs_32[22,1:SCs_32_1600_endarray],color=colors[22,:],label='1600 timesteps')
 
 
-plt.plot(timeindex[:SCs_32_1650_endarray-1],SCs_32[23,1:SCs_32_1650_endarray],color=colors[23,:],label='1650 timesteps')
-plt.plot(timeindex[:SCs_32_1700_endarray-1],SCs_32[24,1:SCs_32_1700_endarray],color=colors[24,:],label='1700 timesteps')
-plt.plot(timeindex[:SCs_32_1750_endarray-1],SCs_32[25,1:SCs_32_1750_endarray],color=colors[25,:],label='1750 timesteps')
-plt.plot(timeindex[:SCs_32_1800_endarray-1],SCs_32[26,1:SCs_32_1800_endarray],color=colors[26,:],label='1800 timesteps')
+#plt.plot(timeindex[:SCs_32_1650_endarray-1],SCs_32[23,1:SCs_32_1650_endarray],color=colors[23,:],label='1650 timesteps')
+#plt.plot(timeindex[:SCs_32_1700_endarray-1],SCs_32[24,1:SCs_32_1700_endarray],color=colors[24,:],label='1700 timesteps')
+#plt.plot(timeindex[:SCs_32_1750_endarray-1],SCs_32[25,1:SCs_32_1750_endarray],color=colors[25,:],label='1750 timesteps')
+#plt.plot(timeindex[:SCs_32_1800_endarray-1],SCs_32[26,1:SCs_32_1800_endarray],color=colors[26,:],label='1800 timesteps')
 
-plt.plot(timeindex[:SCs_32_1850_endarray-1],SCs_32[27,1:SCs_32_1850_endarray],color=colors[27,:],label='1850 timesteps')
-plt.plot(timeindex[:SCs_32_1900_endarray-1],SCs_32[28,1:SCs_32_1900_endarray],color=colors[28,:],label='1900 timesteps')
-plt.plot(timeindex[:SCs_32_1950_endarray-1],SCs_32[29,1:SCs_32_1950_endarray],color=colors[29,:],label='1950 timesteps')
-plt.plot(timeindex[:SCs_32_2000_endarray-1],SCs_32[30,1:SCs_32_2000_endarray],color=colors[30,:],label='2000 timesteps')
+#plt.plot(timeindex[:SCs_32_1850_endarray-1],SCs_32[27,1:SCs_32_1850_endarray],color=colors[27,:],label='1850 timesteps')
+#plt.plot(timeindex[:SCs_32_1900_endarray-1],SCs_32[28,1:SCs_32_1900_endarray],color=colors[28,:],label='1900 timesteps')
+#plt.plot(timeindex[:SCs_32_1950_endarray-1],SCs_32[29,1:SCs_32_1950_endarray],color=colors[29,:],label='1950 timesteps')
+plt.plot(timeindex[:SCs_32_2000_endarray-1],SCs_32[13,1:SCs_32_2000_endarray],color=colors[13,:],label='2000 timesteps')
 
-plt.plot(timeindex[:SCs_32_2200_endarray-1],SCs_32[31,1:SCs_32_2200_endarray],color=colors[31,:],label='2200 timesteps')
-plt.plot(timeindex[:SCs_32_2500_endarray-1],SCs_32[32,1:SCs_32_2500_endarray],color=colors[32,:],label='2500 timesteps')
-plt.plot(timeindex[:SCs_32_3000_endarray-1],SCs_32[33,1:SCs_32_3000_endarray],color=colors[33,:],label='3000 timesteps')
+#plt.plot(timeindex[:SCs_32_2200_endarray-1],SCs_32[31,1:SCs_32_2200_endarray],color=colors[31,:],label='2200 timesteps')
+#plt.plot(timeindex[:SCs_32_2500_endarray-1],SCs_32[32,1:SCs_32_2500_endarray],color=colors[32,:],label='2500 timesteps')
+#plt.plot(timeindex[:SCs_32_3000_endarray-1],SCs_32[33,1:SCs_32_3000_endarray],color=colors[33,:],label='3000 timesteps')
+plt.plot(timeindex[:SCs_32_4000_endarray-1],SCs_32[14,1:SCs_32_4000_endarray],color=colors[14,:],label='4000 timesteps')
+plt.plot(timeindex[:SCs_32_6000_endarray-1],SCs_32[15,1:SCs_32_6000_endarray],color=colors[15,:],label='6000 timesteps')
+plt.plot(timeindex[:SCs_32_8000_endarray-1],SCs_32[16,1:SCs_32_8000_endarray],color=colors[16,:],label='8000 timesteps')
 
 #plt.vlines(81,0,1,color='red',linestyle='dotted',linewidth=0.5)
 
@@ -302,11 +170,11 @@ plt.xlim(0,36)
 leg=plt.legend(loc='lower right',fontsize=3,frameon=False,handlelength=5)
 leg.set_title('Analysis Length',prop={'size':5})
 
-savefilename='SC_recordlengthvariation_type32_3000steps_10co_500to3000.png'
+savefilename='SC_recordlengthvariation_type32_8000steps_10co_500to8000.png'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
 
-
+"""
 fig=plt.figure(num=2,figsize=(6,6),dpi=300,facecolor='w',edgecolor='k')
 left  = 0.16  # the left side of the subplots of the figure
 right = 0.94    # the right side of the subplots of the figure
@@ -415,6 +283,7 @@ savefilename='SC_recordlengthvariation_type31_3000steps_10co_500to3000.png'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
 
+"""
 """
 fig=plt.figure(num=11,figsize=(3.5,3.5),dpi=300,facecolor='w',edgecolor='k')
 left  = 0.16  # the left side of the subplots of the figure

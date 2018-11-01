@@ -127,18 +127,17 @@ for i in np.arange(5):
     colors[i,:]=c
 points = ['o','v','s','p','*','h','^','D','+','>','H','d','x','<']
         
-plt.rc('axes',linewidth=0.75)
-plt.rc('xtick.major',width=0.75)
-plt.rc('ytick.major',width=0.75)
-plt.rc('xtick.minor',width=0.75)
-plt.rc('ytick.minor',width=0.75)
-plt.rc('lines',markersize=2,markeredgewidth=0.0)
+plt.rc('axes',linewidth=2.0)
+plt.rc('xtick.major',width=2.0)
+plt.rc('ytick.major',width=2.0)
+plt.rc('xtick.minor',width=2.0)
+plt.rc('ytick.minor',width=2.0)
+plt.rc('lines',markersize=2,markeredgewidth=0.0,linewidth=2.0)
 
-plt.rc('lines',markersize=1.5,markeredgewidth=0.0)
-fig=plt.figure(num=1,figsize=(6,7),dpi=300,facecolor='w',edgecolor='k')
+fig=plt.figure(num=1,figsize=(7,6),dpi=600,facecolor='w',edgecolor='k')
 left  = 0.15  # the left side of the subplots of the figure
 right = 0.94    # the right side of the subplots of the figure
-bottom = 0.07  # the bottom of the subplots of the figure
+bottom = 0.1  # the bottom of the subplots of the figure
 top = 0.96      # the top of the subplots of the figure
 wspace = 0.1   # the amount of width reserved for blank space between subplots
 hspace = 0.17   # the amount of height reserved for white space between subplots
@@ -147,12 +146,13 @@ plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspac
 delayindex = np.arange(1,500)
 timeindex=(delayindex*1e5)/(1e6)
 
-ax1=plt.subplot(2,1,1)
-plt.plot(timeindex,SCs1[1:500],color=colors[0,:],label='Type 1')
-plt.plot(timeindex,SCsT25[1:500],color=colors[1,:],label='Type 2 [Beyond CR]')
-plt.plot(timeindex,SCs31[1:],color='green',label='Type 3-1')
-plt.plot(timeindex,SCs32[1:],color='red',label='Type 3-2')
-plt.plot(timeindex,SCs4[1:],color='purple',label='Type 4')
+ax1=plt.subplot(1,1,1)
+plt.plot(timeindex,SCs1[1:500],color='black',label='M6-Type 1')
+plt.plot(timeindex,SCsT21[1:500],color='green',label='M6-Type 2 [Inside CR]')
+plt.plot(timeindex,SCsT25[1:500],color='lawngreen',label='M6-Type 2 [Beyond CR]')
+plt.plot(timeindex,SCs31[1:],color='red',label='M6-Type 3-1')
+plt.plot(timeindex,SCs32[1:],color='orange',label='M6-Type 3-2')
+plt.plot(timeindex,SCs4[1:],color='purple',label='M6-Type 4')
 #plt.plot(delayindex,SCsin[1:],color='black',label='Sine Wave')
 
 #plt.vlines(85,0,1,color='red',linestyle='dotted',linewidth=0.5)
@@ -162,17 +162,22 @@ timearray = (delayarray*1e5)/(1e6)
 timelist = list(timearray.astype(int))
 #plt.xticks(np.array([1,20,40,60,80,100,120,140,160,180,200,220,240]),[1,20,40,60,80,100,120,140,160,180,200,220,240],fontsize=9)
 
-plt.xticks(timearray,timelist,fontsize=8)
-plt.yticks(np.array([0.0,0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40]),[0.0,0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40],fontsize=9)
-plt.xlabel('Delay Time [Myr]',fontsize=11)
+plt.xticks(timearray,timelist,fontsize=12)
+plt.yticks(np.array([0.0,0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40]),[0.0,0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40],fontsize=12)
+plt.xlabel(r'$\tau_s$ [Myr]',fontsize=15)
 #plt.xlabel('Delay Steps',fontsize=9)
 #ax1.set_xticklabels([])
-plt.ylabel('Statistical Complexity',fontsize=9)
-#plt.xlim(1,250)
+plt.ylabel('Statistical Complexity',fontsize=15)
+plt.xlim(0,40)
 #plt.ylim(0,0.5)
-plt.legend(loc='lower right',fontsize=6,frameon=False,handlelength=5)
-plt.text(0.07,0.92,'(a)',horizontalalignment='center',verticalalignment='center',transform=ax1.transAxes)
+plt.legend(loc='lower left',fontsize=12,frameon=False,handlelength=5)
+#plt.text(0.07,0.92,'(a)',horizontalalignment='center',verticalalignment='center',transform=ax1.transAxes,fontsize=12)
 
+
+savefilename='SC_CR6_typescan_2000plustimesteps_3000plusorbits.eps'
+#savefilename='PE_galpy0718_1000timesteps_all_orbits.png'
+savefile = os.path.normpath(datadir+savefilename)
+plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
 #savefilename='SC_galpy0718_1000timesteps_3000_orbits.png'
 #savefilename='SC_galpy0718_1000timesteps_all_orbits.png'
 #savefile = os.path.normpath(datadir+savefilename)
@@ -182,7 +187,7 @@ plt.text(0.07,0.92,'(a)',horizontalalignment='center',verticalalignment='center'
 #fig=plt.figure(num=2,figsize=(5,3.5),dpi=300,facecolor='w',edgecolor='k')
 #plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
 
-
+"""
 ax1=plt.subplot(2,1,2)
 plt.plot(timeindex,PEs1[1:500],color=colors[0,:],label='Type 1')
 plt.plot(timeindex,PEsT25[1:500],color=colors[1,:],label='Type 2 [Beyond CR]')
@@ -210,7 +215,7 @@ savefilename='SC_and_PE_galpy0718_CR6_2000plustimesteps_3000plusorbits.eps'
 #savefilename='PE_galpy0718_1000timesteps_all_orbits.png'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
-
+"""
 
 
 ndim=5
