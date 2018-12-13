@@ -30,6 +30,7 @@ def get_corr(t,sig1,sig2,detrend=pylab.detrend_linear,
     n = len(sig1)
     #correlate
     corr = numpy.correlate(sig1_sub,sig2_sub,mode=mode)
+    #corr = numpy.correlate(sig1,sig2,mode=mode)
     #normalize
     if normalized:
         corr /= (t.size - 1)*sig1.std()*sig2.std()

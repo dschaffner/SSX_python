@@ -134,13 +134,16 @@ plt.rc('xtick.minor',width=2.0)
 plt.rc('ytick.minor',width=2.0)
 plt.rc('lines',markersize=8,markeredgewidth=0.0,linewidth=2.0)
 
-fig=plt.figure(num=1,figsize=(7,12.5),dpi=600,facecolor='w',edgecolor='k')
+#plt.rcParams['ps.fonttype'] = 42
+#plt.rcParams['pdf.fonttype'] = 42
+
+fig=plt.figure(num=1,figsize=(7,9),dpi=600,facecolor='w',edgecolor='k')
 left  = 0.16  # the left side of the subplots of the figure
 right = 0.94    # the right side of the subplots of the figure
-bottom = 0.05  # the bottom of the subplots of the figure
+bottom = 0.08  # the bottom of the subplots of the figure
 top = 0.96      # the top of the subplots of the figure
 wspace = 0.2   # the amount of width reserved for blank space between subplots
-hspace = 0.15   # the amount of height reserved for white space between subplots
+hspace = 0.0   # the amount of height reserved for white space between subplots
 plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
 
 delayindex = np.arange(1,500)
@@ -165,11 +168,11 @@ plt.xticks(timearray,timelist,fontsize=12)
 plt.yticks(np.array([0.0,0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40]),[0.0,0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40],fontsize=12)
 plt.xlabel(r'$\tau_s$ [Myr]',fontsize=15)
 #plt.xlabel('Delay Steps',fontsize=9)
-#ax1.set_xticklabels([])
-plt.ylabel('Statistical Complexity',fontsize=15)
+ax1.set_xticklabels([])
+plt.ylabel(r'$C$',fontsize=15)
 plt.xlim(0,40)
-#plt.ylim(0,0.5)
-plt.legend(loc='lower right',fontsize=12,frameon=False,handlelength=5)
+plt.ylim(0.11,0.4)
+plt.legend(loc='lower right',fontsize=12,frameon=False,handlelength=5,numpoints=2)
 plt.text(0.04,0.95,'(a)',fontsize=16,horizontalalignment='center',verticalalignment='center',transform=ax1.transAxes)
 
 #savefilename='SC_galpy0718_1000timesteps_3000_orbits.png'
@@ -199,17 +202,18 @@ plt.xticks(timearray,timelist,fontsize=12)
 plt.xlabel(r'$\tau_s$ [Myr]',fontsize=15)
 #ax1.set_xticklabels([])
 plt.yticks(fontsize=12)
-plt.ylabel('Norm. Permutation Entropy',fontsize=15)
+plt.ylabel(r'$H$',fontsize=15)
 plt.xlim(0,40)
-plt.ylim(0,1.0)
+plt.ylim(0,0.95)
 plt.legend(loc='lower right',fontsize=12,frameon=False,handlelength=5)
 plt.text(0.04,0.95,'(b)',fontsize=16,horizontalalignment='center',verticalalignment='center',transform=ax1.transAxes)
 
-savefilename='SC_and_PE_CR6_2000timesteps_Type1vsType32.eps'
+savefilename='SC_and_PE_CR6_2000timesteps_Type1vsType32_3.eps'
 #savefilename='PE_galpy0718_1000timesteps_all_orbits.png'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
-
+plt.clf()
+plt.close()
 
 """
 ndim=5

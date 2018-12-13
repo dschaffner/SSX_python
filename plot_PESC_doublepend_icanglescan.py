@@ -544,46 +544,106 @@ lyapanovs = np.array([0.000024,
                       0.00463,
                       0.0086])
 
+        
+plt.rc('axes',linewidth=2.0)
+plt.rc('xtick.major',width=2.0)
+plt.rc('ytick.major',width=2.0)
+plt.rc('xtick.minor',width=2.0)
+plt.rc('ytick.minor',width=2.0)
+plt.rc('lines',markersize=8,markeredgewidth=0.0,linewidth=2.0)
+#plt.rcParams['ps.fonttype'] = 42
+fig=plt.figure(num=1,figsize=(9,7),dpi=600,facecolor='w',edgecolor='k')
+left  = 0.16  # the left side of the subplots of the figure
+right = 0.94    # the right side of the subplots of the figure
+bottom = 0.08  # the bottom of the subplots of the figure
+top = 0.96      # the top of the subplots of the figure
+wspace = 0.0   # the amount of width reserved for blank space between subplots
+hspace = 0.0   # the amount of height reserved for white space between subplots
+plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
+ax1=plt.subplot(3,2,1)
+ax1.tick_params(axis='x',direction='inout',top=True)
+ax1.tick_params(axis='y',direction='inout',top=True)
+
 logmaxes = np.log10(SCmaxes)
 logmins = np.log10(SCmins)
 loglya = np.log(lyapanovs)
-
 #linear regression
 from scipy import stats
 slope, intercept, r_value, p_value, std_err = stats.linregress(loglya[3:],SCmaxes[3:])
-plt.figure(1)
+print 'C maxes intercept ',intercept
+print 'C maxes slope ',slope
+
+#plt.figure(1)
 plt.plot(loglya,SCmaxes,'o')
 plt.plot(loglya,(loglya*slope)+intercept,color='red',label=r'Linear Fit, $R^{2}=$'+str(np.round(r_value**2,3)))
+plt.ylabel(r'$C_{max}$',fontsize=15)
+plt.xlabel('Log Lyapanov',fontsize=15)
 
-plt.figure(2)
+ax1=plt.subplot(3,2,2)
+ax1.tick_params(axis='x',direction='inout',top=True)
+ax1.tick_params(axis='y',direction='inout',top=True)
 plt.plot(lyapanovs,SCmaxes,'o')
 lya_axis = (np.arange(25434)*0.000024)+0.000024
 plt.plot(lya_axis,intercept+(slope*np.log(lya_axis)))
+plt.xlabel('Lyapanov',fontsize=15)
+ax1.set_yticklabels([])
+
 
 slope, intercept, r_value, p_value, std_err = stats.linregress(loglya[3:],SCmins[3:])
-plt.figure(3)
+print 'C mins intercept ',intercept
+print 'C mins slope ',slope
+
+ax1=plt.subplot(3,2,3)
+ax1.tick_params(axis='x',direction='inout',top=True)
+ax1.tick_params(axis='y',direction='inout',top=True)
 plt.plot(loglya,SCmins,'o')
 plt.plot(loglya,(loglya*slope)+intercept,color='red',label=r'Linear Fit, $R^{2}=$'+str(np.round(r_value**2,3)))
+plt.ylabel(r'$C_{min}$',fontsize=15)
+plt.xlabel('Log Lyapanov',fontsize=15)
 
-plt.figure(4)
+ax1=plt.subplot(3,2,4)
+ax1.tick_params(axis='x',direction='inout',top=True)
+ax1.tick_params(axis='y',direction='inout',top=True)
 plt.plot(lyapanovs,SCmins,'o')
 lya_axis = (np.arange(25434)*0.000024)+0.000024
 plt.plot(lya_axis,intercept+(slope*np.log(lya_axis)))
+plt.xlabel('Lyapanov',fontsize=15)
+ax1.set_yticklabels([])
 
 slope, intercept, r_value, p_value, std_err = stats.linregress(loglya[3:],SCranges[3:])
-plt.figure(5)
+print 'C range intercept ',intercept
+print 'C range slope ',slope
+
+ax1=plt.subplot(3,2,5)
+ax1.tick_params(axis='x',direction='inout',top=True)
+ax1.tick_params(axis='y',direction='inout',top=True)
 plt.plot(loglya,SCranges,'o')
 plt.plot(loglya,(loglya*slope)+intercept,color='red',label=r'Linear Fit, $R^{2}=$'+str(np.round(r_value**2,3)))
+plt.ylabel(r'$|C_{max}-C_{min}|$',fontsize=15)
+plt.xlabel('Log Lyapanov',fontsize=15)
 
-plt.figure(6)
+
+ax1=plt.subplot(3,2,6)
+ax1.tick_params(axis='x',direction='inout',top=True)
+ax1.tick_params(axis='y',direction='inout',top=True)
 plt.plot(lyapanovs,SCranges,'o')
 lya_axis = (np.arange(25434)*0.000024)+0.000024
 plt.plot(lya_axis,intercept+(slope*np.log(lya_axis)))
+plt.xlabel('Lyapanov',fontsize=15)
+ax1.set_yticklabels([])
 
+savefilename='Cmeasures_vs_Lyapunov_3.eps'
+#savefilename='PE_galpy0718_1000timesteps_all_orbits.png'
+savefile = os.path.normpath(datadir+savefilename)
+plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
+plt.clf()
+plt.close()
+
+"""
 tmax, dt = 100, 0.001
 t = np.arange(0, tmax+dt, dt)
 timeindex = delayindex*0.001
-"""
+
 import matplotlib.cm as cm
 colors = np.zeros([20,4])
 for i in np.arange(20):

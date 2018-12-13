@@ -93,6 +93,6 @@ leg=plt.legend(loc='upper right',fontsize=12,frameon=False,handlelength=5)
 savefilename='Btot_compare_forAPSDPP18.png'
 #savefilename='Discharge_current_'+date+'_shot'+str(shot)+'_forAPSDPP18.png'
 savefile = os.path.normpath(savefilename)
-plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
+#plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
 plt.clf()
 plt.close()
