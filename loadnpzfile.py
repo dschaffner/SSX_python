@@ -8,7 +8,7 @@ def loadnpzfile(filename,supress=False):
 
     file = np.load(savefile)
     if not supress:
-        print 'Arrays loaded: '
+        print ('Arrays loaded: ')
         for arr in file.files:
-            print arr    
+            print (arr)    
     return file
