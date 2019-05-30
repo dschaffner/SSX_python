@@ -166,6 +166,12 @@ CR6max = 8.6
 CR7max = 11.6
 CR8max = 15.5
 
+#resorted values
+CR4max = 5.9
+CR6max = 9.7
+CR8max = 19.5
+
+
 CRs = np.array([4,5,6,7,8])
 CRmaxes = np.array([CR4max,-1,CR6max,CR7max,CR8max])
 plt.rc('lines',markersize=6)
@@ -215,6 +221,11 @@ OD4min = 140
 OD6min = 200
 OD7min = 240
 OD8min = 350
+
+#resorted
+#OD4min = 125
+#OD6min = 200
+#OD8min = 340
 
 CRs = np.array([4,5,6,7,8])
 ODmins = np.array([OD4min,-1,OD6min,OD7min,OD8min])

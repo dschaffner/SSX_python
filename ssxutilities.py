@@ -102,7 +102,7 @@ def readFile(fileName, baseDir = "ssx"):
     try:
         theFile = file(fileName)
     except IOError:
-        print "File not found: %s" % fileName
+        print ("File not found: %s" % fileName)
         raise
     else:
         lines = theFile.readlines()

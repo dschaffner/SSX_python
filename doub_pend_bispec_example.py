@@ -35,13 +35,15 @@ tmax, dt = 500, 0.001
 t = np.arange(0, tmax+dt, dt)
 
 
+
 ics=[
+     #[2.0,0.0,0.0,0.0]]#
      #[0.5, 0.0, 1.2, 0.1]]#,	 #0.1037	50000
      #[0.7, 0.4, 1.9, 0.1]]#,	 #0.2211	50000
      #[1.5,0.4,0.4,0.9]]#,      #0.2715	50000
      #[0.2, 0.6, 2.1, 0.2],	 #0.288	50000
-     [1.0, 0.2, 2.3, 0.7]]#,	 #0.3481	50000
-     #[0.3, 0.3, 2.5, 0.9]]#,	#0.3602	50000
+     #[1.0, 0.2, 2.3, 0.7]]#,	 #0.3481	50000
+     #[0.3, 0.3, 2.5, 0.9]	#0.3602	50000
      #[0.7,0.8,0.3,0.3],      #0.3946	50000
      #[1.4, 0.6, 1.6, 0.3],	#0.4007	50000
      #[0.3, 0.1, 2.5, 0.2],	#0.4237	50000
@@ -60,7 +62,7 @@ ics=[
      #[2.8,0.4,2.3,0.3],      #1.1702	15000
      #[2.6,0.9,2.8,0.7],       #1.4466	15000
      #[2.1, 0.2, 2.3, 0.8],	#1.7489	15000
-     #[1.7, 0.9, 2.9, 0.7]]	#2.0921	10000
+     [1.7, 0.9, 2.9, 0.7]]	#2.0921	10000
 
 
 for ic in np.arange(len(ics)):
@@ -107,20 +109,102 @@ for ic in np.arange(len(ics)):
     #filename='DoubPen_LsEq1_MsEq1_g9p81_tstep001_icscanIC'+str(ic)+'.npz'
     #np.savez(datadir+filename,x1=x1,x2=x2,x3=x3,x4=x4,y1=y1,y2=y2,y3=y3,y4=y4,ic=y0) 
 
-
-    allfreqs,bisp,norm1,norm2=bispec.bispec(t,x1,x1,x1,1,auto=True)
+    import array_to_ensemble as ate
+    num_ensembles=10
+    arrsx1=ate.array_to_ensemble(x1,num_ensembles)
+    arrsx2=ate.array_to_ensemble(x2,num_ensembles)
+    arrlength=arrsx1.shape[0]
+    
+    print(t[:arrlength].shape)
+    
+    allfreqs,posfreqs,bisp,norm1,norm2=bispec.bispec(t[:arrlength],arrsx1[:,0],arrsx1[:,0],arrsx1[:,0],5,auto=True)
+    #bisp=np.square(np.abs(bisp))
+    #plt.contourf(posfreqs,allfreqs[:376],np.fliplr(np.rot90(bisp,k=3)))#to get contour plot to fit right, you must rotated by 90 degrees three times, then flip left right
+    
     import spectrum_wwind as spec
-    freq,freq2,comp,pwr,mag,phase,cos_phase,dt=spec.spectrum_wwind(x1[0:100000],t[0:100000])
-    freq3,freq2,comp3,pwr3,mag,phase,cos_phase,dt=spec.spectrum_wwind(x1,t)   
-    plt.clf()
-    plt.close()
-    plt.plot(freq,pwr*5)
-    plt.plot(freq3,pwr3)
+    freq,freq2,comp,pwr,mag,phase,cos_phase,dt=spec.spectrum_wwind(arrsx1[:,0],t[:arrlength])
+
+    ####
+    #
+    # Why do I get different values of bisp when f1 and f2 are switched???
+    #
+    bisp_ensemble=np.zeros([num_ensembles,bisp.shape[0],bisp.shape[1]],dtype=complex)
+    norm1_ensemble=np.zeros([num_ensembles,bisp.shape[0],bisp.shape[1]],dtype=complex)
+    norm2_ensemble=np.zeros([num_ensembles,bisp.shape[0],bisp.shape[1]],dtype=complex)    
+    specx1_ensemble=np.zeros(freq.shape[0])
+    specx2_ensemble=np.zeros(freq.shape[0])
+    LPCx1_ensemble=np.zeros([num_ensembles,freq2.shape[0]],dtype=complex)
+    LPCx2_ensemble=np.zeros([num_ensembles,freq2.shape[0]],dtype=complex)
+    
+    for ens in np.arange(num_ensembles):
+        allfreqs,posfreqs,bisp,norm1,norm2=bispec.bispec(t[:arrlength],arrsx1[:,ens],arrsx1[:,ens],arrsx1[:,ens],5,auto=True)
+        bisp_ensemble[ens,:,:]=bisp
+        norm1_ensemble[ens,:,:]=norm1
+        norm2_ensemble[ens,:,:]=norm2
+        freq,freq2,comp1,pwr1,mag,phase,cos_phase,dt=spec.spectrum_wwind(arrsx1[:,ens],t[:arrlength])
+        freq,freq2,comp2,pwr2,mag,phase,cos_phase,dt=spec.spectrum_wwind(arrsx2[:,ens],t[:arrlength])
+        specx1_ensemble=specx1_ensemble+pwr1
+        specx2_ensemble=specx2_ensemble+pwr2
+        LPCx1_ensemble[ens,:]=comp1
+        LPCx2_ensemble[ens,:]=comp2
+    
+    #compute bicoherence
+    avebisp=np.mean(bisp_ensemble,axis=0)
+    avebisp_abs=np.abs(avebisp)
+    avebisp_sq=avebisp_abs**2
+    norm1_abs_sq=(np.abs(norm1_ensemble))**2
+    norm1_ave=np.mean(norm1_abs_sq,axis=0)
+    norm2_abs_sq=(np.abs(norm2_ensemble))**2
+    norm2_ave=np.mean(norm2_abs_sq,axis=0)
+
+    #compute LPC
+    LPCx1=(np.abs(LPCx1_ensemble))**2
+    aveLPCx1=np.mean(LPCx1,axis=0)
+    minLPCx1=np.min(aveLPCx1)
+    
+    LPCx2=(np.abs(LPCx2_ensemble))**2
+    aveLPCx2=np.mean(LPCx2,axis=0)
+    minLPCx2=np.min(aveLPCx2)
+    print(minLPCx1)
+    
+    bicoh=avebisp_sq/(norm1_ave*norm2_ave)
+    bicoh_corr=avebisp_sq/(((norm1_ave*norm2_ave))+(minLPCx1)**2)
+    #zeroes=np.where(bicoh<0.9)
+    #bicoh[zeroes]=-1.0
+    
+    infs=np.where(np.isnan(bicoh))
+    bicoh[infs]=0.0   
+    print('Bicoherence Computed.')
+    
+        #freq3,freq2,comp3,pwr3,mag,phase,cos_phase,dt=spec.spectrum_wwind(x1,t)   
+    #plt.clf()
+    #plt.close()
+    plt.semilogy(freq,specx1_ensemble)
+    plt.semilogy(freq,specx2_ensemble)
+    #plt.plot(freq3,pwr3)
     plt.figure(2)
-    plt.contourf(allfreqs,allfreqs,(np.abs(np.rot90(bisp)))**2,100)
+    #plt.contourf(x-->columns,y-->rows,z[rows,columns],levels)
+    #plt.contourf(posfreqs,allfreqs[:376],np.fliplr(np.rot90(bicoh,k=3)),100)#,vmax=np.max(bicoh)*0.8,vmin=np.max(bicoh)*0.6)
+    
+    bicoh[10,:]=1.1#11th row = 1.1
+    plt.contourf(allfreqs[:376],posfreqs,bicoh,50)
     plt.colorbar()
+    
+    plt.figure(3)
+    plt.contourf(posfreqs,allfreqs[:376],np.fliplr(np.rot90(avebisp_sq,k=3)),100)
+    plt.colorbar()
+    #plt.contourf(allfreqs,allfreqs,(np.abs(np.rot90(bisp)))**2,100)
+    #plt.colorbar()
     #plt.figure(3)
     #plt.contourf(allfreqs,allfreqs,(((np.abs(bisp))**2)/(((np.abs(norm1))**2)*(np.abs(norm2))**2)),100)
+    plt.figure(4)
+    plt.plot(t,x1) 
+    plt.plot(t,x2)
+    
+    plt.figure(5)
+    plt.contourf(posfreqs,allfreqs[:376],np.fliplr(np.rot90(bicoh_corr,k=3)),100)#,vmax=np.max(bicoh)*0.8,vmin=np.max(bicoh)*0.6)
+    plt.colorbar()
+    
 """
 plt.plot(t,theta1)
 plt.plot(t,theta2)

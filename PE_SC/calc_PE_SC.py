@@ -15,7 +15,7 @@ def PE_dist(data,n=5,delay=1):
     ''' 
     T=np.array(data)
     if len(T.shape)>1:
-        raise TypeError, 'Data must be a 1-D array'
+        raise TypeError('Data must be a 1-D array')
     t = len(T)
     Ptot = t - delay*(n - 1)    #Total number of order n permutations in T
     #print 'Number of permutations = ', Ptot
@@ -33,13 +33,13 @@ def PE_calc_only(count,tot_permutations,n=5):
     invPtot=1./Ptot     #Inverse for later calcuations
     S = 0.
     Se = 0.
-    for q in count.itervalues():
+    for q in iter(count.values()):
         q*=invPtot #convert to probability
         S += -q * np.log2(q)
         q+=1./N
         q/=2
         Se += -q * np.log2(q)
-    for i in xrange(len(count),N):
+    for i in range(len(count),N):
         q=1./2/N
         Se += -q * np.log2(q)
     return S,Se
@@ -58,10 +58,10 @@ def PE(data,n=5,delay=1):
     N=factorial(n)
     T=np.array(data)
     if len(T.shape)>1:
-        raise TypeError, 'Data must be a 1-D array'
+        raise TypeError('Data must be a 1-D array')
     t = len(T)
     Ptot = t - delay*(n - 1)    #Total number of order n permutations in T
-    print 'Number of permutations = ', Ptot
+    print('Number of permutations = ', Ptot)
     invPtot=1./Ptot     #Inverse for later calcuations
     A = []			 #Array to store each permutation
     S = 0.
@@ -73,13 +73,13 @@ def PE(data,n=5,delay=1):
     count=Counter(A)
     #print len(count)
     #Calculate S from the count
-    for q in count.itervalues():
+    for q in iter(count.values()):
         q*=invPtot #convert to probability
         S += -q * np.log2(q)
         q+=1./N
         q/=2
         Se += -q * np.log2(q)
-    for i in xrange(len(count),N):
+    for i in range(len(count),N):
         q=1./2/N
         Se += -q * np.log2(q)
     return S,Se

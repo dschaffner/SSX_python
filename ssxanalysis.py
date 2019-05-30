@@ -76,8 +76,8 @@ import ssxutilities as ssxutil
 # import oceano as oo
 
 
-import __builtin__ as builtin
-set = builtin.set
+#import __builtin__ as builtin
+#set = builtin.set
 
 def switch_sdr(v="new"):
     """switches to the old sdr version.
@@ -171,7 +171,7 @@ def gunPlots(shot, scope = '3', writeFiles = False, ext = 'png'):
     else:
         show()
 
-	return data
+    return data
 def sxr(run, scope = '2', showPlot = False):
     """Plots the SXR data."""
 
@@ -467,5 +467,5 @@ def vuvCalibrationCurve(wavelength, showFit = False):
         a.text(55,217,'y = %.4f * x + %.4f' % (a, b))
         fig.savefig('vuv-settings.pdf')
 
-    print "VUV setting: %.1f" % (setting)
+    print ("VUV setting: %.1f" % (setting))
     return setting

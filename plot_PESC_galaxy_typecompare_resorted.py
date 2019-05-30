@@ -17,58 +17,31 @@ import os
 #calc_PESC_fluid.py
 
 #datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\GalpyData_July2018\\'
-datadir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\GalpyData_July2018\\'
+datadir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\GalpyData_July2018\\resorted_data\\'
 #fileheader = 'PE_SC_IDdatabase_Type_1_data_249_delays_3000_orbits_galpy0718'
 #fileheader = 'PE_SC_IDdatabase_Type_1_data_249_delays_galpy0718'
-fileheader = 'PE_SC_IDdatabase_Type_1_data_3000_499_delays_3227orbits_2000_timesteps'
+fileheader = 'PE_SC_Type_1_6CR_3000_Rg_499_delays_2718orbits_of2718_total2000_timesteps_resorted'
 npy='.npz'
-
-
-
-
 datafile = loadnpzfile(datadir+fileheader+npy)
 PEs1 = datafile['PEs']
 SCs1 = datafile['SCs']
 
-fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_3000_orbits_galpy0718'
-#fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_galpy0718'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs2 = datafile['PEs']
-SCs2 = datafile['SCs']
-
 #fileheader = 'PE_SC_IDdatabase_Type_31_data_249_delays_3000_orbits_galpy0718'
 #fileheader = 'PE_SC_IDdatabase_Type_31_data_249_delays_galpy0718'
-fileheader = 'PE_SC_IDdatabase_Type_31_data_2000_499_delays_4212orbits_2000_timesteps'
+fileheader = 'PE_SC_Type_31_6CR_3000_Rg_499_delays_2204orbits_of4513_total2000_timesteps_resorted'
 datafile = loadnpzfile(datadir+fileheader+npy)
 PEs31 = datafile['PEs']
 SCs31 = datafile['SCs']
 
 #fileheader = 'PE_SC_IDdatabase_Type_32_data_249_delays_3000_orbits_galpy0718'
 #fileheader = 'PE_SC_IDdatabase_Type_32_data_249_delays_galpy0718'
-fileheader = 'PE_SC_IDdatabase_Type_32_data_2000_499_delays_5000orbits_2000_timesteps'
+fileheader = 'PE_SC_Type_32_6CR_3000_Rg_499_delays_4318orbits_of8834_total2000_timesteps_resorted'
 datafile = loadnpzfile(datadir+fileheader+npy)
 PEs32 = datafile['PEs']
 SCs32 = datafile['SCs']
 
-fileheader = 'PE_SC_IDdatabase_Type_32_data_249_delays_3000_orbits_galpy0718_range2'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs32_2 = datafile['PEs']
-SCs32_2 = datafile['SCs']
-
-fileheader = 'PE_SC_IDdatabase_Type_32_data_249_delays_3000_orbits_galpy0718_range3'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs32_3 = datafile['PEs']
-SCs32_3 = datafile['SCs']
-
-#fileheader = 'PE_SC_IDdatabase_Type_4_data_249_delays_3000_orbits_galpy0718'
-#fileheader = 'PE_SC_IDdatabase_Type_4_data_249_delays_galpy0718'
-fileheader = 'PE_SC_IDdatabase_Type_4_data_4000_499_delays_5000orbits_2000_timesteps'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs4 = datafile['PEs']
-SCs4 = datafile['SCs']
-
 #fileheader = 'PE_SC_IDdatabase_Type_2_data_249_delays_25387_orbits_galpy0718_type2icsort'
-fileheader = 'PE_SC_IDdatabase_Type_2_data_4000_749_delays_25387_orbits_galpy0718_type2icsort'
+fileheader = 'PE_SC_Type_2_6CR_3000_Rg_499_delays_30134_orbits_galpy0718_type2icsort_resorted'
 datafile = loadnpzfile(datadir+fileheader+npy)
 PEsT21 = datafile['PEs1']
 SCsT21 = datafile['SCs1']
@@ -81,25 +54,6 @@ SCsT24 = datafile['SCs4']
 PEsT25 = datafile['PEs5']
 SCsT25 = datafile['SCs5']
 
-fileheader = 'PE_SC_Type_32_6CR_3000_Rg_499_delays_4318orbits_of8834_total2000_timesteps_resorted'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs32_resort = datafile['PEs']
-SCs32_resort = datafile['SCs']
-
-fileheader = 'PE_SC_Type_31_6CR_3000_Rg_499_delays_2204orbits_of4513_total2000_timesteps_resorted'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs31_resort = datafile['PEs']
-SCs31_resort = datafile['SCs']
-
-fileheader = 'PE_SC_Type_1_6CR_3000_Rg_499_delays_2718orbits_of2718_total2000_timesteps_resorted'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs1_resort = datafile['PEs']
-SCs1_resort = datafile['SCs']
-
-fileheader = 'PE_SC_Type_32_4CR_3000_Rg_499_delays_7324orbits_of7376_total1400_timesteps_resorted'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs32_4CRresort = datafile['PEs']
-SCs32_4CRresort = datafile['SCs']
 """
 fileheader = 'Data_sine100period_ranphasestart_249_delays'
 datafile = loadnpzfile(datadir+fileheader+npy)
@@ -140,7 +94,7 @@ SCs700 = datafile['SCs']
 #PEsin = datafile['PEs']
 #SCsin = datafile['SCs']
 """
-
+"""
 #colors = np.zeros([5,4])
 #for i in np.arange(5):
 #    c = cm.spectral(i/5.,1)
@@ -208,7 +162,7 @@ plt.text(0.04,0.95,'(a)',fontsize=16,horizontalalignment='center',verticalalignm
 
 #fig=plt.figure(num=2,figsize=(5,3.5),dpi=300,facecolor='w',edgecolor='k')
 #plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
-
+"""
 """
 ax1=plt.subplot(2,1,2)
 plt.plot(timeindex,PEs1[1:500],color='blue',marker=points[0],markevery=(20,100),label='Type 1')

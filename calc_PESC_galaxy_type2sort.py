@@ -16,9 +16,10 @@ import time
 #calc_PESC_fluid.py
 
 datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\GalpyData_July2018\\'
+datadir = 'C:\\Users\\dschaffner\\Dropbox\\PESC_Chaos\\Sorted_CR6\\'
 #fileheader = 'New_DavidData_Class_2'
 #fileheader = 'IDdatabase_Type_1_data' #3227 orbits
-fileheader = 'IDdatabase_Type_2_data_4000' #25387 orbits
+#fileheader = 'IDdatabase_Type_2_data_4000' #25387 orbits
 #fileheader = 'IDdatabase_Type_31_data' #5770 orbits
 #fileheader = 'IDdatabase_Type_32_data'#9798 orbits
 #fileheader = 'IDdatabase_Type_4_data' #5818 orbits
@@ -28,6 +29,14 @@ fileheader = 'IDdatabase_Type_2_data_4000' #25387 orbits
 #fileheader = 'Sine_1500period_wtimesroot2-200percent_randomphase_10k'
 #fileheader = 'qp_(m=4)_(th=30.0)_(t=1.0)_(CR=6.0)_(eps=0.4)_(x0=2.350639412)_(y0=6.62220828293)_(vx0=-243.996156434)_(vy0=40.276745914)_prop'
 #fileheader = 'Sine_500period_randomphase_shortrec'
+
+#length=2000
+#fileheader = 'Type_1_6CR_3000_Rg'#2718
+fileheader = 'Type_2_6CR_3000_Rg'#30134
+#fileheader = 'Type_31_6CR_3000_Rg'#4513
+#fileheader = 'Type_32_6CR_3000_Rg'#8834
+#fileheader = 'Type_4_6CR_3000_Rg'#3801
+
 npy='.npy'
 
 #atafile = loadnpyfile(datadir+fileheader+npy)
@@ -37,7 +46,7 @@ npy='.npy'
 #prop=glob.glob(datadir+'*prop.npy')
 
 datafile = loadnpyfile(datadir+fileheader+npy)
-print datafile.shape
+print(datafile.shape)
 num_orbits = datafile.shape[0]
 #start_orbit = 0
 #
@@ -51,7 +60,7 @@ num_orbits = datafile.shape[0]
 #delays = np.arange(2,250) #248 elements
 #taus = delays*delta_t
 #freq = 1.0/taus
-num_delays = 749
+num_delays = 499#749
 PEs1 = np.zeros([num_delays+1])
 SCs1 = np.zeros([num_delays+1])
 PEs2 = np.zeros([num_delays+1])
@@ -70,7 +79,7 @@ nfac = factorial(embed_delay)
 
 start_time = time.time()
 for loop_delay in np.arange(1,num_delays+1):
-    print 'On Delay ',loop_delay
+    print('On Delay ',loop_delay)
     print("--- %s minutes ---" % np.round((time.time() - start_time)/60.0,4))
     #Initial Radius - [0,3.5)
     permstore_counter1 = []
@@ -103,7 +112,7 @@ for loop_delay in np.arange(1,num_delays+1):
     totshots5 = 0
     
     for shot in np.arange(num_orbits):#(1,120):
-        if (shot%1000)==0: print 'On Orbit: ',shot
+        if (shot%1000)==0: print('On Orbit: ',shot)
         #datafile = loadnpyfile(datadir+fileheader+npy)
         arr, nperms = PE_dist(datafile[shot,:],5,delay=loop_delay)
         
@@ -182,8 +191,8 @@ for loop_delay in np.arange(1,num_delays+1):
 #    print '###### On Shot '+str(shot)+' #####'
 #    PE_arr1 = PE_dist(datafile[shot,1:],5,delay=1)
     #PEs[shot],SCs[shot]=CH(datafile[shot,1:],5,delay=1)
-
-filename='PE_SC_'+fileheader+'_'+str(num_delays)+'_delays_'+str(num_orbits)+'_orbits_galpy0718_type2icsort.npz'
+#filename='PE_SC_'+fileheader+'_'+str(num_delays)+'_delays_'+str(num_orbits_computed)+'orbits_of'+str(num_orbits)+'_total'+str(length)+'_timesteps_type2icsort_resorted.npz'
+filename='PE_SC_'+fileheader+'_'+str(num_delays)+'_delays_'+str(num_orbits)+'_orbits_galpy0718_type2icsort_resorted.npz'
 #filename='Data_0418_type4_'+str(num_delays)+'_delays.npz'
 #filename='Data_twosins300and300divroot2_ranphasestart_'+str(num_delays)+'_delays.npz'
 #filename='Data_sine500period_ranphasestart_1k_'+str(num_delays)+'_delays.npz'

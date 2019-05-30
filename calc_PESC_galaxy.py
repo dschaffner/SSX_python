@@ -17,12 +17,52 @@ import time
 
 datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\GalpyData_July2018\\'
 
-fileheader = 'IDdatabase_Type_1_7co_data_3000' #3227 orbits
-fileheader = 'IDdatabase_Type_2_7co_data_3000' #25387 orbits
-fileheader = 'IDdatabase_Type_31_7co_data_3000' #5770 orbits
-fileheader = 'IDdatabase_Type_32_7co_data_3000'#9798 orbits
-fileheader = 'IDdatabase_Type_4_7co_data_3000' #5818 orbits
+datadir = 'C:\\Users\\dschaffner\\Dropbox\\PESC_Chaos\\Sorted_CR6\\'
+
+#fileheader = 'IDdatabase_Type_1_7co_data_3000' #3227 orbits
+#fileheader = 'IDdatabase_Type_2_7co_data_3000' #25387 orbits
+#fileheader = 'IDdatabase_Type_31_7co_data_3000' #5770 orbits
+#fileheader = 'IDdatabase_Type_32_7co_data_3000'#9798 orbits
+#fileheader = 'IDdatabase_Type_4_7co_data_3000' #5818 orbits
+
+#length=1400
+#fileheader = 'Type_1_4CR_3000_Rg'#2797
+#fileheader = 'Type_2_4CR_3000_Rg'#14671
+#fileheader = 'Type_31_4CR_3000_Rg'#1675
+#fileheader = 'Type_32_4CR_3000_Rg'#7376
+#fileheader = 'Type_4_4CR_3000_Rg'#2271
+
+#length=2000
+#fileheader = 'Type_1_6CR_3000_Rg'#2718
+#fileheader = 'Type_2_6CR_3000_Rg'#30134
+fileheader = 'Type_31_6CR_3000_Rg'#4513
+#fileheader = 'Type_32_6CR_3000_Rg'#8834
+#fileheader = 'Type_4_6CR_3000_Rg'#3801
+
+#length=2400
+#fileheader = 'Type_1_7CR_3000_Rg'#2797
+#fileheader = 'Type_2_7CR_3000_Rg'#14671
+#fileheader = 'Type_31_7CR_3000_Rg'#1675
+#fileheader = 'Type_32_7CR_3000_Rg'#6474
+#fileheader = 'Type_4_7CR_3000_Rg'#2271
+
+#Lenght=3500
+#fileheader = 'Type_1_8CR_4000_Rg'#2797
+#fileheader = 'Type_2_8CR_4000_Rg'#14671
+#fileheader = 'Type_31_8CR_4000_Rg'#1675
+#fileheader = 'Type_32_8CR_4000_Rg'#3585
+#fileheader = 'Type_4_8CR_4000_Rg'#2271
+#
+#fileheader = 'Type_1_10CR_3000_Rg'#2797
+#fileheader = 'Type_2_10CR_3000_Rg'#14671
+#fileheader = 'Type_31_10CR_3000_Rg'#1675
+#fileheader = 'Type_32_10CR_3000_Rg'#3585
+#fileheader = 'Type_4_10CR_3000_Rg'#2271
+
+
+
 npy='.npy'
+
 
 
 
@@ -39,18 +79,18 @@ propfile = loadnpyfile(prop[1000])
 print propfile.shape
 """
 num_orbits = int(datafile.shape[0])
-print num_orbits
+print( num_orbits )
 #record length
-length=int(datafile.shape[1])
-print length
+length=2000#int(datafile.shape[1])
+print(length)
 #num_orbits = 3000
-"""
+
 ###Storage Arrays###
 #delta_t = 1.0/(40000.0)
 #delays = np.arange(2,250) #248 elements
 #taus = delays*delta_t
 #freq = 1.0/taus
-num_delays = 749#249
+num_delays = 499#749#249
 PEs = np.zeros([num_delays+1])
 SCs = np.zeros([num_delays+1])
 
@@ -60,7 +100,7 @@ nfac = factorial(embed_delay)
 
 start_time = time.time()
 for loop_delay in np.arange(1,num_delays+1):
-    print 'On Delay ',loop_delay
+    print('On Delay ',loop_delay)
     print("--- %s minutes ---" % np.round((time.time() - start_time)/60.0,4))
     permstore_counter = []
     permstore_counter = Counter(permstore_counter)
@@ -68,10 +108,11 @@ for loop_delay in np.arange(1,num_delays+1):
     num_orbits_computed = 0
     num_orbits_skipped = 0
     for shot in np.arange(num_orbits):#(1,120):
+        if (shot%1000)==0: print ('On Orbit: ',shot)
         if np.min(datafile[shot,1:length])<0.1: 
             num_orbits_skipped+=1
             continue
-        if (shot%1000)==0: print 'On Orbit: ',shot
+        
         arr, nperms = PE_dist(datafile[shot,1:length],5,delay=loop_delay)
         permstore_counter = permstore_counter+arr
         tot_perms = tot_perms+nperms
@@ -100,6 +141,5 @@ for loop_delay in np.arange(1,num_delays+1):
 #    PE_arr1 = PE_dist(datafile[shot,1:],5,delay=1)
     #PEs[shot],SCs[shot]=CH(datafile[shot,1:],5,delay=1)
 
-filename='PE_SC_'+fileheader+'_'+str(num_delays)+'_delays_'+str(num_orbits)+'orbits_'+str(length)+'_timesteps.npz'
+filename='PE_SC_'+fileheader+'_'+str(num_delays)+'_delays_'+str(num_orbits_computed)+'orbits_of'+str(num_orbits)+'_total'+str(length)+'_timesteps_resorted.npz'
 np.savez(datadir+filename,PEs=PEs,SCs=SCs,num_orbits=num_orbits_computed,num_skipped=num_orbits_skipped)#,delta_t=delta_t,taus=taus,delays=delays,freq=freq)
-"""

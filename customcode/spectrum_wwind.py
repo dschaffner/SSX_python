@@ -47,7 +47,7 @@ def spectrum_wwind(array,time,window='None'):#time should be in seconds
         phase0 = np.append(phase0,-phase0[0])
         
     #Cut FFTs in half
-    Nwi = Nw/2
+    Nwi = Nw//2
     w2 = w0[Nwi:]
     aw2 = aw0[Nwi:]
     phase2 = phase0[Nwi:]

@@ -21,7 +21,7 @@ def load_picoscope(shot_number,maxrange=5,time_range=[-2.0,198.0],location='',pl
     startintg_index=1800
     meancutoff = 400
     #load file
-    location = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\BM2X\\Data Storage\\102918\\'
+    location = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\BM2X\\Data Storage\\102918\\'
     filename = '20181029_bdr_bdt_shot ('
     print(location+filename+str(shot_number)+').txt')
     data = np.loadtxt(location+filename+str(shot_number)+').txt',skiprows=2,unpack=True)

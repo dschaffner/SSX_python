@@ -23,6 +23,10 @@ datadir = 'C:\\Users\\dschaffner\\Dropbox\\PESC_Chaos\\Sorted_CR8\\'
 #fileheader = 'IDdatabase_Type_32_data'#9798 orbits
 fileheader = 'IDdatabase_Type_4_data_4000' #5818 orbits
 fileheader = 'Type_1_Rg'#2797
+fileheader = 'Type_2_Rg'#14671
+fileheader = 'Type_31_Rg'#1675
+fileheader = 'Type_32_Rg'#3585
+fileheader = 'Type_4_Rg'#2271
 #fileheader= 'Sine_700period_randomphase'
 #fileheader = 'Sine_300period_androot2lessperiod_randomphase'
 #fileheader = 'Sine_2000period_wp5timesroot2-180percent_randomphase'
@@ -48,7 +52,7 @@ datafile = loadnpyfile(datadir+fileheader+npy)
 
 #datafile[0,:] = -2*x
 
-print datafile.shape
+print(datafile.shape)
 num_orbits = datafile.shape[0]
 #num_orbits = 1
 start_orbit = 0
@@ -57,7 +61,7 @@ start_orbit = 0
 #print propfile.shape
 
 #num_orbits = int(len(data))
-
+"""
 ###Storage Arrays###
 #delta_t = 1.0/(40000.0)
 #delays = np.arange(2,250) #248 elements
@@ -109,3 +113,4 @@ filename='PE_SC_'+fileheader+'_'+str(num_delays)+'_delays_'+str(num_orbits)+'_or
 #filename='Data_twosins300and300divroot2_ranphasestart_'+str(num_delays)+'_delays.npz'
 #filename='Data_sine500period_ranphasestart_1k_'+str(num_delays)+'_delays.npz'
 #np.savez(datadir+filename,PEs=PEs,SCs=SCs)#,delta_t=delta_t,taus=taus,delays=delays,freq=freq)
+"""

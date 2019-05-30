@@ -47,10 +47,10 @@ def deriv(x, y):
     IDL's deriv function."""
     n = len(x)
     if n < 3:
-        print "Must have at least 3 points"
+        print ("Must have at least 3 points")
     else:
         if len(x) != len(y):
-            print "Vectors must have same size"
+            print ("Vectors must have same size")
             return
         d = (shift_left(y) - shift_right(y))/(shift_left(x) - shift_right(x))
         d[0] = (-3.0 * y[0] + 4.0 * y[1] - y[2]) / (x[2] - x[0])
@@ -179,8 +179,8 @@ def curveFit(f, x, y, p0 = None, sigma = None, **kw):
         import inspect
         args, varargs, varkw, defaults = inspect.getargspec(f)
         if len(args) < 2:
-            raise ValueError, "p0 not given as a sequence and inspection"\
-                " cannot determine the number of fit parameters"
+            raise (ValueError, "p0 not given as a sequence and inspection"\
+                " cannot determine the number of fit parameters")
         if p0 is None:
             p0 = 1.0
         p0 = [p0]*(len(args)-1)
@@ -250,10 +250,10 @@ def tempfit(f,x,y,p0, sigma=None):
     x2 = arange(x[0], x[-1], (x[1] - x[0])/10.)
     y2 = f(x2, *p)
     plot(x2,y2)
-    print "chi^2 = %f" % chi2
+    print ("chi^2 = %f" % chi2)
     ee = sqrt(cov.diagonal())
     for i in xrange(len(ee)):
-        print "%.2f +/- %.2f" % (p[i], ee[i])
+        print ("%.2f +/- %.2f" % (p[i], ee[i]))
     return p, ee
 
 # A helper function to make histograms
@@ -382,10 +382,10 @@ def test(a,b,c,d,e,f,g):
     a.plot(x,fit[0],'c-')
     a.plot(x,g[0],'k-')
     show()
-    print g[1]
-    print fit[1]
-    print g[3]
-    print fit[3]
+    print (g[1])
+    print (fit[1])
+    print (g[3])
+    print (fit[3])
 
 def slidingMedian(x, window):
     if hasattr(x, 'ndim'):
@@ -396,7 +396,7 @@ def slidingMedian(x, window):
                 tmp = sort(x[k-(window - 1):k+(window - 1)])
                 z[k] = tmp[window-1]
             return z
-    print "input must be 1-dim array"
+    print ("input must be 1-dim array")
     return 
 
 def peakDetect(x, y, threshold = None, showPlot=False, gauss = False, gsize=3):

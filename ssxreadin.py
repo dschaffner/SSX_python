@@ -73,7 +73,7 @@ httpDir = 'data'
 #else:
 #    basedir = '~/Documents/data'
 
-basedir = 'C:\Users\dschaffner\Google Drive\Data Deposit'
+basedir = 'C:\\Users\\dschaffner\\Google Drive\\Data Deposit'
 
 # I like to store may data elsewhere.  Others can put it where they want.
 #if os.getlogin() != 'tgray':
@@ -233,7 +233,7 @@ class ssx_data(ssx_base):
 
         # TODO put in exception handling here
         if not self.type:
-            print "No file"
+            print ("No file")
         else:
             if readData:
                 self._get_data_low()
@@ -241,9 +241,9 @@ class ssx_data(ssx_base):
     def showHeader(self):
         """Prints header strings."""
         if 'header' in dir(self):
-            print self.header
+            print (self.header)
         else:
-            print 'No header strings here.'
+            print ('No header strings here.')
 
     def _processFilename(self):
         """Construct full filename on local computer."""
@@ -289,7 +289,7 @@ class ssx_data(ssx_base):
         # firewall somehow.  If this fails, we will switch to SSH retrieval.
         # We will also fix the corner case of looking for a .txt.gz file on ion
         # that wasn't gzipped for some reason.
-        print "Retrieving %s... " % (fname),
+        print ("Retrieving %s... " % (fname),)
         global fetchMethod
         a = True
         b = True
@@ -306,7 +306,7 @@ class ssx_data(ssx_base):
                 # print 'Trying ssh without gz'
                 b = self._fetchFileSSH(removeGZ = True)
             if not a and b:
-                print "Setting fetch method to SSH."
+                print ("Setting fetch method to SSH.")
                 fetchMethod = "ssh"
         elif fetchMethod == 'ssh':
             b = self._fetchFileSSH()
@@ -321,8 +321,8 @@ class ssx_data(ssx_base):
         # need to correct the file path on the server to the one the webserver
         # presents
         remFn = '/'.join(self.remotefilename.split('/')[2:])
-        print 'localFn = ',localFn
-        print 'remFn = ',remFn
+        print ('localFn = ',localFn)
+        print ('remFn = ',remFn)
         if removeGZ:
             localFn = localFn.rsplit('.gz')[0]
             remFn = remFn.rsplit('.gz')[0]
@@ -332,9 +332,9 @@ class ssx_data(ssx_base):
         #    % (timeout, dataServer, remFn))
         chkCmd = ("/usr/bin/curl --connect-timeout %i -I -s -f http://%s/%s"
             % (timeout, dataServer, remFn))
-        print 'chkCmd = ',chkCmd		
+        print ('chkCmd = ',chkCmd)		
         cmd = shlex.split(chkCmd)
-        print 'cmd = ',cmd
+        print ('cmd = ',cmd)
         p = sb.Popen(cmd)#, stdout = sb.PIPE, stderr = sb.PIPE)
         stdout, stderr = p.communicate()
         # it's there, so go get it
@@ -346,7 +346,7 @@ class ssx_data(ssx_base):
             # stdout, stderr = p.communicate()
             try:
                 sb.check_call(cmd)
-                print "got via HTTP."
+                print ("got via HTTP.")
                 return True
             except:
                 pass
@@ -380,7 +380,7 @@ class ssx_data(ssx_base):
             cmd = shlex.split(getCmd)
             try:
                 sb.check_call(cmd)
-                print "got via SSH."
+                print ("got via SSH.")
                 return True
             except:
                 pass
