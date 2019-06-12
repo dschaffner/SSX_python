@@ -354,15 +354,15 @@ plt.legend(loc='lower right',fontsize=12,frameon=False,handlelength=5)
 ax3=plt.subplot(3,1,3)
 
 plt.plot(CRs,CRmaxesnorm/ODminsnorm,'o',color='blue')
-#plt.plot(CRs,np.repeat(20.73,5),color='red',label=r'Mean=20.73 $\pm \sigma=$2.48')
-#mean = 20.73 std=2.48
-#ax3.fill_between(CRs, 20.73-2.48,20.73+2.48, facecolor='lightpink', transform=ax3.transData)
+plt.plot(CRs,np.repeat(0.049,5),color='red',label=r'Mean=0.049 $\pm \sigma=$0.006')
+#mean = 0.049 std=0.006
+ax3.fill_between(CRs, 0.049-0.006,0.049+0.006, facecolor='lightpink', transform=ax3.transData)
 plt.yticks(fontsize=12)
 plt.xticks(np.array([4,5,6,7,8]),[4,5,6,7,8],fontsize=12)
 ax3.tick_params(axis='x',direction='inout',top=True)
 plt.xlabel(r'$R_{CR}$ [kpc]',fontsize=15)
 plt.ylabel(r'$\tau_s^{max}/T_{D}$',fontsize=15)
-#plt.ylim(10,29)
+plt.ylim(0,0.11)
 plt.text(0.07,0.92,'(c)',horizontalalignment='center',verticalalignment='center',transform=ax3.transAxes,fontsize=16)
 plt.legend(loc='lower right',fontsize=12,frameon=False,handlelength=5)
 
