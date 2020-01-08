@@ -54,7 +54,6 @@ plt.rc('ytick.major',width=2.0)
 plt.rc('xtick.minor',width=2.0)
 plt.rc('ytick.minor',width=2.0)
 plt.rc('lines',markersize=8,markeredgewidth=0.0,linewidth=1.0)
-
 fig=plt.figure(num=1,figsize=(10,8),dpi=600,facecolor='w',edgecolor='k')
 left  = 0.12  # the left side of the subplots of the figure
 right = 0.97    # the right side of the subplots of the figure
@@ -63,7 +62,6 @@ top = 0.96      # the top of the subplots of the figure
 wspace = 0.2   # the amount of width reserved for blank space between subplots
 hspace = 0.25   # the amount of height reserved for white space between subplots
 plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
-
 ax1=plt.subplot(1,1,1)
 plt.hist(abs(vels_tot), bins=10)  # arguments are passed to np.histogram
 plt.xticks(fontsize=12)

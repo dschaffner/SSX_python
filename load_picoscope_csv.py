@@ -5,78 +5,81 @@ import scipy.integrate as sp
 from scipy.interpolate import interp1d
 from scipy import signal
 import matplotlib.pylab as plt
-import ssx_functions as ssxf
+
 
 #data = '061615'
 #shot = 1
 #time_range = [20.0,80.0] #in us
 
-def load_picoscope(shot_number,maxrange=5,scopenum=1,time_range=[-2.0,198.0],location='',plot=False):
+def load_picoscope_csv(shot_number,date='',location='',plot=False,maxrange=5):
     
-    if scopenum == 1:
-        scopename='pico1\\'
-    if scopenum == 2:
-        scopename='pico2\\'
-    if scopenum == 3:
-        scopename='pico3\\'
-    if scopenum == 4:
-        scopename='pico4\\'
     
     probe_dia = 0.003175#m (1/8'' probe)
-    probe_dia = 0.00158755#m (1/16'' probe)
+    #probe_dia = 0.00158755#m (1/16'' probe)
     hole_sep = 0.001016#m (1/16''probe)
     r_probe_area = np.pi*(probe_dia/2)**2
     tz_probe_area = probe_dia*hole_sep
     startintg_index=0#3000
-    meancutoff = 1000
+    meancutoff = 300
     #load file
-    location = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\BM2X\\Data Storage\\04232019\\'
-    filename = '20190423-0001 ('
-    print(location+scopename+filename+str(shot_number)+').txt')
-    data = np.loadtxt(location+scopename+filename+str(shot_number)+').txt',skiprows=2,unpack=True)
+    #location = 'C:\\Users\\dschaffner\\Dropbox\\Data\\BMPL\\BMX\\2019\\Correlation Campaign\\Encoding Converted for PC\\062820
+    #19\\'
+    filename = date+'-00'
+    print(location+filename+str(shot_number)+'.csv')
+    data = np.genfromtxt(location+filename+str(shot_number)+'.csv',delimiter=',',skip_header=2)
 
     #return data
-    
+    dataraw=data
+    Bdotraw1=dataraw[:,1]
+    Bdotraw2=dataraw[:,2]
+    Bdotraw3=dataraw[:,3]
+    isatraw=dataraw[:,4]
     data=data[:,startintg_index:]
     
-    time_ms = data[0,:]
+    time_ms = data[:,0]
     time_s = time_ms*1e-6
     timeB_s = time_s[1:]
     timeB_ms = time_ms[1:]
-        
-    Bdot1 = data[1,:]-np.mean(data[1,0:meancutoff])
+    timeraw = dataraw[:,0]
+    
+   
+
+    Bdot1 = Bdotraw1-np.mean(Bdotraw1[0:meancutoff])
     neginfs = np.isneginf(Bdot1)
     Bdot1[np.where(neginfs)] = -maxrange
     posinfs = np.isinf(Bdot1)
     Bdot1[np.where(posinfs)] = maxrange
     
-    Bdot2 = data[2,:]-np.mean(data[2,0:meancutoff])
+    Bdot2 = Bdotraw2-np.mean(Bdotraw2[0:meancutoff])
     neginfs = np.isneginf(Bdot2)
     Bdot2[np.where(neginfs)] = -maxrange
     posinfs = np.isinf(Bdot2)
     Bdot2[np.where(posinfs)] = maxrange
     
-    Bdot3 = data[3,:]-np.mean(data[3,0:meancutoff])
+    Bdot3 = Bdotraw3-np.mean(Bdotraw3[0:meancutoff])
     neginfs = np.isneginf(Bdot3)
     Bdot3[np.where(neginfs)] = -maxrange
     posinfs = np.isinf(Bdot3)
     Bdot3[np.where(posinfs)] = maxrange
     
-    Bdot4 = data[4,:]-np.mean(data[4,0:meancutoff])
-    neginfs = np.isneginf(Bdot4)
-    Bdot4[np.where(neginfs)] = -maxrange
-    posinfs = np.isinf(Bdot4)
-    Bdot4[np.where(posinfs)] = maxrange
+    isat = isatraw-np.mean(isatraw[0:meancutoff])
+    neginfs = np.isneginf(isat)
+    isat[np.where(neginfs)] = -maxrange
+    posinfs = np.isinf(isat)
+    isat[np.where(posinfs)] = maxrange
     
     B1 = sp.cumtrapz(Bdot1/r_probe_area,time_s)*1e4#Gauss
     B2 = sp.cumtrapz(Bdot2/r_probe_area,time_s)*1e4#Gauss
     B3 = sp.cumtrapz(Bdot3/r_probe_area,time_s)*1e4#Gauss
-    B4 = sp.cumtrapz(Bdot4/r_probe_area,time_s)*1e4#Gauss
+
     #Bt7 = 3.162*sp.cumtrapz(Btdot7/tz_probe_area,time_s)*1e4#Gauss
     #Bt9 = 3.162*sp.cumtrapz(Btdot9/tz_probe_area,time_s)*1e4#Gauss
     #Bz7 = sp.cumtrapz(Bzdot7/tz_probe_area,time_s)*1e4#Gauss
     #Bz9 = sp.cumtrapz(Bzdot9/tz_probe_area,time_s)*1e4#Gauss
     #filtering
+
+    return time_ms,time_s,timeB_s,timeB_ms,timeraw,Bdotraw1,Bdotraw2,Bdotraw3,isatraw,Bdot1,Bdot2,Bdot3,isat,B1,B2,B3
+"""
     def butter_highpass(cutoff, fs, order=5):
         nyq = 0.5 * fs
         normal_cutoff = cutoff / nyq
@@ -125,4 +128,4 @@ def load_picoscope(shot_number,maxrange=5,scopenum=1,time_range=[-2.0,198.0],loc
     #    plt.figure(2)
     #    plt.plot(time[1:],Btot)
         
-    return time_ms,time_s,timeB_s,timeB_ms,Bdot1,Bdot2,Bdot3,Bdot4,B1,B2,B3,B4,B1filt,B2filt,B3filt,B4filt
+    """

@@ -16,7 +16,7 @@ import time
 #calc_PESC_fluid.py
 
 datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\GalpyData_July2018\\'
-
+datadir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\GalpyData_July2018\\'
 #fileheader = 'IDdatabase_Type_1_4co_data_3000'#1621
 #fileheader = 'IDdatabase_Type_2_4co_data_3000'#11370
 #fileheader = 'IDdatabase_Type_31_4co_data_3000'#2212
@@ -44,8 +44,10 @@ datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data
 #fileheader = 'IDdatabase_Type_1_8co_data_3000'#1621
 #fileheader = 'IDdatabase_Type_2_8co_data_1000'#11370
 #fileheader = 'IDdatabase_Type_31_8co_data_1000'#2212
-fileheader = 'IDdatabase_Type_32_8co_data_8000'#4157
+#fileheader = 'IDdatabase_Type_32_8co_data_8000'#4157
 #fileheader = 'IDdatabase_Type_4_8co_data_1000'#5637
+
+fileheader = 'CR6_3t_Rg_Full'
 npy='.npy'
 
 
@@ -62,6 +64,7 @@ print datafile.shape
 propfile = loadnpyfile(prop[1000])
 print propfile.shape
 """
+
 num_orbits = int(datafile.shape[0])
 #record length
 #length=[500,550,600,650,700,750,800,850,900,950,1000,1050,1100,1150,1200,1250]#,1300,1350,1400,1450,1500,1550,1600,1650,1700,1750,1800,1850,1900,1950,2000]
@@ -115,3 +118,4 @@ for length_loop in length:
     
     filename='PE_SC_'+fileheader+'_'+str(num_delays)+'_delays_'+str(num_orbits_computed)+'orbits_'+str(length_loop)+'_timesteps.npz'
     np.savez(datadir+filename,PEs=PEs,SCs=SCs,num_orbits=num_orbits_computed,num_skipped=num_orbits_skipped)#,delta_t=delta_t,taus=taus,delays=delays,freq=freq)
+"""
