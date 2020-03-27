@@ -61,10 +61,20 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx_10M=datafile['PExs']
 SCsx_10M=datafile['SCxs']
 
+fileheader = 'PE_SC_npend20mass_135deg_0velIC_embeddelay5_999_delays'
+datafile = loadnpzfile(datadir+fileheader+npz)
+PEsx_20M=datafile['PExs']
+SCsx_20M=datafile['SCxs']
+
 fileheader = 'PE_SC_interpolated_noise_100kInto10k_embeddelay5_999_delays'
 datafile = loadnpzfile(datadir+fileheader+npz)
 PEs_noise=datafile['PEs']
 SCs_noise=datafile['SCs']
+
+fileheader = 'PE_SC_interpolated_noise_100kInto5k_embeddelay5_999_delays'
+datafile = loadnpzfile(datadir+fileheader+npz)
+PEs_noise2=datafile['PEs']
+SCs_noise2=datafile['SCs']
 
 
 
@@ -72,12 +82,14 @@ tmax, dt = 100, 0.001
 t = np.arange(0, tmax+dt, dt)
 timeindex = delayindex*0.001
 
+plt.plot(SCsx_20M[:,10])
 plt.plot(SCsx_10M[:,5])
 plt.plot(SCsx_5M[:,2])
 plt.plot(SCsx_2M[:,1])
 plt.plot(SCs_noise)
 
 plt.figure(2)
+plt.plot(PEsx_20M[:,10])
 plt.plot(PEsx_10M[:,5])
 plt.plot(PEsx_5M[:,2])
 plt.plot(PEsx_2M[:,1])

@@ -58,9 +58,9 @@ for loop_delay in np.arange(len(delay_array)):
     C =  -2.*((PE_tot_Se - 0.5*PE_tot - 0.5*np.log2(nfac))
                 /((1 + 1./nfac)*np.log2(nfac+1) - 2*np.log2(2*nfac) 
                 + np.log2(nfac))*(PE_tot/np.log2(nfac)))
-    PExs[loop_delay,mass]=PE_tot/np.log2(nfac)
-    SCxs[loop_delay,mass]=C
+    PExs[loop_delay]=PE_tot/np.log2(nfac)
+    SCxs[loop_delay]=C
 
-np.savez(datadir+filename,perm=permstore_counter)
+#np.savez(datadir+filename,perm=permstore_counter)
 filename='PE_SC_npend'+shortheader+'_embeddelay'+str(embeddelay)+'_'+str(num_delays)+'_delays.npz'
 np.savez(datadir+filename,PExs=PExs,SCxs=SCxs,PEys=PEys,SCys=SCys,delays=delay_array)

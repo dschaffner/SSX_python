@@ -28,9 +28,9 @@ nfac = factorial(embeddelay)
 #xaxis_full = np.linspace(1,10,100000)
 #noise_array=np.random.uniform(1,10,size=10000)
 #noise_interp=np.interp(xaxis_full,xaxis,noise_array)    
-xaxis = np.linspace(1,1000,10000)
+xaxis = np.linspace(1,1000,5000)
 xaxis_full = np.linspace(1,1000,100000)
-noise_array=np.random.uniform(1,1000,size=10000)
+noise_array=np.random.uniform(1,1000,size=5000)
 noise_interp=np.interp(xaxis_full,xaxis,noise_array)        
     
     #delay_array = np.array([1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900,1000,2000,3000,4000,5000,6000,7000,8000,9000,10000,20000,30000,40000,50000])
@@ -58,7 +58,7 @@ for loop_delay in np.arange(len(delay_array)):
     SCs[loop_delay]=C
 print( 'x1 completed')
 
-filename='PE_SC_interpolated_noise_100kInto10k_embeddelay'+str(embeddelay)+'_'+str(num_delays)+'_delays.npz'
+filename='PE_SC_interpolated_noise_100kInto5k_embeddelay'+str(embeddelay)+'_'+str(num_delays)+'_delays.npz'
 np.savez(datadir+filename,PEs=PEs,SCs=SCs,
                               #PEsx2=PEsx2,SCsx2=SCsx2,
                               #PEsx3=PEsx3,SCsx3=SCsx3, 

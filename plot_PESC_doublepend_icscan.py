@@ -13,7 +13,7 @@ from math import factorial
 import os
 
 #calc_PESC_solarwind_chen.py
-datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\DoublePendulum\\'
+datadir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\DoublePendulum\\'
 fileheader = 'PE_SC_DPDoubPen_LsMsEq1_grav1_ICC1_embeddelay5_999_delays'
 npz='.npz'
 datafile = loadnpzfile(datadir+fileheader+npz)

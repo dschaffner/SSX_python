@@ -14,6 +14,7 @@ import os
 
 #calc_PESC_solarwind_chen.py
 datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\DoublePendulum\\'
+datadir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\DoublePendulum\\'
 fileheader = 'PE_SC_DPDoubPen_LsMsEq1_grav1_ICC1_embeddelay5_999_delays'
 npz='.npz'
 datafile = loadnpzfile(datadir+fileheader+npz)
@@ -23,12 +24,15 @@ delayindex=datafile['delays']
 
 maxmin_range_index1 = 50
 maxmin_range_index2 = 700
+tmax, dt = 100, 0.001
 
 fileheader = 'PE_SC_DPDoubPen_LsEq1_MsEq1_g9p81_tstep001_icanglescan_IC0_embeddelay5_999_delays'
 datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang0=datafile['PEsx1']
 SCsx1_icang0=datafile['SCsx1']
 SCmax_icang0 = np.max(SCsx1_icang0[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang0 = np.argmax(SCsx1_icang0[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang0 = SCmaxargindex_icang0*dt
 SCmin_icang0 = np.min(SCsx1_icang0[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang0 = SCmax_icang0-SCmin_icang0
 
@@ -37,6 +41,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang1=datafile['PEsx1']
 SCsx1_icang1=datafile['SCsx1']
 SCmax_icang1 = np.max(SCsx1_icang1[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang1 = np.argmax(SCsx1_icang1[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang1 = SCmaxargindex_icang1*dt
 SCmin_icang1 = np.min(SCsx1_icang1[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang1 = SCmax_icang1-SCmin_icang1
 
@@ -45,6 +51,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang2=datafile['PEsx1']
 SCsx1_icang2=datafile['SCsx1']
 SCmax_icang2 = np.max(SCsx1_icang2[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang2 = np.argmax(SCsx1_icang2[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang2 = SCmaxargindex_icang2*dt
 SCmin_icang2 = np.min(SCsx1_icang2[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang2 = SCmax_icang2-SCmin_icang2
 
@@ -53,6 +61,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang3=datafile['PEsx1']
 SCsx1_icang3=datafile['SCsx1']
 SCmax_icang3 = np.max(SCsx1_icang3[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang3 = np.argmax(SCsx1_icang3[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang3 = SCmaxargindex_icang3*dt
 SCmin_icang3 = np.min(SCsx1_icang3[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang3 = SCmax_icang3-SCmin_icang3
 
@@ -61,6 +71,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang4=datafile['PEsx1']
 SCsx1_icang4=datafile['SCsx1']
 SCmax_icang4 = np.max(SCsx1_icang4[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang4 = np.argmax(SCsx1_icang4[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang4 = SCmaxargindex_icang4*dt
 SCmin_icang4 = np.min(SCsx1_icang4[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang4 = SCmax_icang4-SCmin_icang4
 
@@ -69,6 +81,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang5=datafile['PEsx1']
 SCsx1_icang5=datafile['SCsx1']
 SCmax_icang5 = np.max(SCsx1_icang5[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang5 = np.argmax(SCsx1_icang5[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang5 = SCmaxargindex_icang5*dt
 SCmin_icang5 = np.min(SCsx1_icang5[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang5 = SCmax_icang5-SCmin_icang5
 
@@ -77,6 +91,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang6=datafile['PEsx1']
 SCsx1_icang6=datafile['SCsx1']
 SCmax_icang6 = np.max(SCsx1_icang6[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang6 = np.argmax(SCsx1_icang6[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang6 = SCmaxargindex_icang6*dt
 SCmin_icang6 = np.min(SCsx1_icang6[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang6 = SCmax_icang6-SCmin_icang6
 
@@ -85,6 +101,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang7=datafile['PEsx1']
 SCsx1_icang7=datafile['SCsx1']
 SCmax_icang7 = np.max(SCsx1_icang7[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang7 = np.argmax(SCsx1_icang7[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang7 = SCmaxargindex_icang7*dt
 SCmin_icang7 = np.min(SCsx1_icang7[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang7 = SCmax_icang7-SCmin_icang7
 
@@ -93,6 +111,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang8=datafile['PEsx1']
 SCsx1_icang8=datafile['SCsx1']
 SCmax_icang8 = np.max(SCsx1_icang8[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang8 = np.argmax(SCsx1_icang8[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang8 = SCmaxargindex_icang8*dt
 SCmin_icang8 = np.min(SCsx1_icang8[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang8 = SCmax_icang8-SCmin_icang8
 
@@ -101,6 +121,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang9=datafile['PEsx1']
 SCsx1_icang9=datafile['SCsx1']
 SCmax_icang9 = np.max(SCsx1_icang9[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang9 = np.argmax(SCsx1_icang9[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang9 = SCmaxargindex_icang9*dt
 SCmin_icang9 = np.min(SCsx1_icang9[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang9 = SCmax_icang9-SCmin_icang9
 
@@ -109,6 +131,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang10=datafile['PEsx1']
 SCsx1_icang10=datafile['SCsx1']
 SCmax_icang10 = np.max(SCsx1_icang10[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang10 = np.argmax(SCsx1_icang10[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang10 = SCmaxargindex_icang10*dt
 SCmin_icang10 = np.min(SCsx1_icang10[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang10 = SCmax_icang10-SCmin_icang10
 
@@ -117,6 +141,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang11=datafile['PEsx1']
 SCsx1_icang11=datafile['SCsx1']
 SCmax_icang11 = np.max(SCsx1_icang11[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang11 = np.argmax(SCsx1_icang11[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang11 = SCmaxargindex_icang11*dt
 SCmin_icang11 = np.min(SCsx1_icang11[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang11 = SCmax_icang11-SCmin_icang11
 
@@ -125,6 +151,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang12=datafile['PEsx1']
 SCsx1_icang12=datafile['SCsx1']
 SCmax_icang12 = np.max(SCsx1_icang12[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang12 = np.argmax(SCsx1_icang12[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang12 = SCmaxargindex_icang12*dt
 SCmin_icang12 = np.min(SCsx1_icang12[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang12 = SCmax_icang12-SCmin_icang12
 
@@ -133,6 +161,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang13=datafile['PEsx1']
 SCsx1_icang13=datafile['SCsx1']
 SCmax_icang13 = np.max(SCsx1_icang13[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang13 = np.argmax(SCsx1_icang13[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang13 = SCmaxargindex_icang13*dt
 SCmin_icang13 = np.min(SCsx1_icang13[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang13 = SCmax_icang13-SCmin_icang13
 
@@ -141,6 +171,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang14=datafile['PEsx1']
 SCsx1_icang14=datafile['SCsx1']
 SCmax_icang14 = np.max(SCsx1_icang14[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang14 = np.argmax(SCsx1_icang14[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang14 = SCmaxargindex_icang14*dt
 SCmin_icang14 = np.min(SCsx1_icang14[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang14 = SCmax_icang14-SCmin_icang14
 
@@ -149,6 +181,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang15=datafile['PEsx1']
 SCsx1_icang15=datafile['SCsx1']
 SCmax_icang15 = np.max(SCsx1_icang15[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang15 = np.argmax(SCsx1_icang15[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang15 = SCmaxargindex_icang15*dt
 SCmin_icang15 = np.min(SCsx1_icang15[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang15 = SCmax_icang15-SCmin_icang15
 
@@ -157,6 +191,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang16=datafile['PEsx1']
 SCsx1_icang16=datafile['SCsx1']
 SCmax_icang16 = np.max(SCsx1_icang16[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang16 = np.argmax(SCsx1_icang16[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang16 = SCmaxargindex_icang16*dt
 SCmin_icang16 = np.min(SCsx1_icang16[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang16 = SCmax_icang16-SCmin_icang16
 
@@ -165,6 +201,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang17=datafile['PEsx1']
 SCsx1_icang17=datafile['SCsx1']
 SCmax_icang17 = np.max(SCsx1_icang17[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang17 = np.argmax(SCsx1_icang17[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang17 = SCmaxargindex_icang17*dt
 SCmin_icang17 = np.min(SCsx1_icang17[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang17 = SCmax_icang17-SCmin_icang17
 
@@ -173,6 +211,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang18=datafile['PEsx1']
 SCsx1_icang18=datafile['SCsx1']
 SCmax_icang18 = np.max(SCsx1_icang18[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang18 = np.argmax(SCsx1_icang18[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang18 = SCmaxargindex_icang18*dt
 SCmin_icang18 = np.min(SCsx1_icang18[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang18 = SCmax_icang18-SCmin_icang18
 
@@ -181,6 +221,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang19=datafile['PEsx1']
 SCsx1_icang19=datafile['SCsx1']
 SCmax_icang19 = np.max(SCsx1_icang19[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang19 = np.argmax(SCsx1_icang19[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang19 = SCmaxargindex_icang19*dt
 SCmin_icang19 = np.min(SCsx1_icang19[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang19 = SCmax_icang19-SCmin_icang19
 
@@ -189,6 +231,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang20=datafile['PEsx1']
 SCsx1_icang20=datafile['SCsx1']
 SCmax_icang20 = np.max(SCsx1_icang20[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang20 = np.argmax(SCsx1_icang20[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang20 = SCmaxargindex_icang20*dt
 SCmin_icang20 = np.min(SCsx1_icang20[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang20 = SCmax_icang20-SCmin_icang20
 
@@ -197,6 +241,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang21=datafile['PEsx1']
 SCsx1_icang21=datafile['SCsx1']
 SCmax_icang21 = np.max(SCsx1_icang21[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang21 = np.argmax(SCsx1_icang21[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang21 = SCmaxargindex_icang21*dt
 SCmin_icang21 = np.min(SCsx1_icang21[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang21 = SCmax_icang21-SCmin_icang21
 
@@ -205,6 +251,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang22=datafile['PEsx1']
 SCsx1_icang22=datafile['SCsx1']
 SCmax_icang22 = np.max(SCsx1_icang22[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang22 = np.argmax(SCsx1_icang22[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang22 = SCmaxargindex_icang22*dt
 SCmin_icang22 = np.min(SCsx1_icang22[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang22 = SCmax_icang22-SCmin_icang22
 
@@ -213,6 +261,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang23=datafile['PEsx1']
 SCsx1_icang23=datafile['SCsx1']
 SCmax_icang23 = np.max(SCsx1_icang23[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang23 = np.argmax(SCsx1_icang23[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang23 = SCmaxargindex_icang23*dt
 SCmin_icang23 = np.min(SCsx1_icang23[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang23 = SCmax_icang23-SCmin_icang23
 
@@ -221,6 +271,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang24=datafile['PEsx1']
 SCsx1_icang24=datafile['SCsx1']
 SCmax_icang24 = np.max(SCsx1_icang24[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang24 = np.argmax(SCsx1_icang24[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang24 = SCmaxargindex_icang24*dt
 SCmin_icang24 = np.min(SCsx1_icang24[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang24 = SCmax_icang24-SCmin_icang24
 
@@ -229,6 +281,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang25=datafile['PEsx1']
 SCsx1_icang25=datafile['SCsx1']
 SCmax_icang25 = np.max(SCsx1_icang25[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang25 = np.argmax(SCsx1_icang25[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang25 = SCmaxargindex_icang25*dt
 SCmin_icang25 = np.min(SCsx1_icang25[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang25 = SCmax_icang25-SCmin_icang25
 
@@ -237,6 +291,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang26=datafile['PEsx1']
 SCsx1_icang26=datafile['SCsx1']
 SCmax_icang26 = np.max(SCsx1_icang26[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang26 = np.argmax(SCsx1_icang26[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang26 = SCmaxargindex_icang26*dt
 SCmin_icang26 = np.min(SCsx1_icang26[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang26 = SCmax_icang26-SCmin_icang26
 
@@ -245,6 +301,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang27=datafile['PEsx1']
 SCsx1_icang27=datafile['SCsx1']
 SCmax_icang27 = np.max(SCsx1_icang27[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang27 = np.argmax(SCsx1_icang27[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang27 = SCmaxargindex_icang27*dt
 SCmin_icang27 = np.min(SCsx1_icang27[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang27 = SCmax_icang27-SCmin_icang27
 
@@ -253,6 +311,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang28=datafile['PEsx1']
 SCsx1_icang28=datafile['SCsx1']
 SCmax_icang28 = np.max(SCsx1_icang28[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang28 = np.argmax(SCsx1_icang28[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang28 = SCmaxargindex_icang28*dt
 SCmin_icang28 = np.min(SCsx1_icang28[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang28 = SCmax_icang28-SCmin_icang28
 
@@ -261,6 +321,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang29=datafile['PEsx1']
 SCsx1_icang29=datafile['SCsx1']
 SCmax_icang29 = np.max(SCsx1_icang29[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang29 = np.argmax(SCsx1_icang29[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang29 = SCmaxargindex_icang29*dt
 SCmin_icang29 = np.min(SCsx1_icang29[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang29 = SCmax_icang29-SCmin_icang29
 
@@ -269,6 +331,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang30=datafile['PEsx1']
 SCsx1_icang30=datafile['SCsx1']
 SCmax_icang30 = np.max(SCsx1_icang30[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang30 = np.argmax(SCsx1_icang30[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang30 = SCmaxargindex_icang30*dt
 SCmin_icang30 = np.min(SCsx1_icang30[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang30 = SCmax_icang30-SCmin_icang30
 
@@ -277,6 +341,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang31=datafile['PEsx1']
 SCsx1_icang31=datafile['SCsx1']
 SCmax_icang31 = np.max(SCsx1_icang31[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang31 = np.argmax(SCsx1_icang31[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang31 = SCmaxargindex_icang31*dt
 SCmin_icang31 = np.min(SCsx1_icang31[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang31 = SCmax_icang31-SCmin_icang31
 
@@ -285,6 +351,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang32=datafile['PEsx1']
 SCsx1_icang32=datafile['SCsx1']
 SCmax_icang32 = np.max(SCsx1_icang32[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang32 = np.argmax(SCsx1_icang32[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang32 = SCmaxargindex_icang32*dt
 SCmin_icang32 = np.min(SCsx1_icang32[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang32 = SCmax_icang32-SCmin_icang32
 
@@ -293,6 +361,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang33=datafile['PEsx1']
 SCsx1_icang33=datafile['SCsx1']
 SCmax_icang33 = np.max(SCsx1_icang33[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang33 = np.argmax(SCsx1_icang33[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang33 = SCmaxargindex_icang33*dt
 SCmin_icang33 = np.min(SCsx1_icang33[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang33 = SCmax_icang33-SCmin_icang33
 
@@ -301,6 +371,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang34=datafile['PEsx1']
 SCsx1_icang34=datafile['SCsx1']
 SCmax_icang34 = np.max(SCsx1_icang34[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang34 = np.argmax(SCsx1_icang34[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang34 = SCmaxargindex_icang34*dt
 SCmin_icang34 = np.min(SCsx1_icang34[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang34 = SCmax_icang34-SCmin_icang34
 
@@ -309,6 +381,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang35=datafile['PEsx1']
 SCsx1_icang35=datafile['SCsx1']
 SCmax_icang35 = np.max(SCsx1_icang35[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang35 = np.argmax(SCsx1_icang35[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang35 = SCmaxargindex_icang35*dt
 SCmin_icang35 = np.min(SCsx1_icang35[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang35 = SCmax_icang35-SCmin_icang35
 
@@ -317,6 +391,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang36=datafile['PEsx1']
 SCsx1_icang36=datafile['SCsx1']
 SCmax_icang36 = np.max(SCsx1_icang36[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang36 = np.argmax(SCsx1_icang36[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang36 = SCmaxargindex_icang36*dt
 SCmin_icang36 = np.min(SCsx1_icang36[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang36 = SCmax_icang36-SCmin_icang36
 
@@ -325,6 +401,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang37=datafile['PEsx1']
 SCsx1_icang37=datafile['SCsx1']
 SCmax_icang37 = np.max(SCsx1_icang37[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang37 = np.argmax(SCsx1_icang37[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang37 = SCmaxargindex_icang37*dt
 SCmin_icang37 = np.min(SCsx1_icang37[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang37 = SCmax_icang37-SCmin_icang37
 
@@ -333,6 +411,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang38=datafile['PEsx1']
 SCsx1_icang38=datafile['SCsx1']
 SCmax_icang38 = np.max(SCsx1_icang38[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang38 = np.argmax(SCsx1_icang38[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang38 = SCmaxargindex_icang38*dt
 SCmin_icang38 = np.min(SCsx1_icang38[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang38 = SCmax_icang38-SCmin_icang38
 
@@ -341,6 +421,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang39=datafile['PEsx1']
 SCsx1_icang39=datafile['SCsx1']
 SCmax_icang39 = np.max(SCsx1_icang39[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang39 = np.argmax(SCsx1_icang39[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang39 = SCmaxargindex_icang39*dt
 SCmin_icang39 = np.min(SCsx1_icang39[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang39 = SCmax_icang39-SCmin_icang39
 
@@ -349,6 +431,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang40=datafile['PEsx1']
 SCsx1_icang40=datafile['SCsx1']
 SCmax_icang40 = np.max(SCsx1_icang40[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang40 = np.argmax(SCsx1_icang40[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang40 = SCmaxargindex_icang40*dt
 SCmin_icang40 = np.min(SCsx1_icang40[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang40 = SCmax_icang40-SCmin_icang40
 
@@ -357,6 +441,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang41=datafile['PEsx1']
 SCsx1_icang41=datafile['SCsx1']
 SCmax_icang41 = np.max(SCsx1_icang41[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang41 = np.argmax(SCsx1_icang41[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang41 = SCmaxargindex_icang41*dt
 SCmin_icang41 = np.min(SCsx1_icang41[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang41 = SCmax_icang41-SCmin_icang41
 
@@ -365,6 +451,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang42=datafile['PEsx1']
 SCsx1_icang42=datafile['SCsx1']
 SCmax_icang42 = np.max(SCsx1_icang42[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang42 = np.argmax(SCsx1_icang42[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang42 = SCmaxargindex_icang42*dt
 SCmin_icang42 = np.min(SCsx1_icang42[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang42 = SCmax_icang42-SCmin_icang42
 
@@ -373,6 +461,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang43=datafile['PEsx1']
 SCsx1_icang43=datafile['SCsx1']
 SCmax_icang43 = np.max(SCsx1_icang43[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang43 = np.argmax(SCsx1_icang43[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang43 = SCmaxargindex_icang43*dt
 SCmin_icang43 = np.min(SCsx1_icang43[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang43 = SCmax_icang43-SCmin_icang43
 
@@ -381,6 +471,8 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEsx1_icang44=datafile['PEsx1']
 SCsx1_icang44=datafile['SCsx1']
 SCmax_icang44 = np.max(SCsx1_icang44[maxmin_range_index1:maxmin_range_index2])
+SCmaxargindex_icang44 = np.argmax(SCsx1_icang44[maxmin_range_index1:maxmin_range_index2])+maxmin_range_index1
+SCmaxtime_icang44 = SCmaxargindex_icang44*dt
 SCmin_icang44 = np.min(SCsx1_icang44[maxmin_range_index1:maxmin_range_index2])
 SCrange_icang44 = SCmax_icang44-SCmin_icang44
 
@@ -463,6 +555,46 @@ SCmaxes=np.array([SCmax_icang0,
                  SCmax_icang42,
                  SCmax_icang43,
                  SCmax_icang44])
+
+SCmaxtimes=np.array([SCmaxtime_icang0,
+                 SCmaxtime_icang1,
+                 SCmaxtime_icang2,
+                 SCmaxtime_icang3,
+                 SCmaxtime_icang4,
+                 SCmaxtime_icang5,
+                 SCmaxtime_icang6,
+                 SCmaxtime_icang7,
+                 SCmaxtime_icang8,
+                 SCmaxtime_icang9,
+                 SCmaxtime_icang10,
+                 SCmaxtime_icang11,
+                 SCmaxtime_icang12,
+                 SCmaxtime_icang13,
+                 SCmaxtime_icang14,
+                 SCmaxtime_icang15,
+                 SCmaxtime_icang16,
+                 SCmaxtime_icang17,
+                 SCmaxtime_icang18,
+                 SCmaxtime_icang19,
+                 SCmaxtime_icang20,
+                 SCmaxtime_icang21,
+                 SCmaxtime_icang22,
+                 SCmaxtime_icang23,
+                 SCmaxtime_icang24,
+                 SCmaxtime_icang25,
+                 SCmaxtime_icang26,
+                 SCmaxtime_icang27,
+                 SCmaxtime_icang28,
+                 SCmaxtime_icang29,
+                 SCmaxtime_icang30,
+                 SCmaxtime_icang31,
+                 SCmaxtime_icang32,
+                 SCmaxtime_icang33,
+                 SCmaxtime_icang40,
+                 SCmaxtime_icang41,
+                 SCmaxtime_icang42,
+                 SCmaxtime_icang43,
+                 SCmaxtime_icang44])
 
 SCranges=np.array([SCrange_icang0,
                  SCrange_icang1,
@@ -552,7 +684,7 @@ plt.rc('xtick.minor',width=2.0)
 plt.rc('ytick.minor',width=2.0)
 plt.rc('lines',markersize=8,markeredgewidth=0.0,linewidth=2.0)
 #plt.rcParams['ps.fonttype'] = 42
-fig=plt.figure(num=1,figsize=(9,7),dpi=600,facecolor='w',edgecolor='k')
+fig=plt.figure(num=1,figsize=(9,7),dpi=300,facecolor='w',edgecolor='k')
 left  = 0.16  # the left side of the subplots of the figure
 right = 0.94    # the right side of the subplots of the figure
 bottom = 0.08  # the bottom of the subplots of the figure
@@ -566,12 +698,12 @@ ax1.tick_params(axis='y',direction='inout',top=True)
 
 logmaxes = np.log10(SCmaxes)
 logmins = np.log10(SCmins)
-loglya = np.log(lyapanovs)
+loglya = np.log10(lyapanovs)
 #linear regression
 from scipy import stats
 slope, intercept, r_value, p_value, std_err = stats.linregress(loglya[3:],SCmaxes[3:])
-print 'C maxes intercept ',intercept
-print 'C maxes slope ',slope
+print ('C maxes intercept ',intercept)
+print ('C maxes slope ',slope)
 
 #plt.figure(1)
 plt.plot(loglya,SCmaxes,'o')
@@ -590,8 +722,8 @@ ax1.set_yticklabels([])
 
 
 slope, intercept, r_value, p_value, std_err = stats.linregress(loglya[3:],SCmins[3:])
-print 'C mins intercept ',intercept
-print 'C mins slope ',slope
+print ('C mins intercept ',intercept)
+print ('C mins slope ',slope)
 
 ax1=plt.subplot(3,2,3)
 ax1.tick_params(axis='x',direction='inout',top=True)
@@ -611,8 +743,8 @@ plt.xlabel('Lyapanov',fontsize=15)
 ax1.set_yticklabels([])
 
 slope, intercept, r_value, p_value, std_err = stats.linregress(loglya[3:],SCranges[3:])
-print 'C range intercept ',intercept
-print 'C range slope ',slope
+print ('C range intercept ',intercept)
+print ('C range slope ',slope)
 
 ax1=plt.subplot(3,2,5)
 ax1.tick_params(axis='x',direction='inout',top=True)
@@ -635,9 +767,9 @@ ax1.set_yticklabels([])
 savefilename='Cmeasures_vs_Lyapunov_3.eps'
 #savefilename='PE_galpy0718_1000timesteps_all_orbits.png'
 savefile = os.path.normpath(datadir+savefilename)
-plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
-plt.clf()
-plt.close()
+#plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
+#plt.clf()
+#plt.close()
 
 """
 tmax, dt = 100, 0.001

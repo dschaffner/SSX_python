@@ -15,6 +15,7 @@ import get_corr as gc
 
 #calc_PESC_solarwind_chen.py
 datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\DoublePendulum\\'
+datadir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\DoublePendulum\\'
 fileheader='DoubPen_L1-1_L2-1_m1-1_m2-1_9p8_scan_theta1_ic'
 fileheader='DoubPen_L1-1_L2-1_m1-1_m2-1_9p8_chaos'
 fileheader = 'DoubPen_LsMsEq1_9p8_ICP1'
@@ -92,10 +93,10 @@ for gravity in gs:
 #taus = delays*delta_t
 #freq = 1.0/taus
 import matplotlib.cm as cm
-colors = np.zeros([7,4])
-for i in np.arange(7):
-    c = cm.spectral(i/7.,1)
-    colors[i,:]=c
+#colors = np.zeros([7,4])
+#for i in np.arange(7):
+#    c = cm.spectral(i/7.,1)
+#    colors[i,:]=c
 points = ['o','v','s','p','*','h','^','D','+','>','H','d','x','<']
         
 plt.rc('axes',linewidth=2.0)
@@ -106,7 +107,7 @@ plt.rc('ytick.minor',width=2.0)
 plt.rc('lines',markersize=8,markeredgewidth=0.0,linewidth=2.0)
 #plt.rcParams['ps.fonttype'] = 42
 #plt.rcParams['pdf.fonttype'] = 42
-fig=plt.figure(num=1,figsize=(9,7),dpi=600,facecolor='w',edgecolor='k')
+fig=plt.figure(num=1,figsize=(9,7),dpi=300,facecolor='w',edgecolor='k')
 left  = 0.1  # the left side of the subplots of the figure
 right = 0.94    # the right side of the subplots of the figure
 bottom = 0.08  # the bottom of the subplots of the figure
@@ -146,7 +147,7 @@ plt.ylim(-1.1,1.1)
 
 ax1=plt.subplot(3,2,2)
 lyax=np.log(np.abs(x3-x1)/1e-9)
-plt.plot(t,lyax,color=colors[1,:])
+plt.plot(t,lyax,color='red')#colors[1,:])
 
 #plt.vlines(81,0,1,color='red',linestyle='dotted',linewidth=0.5)
 
@@ -187,7 +188,7 @@ ax1.set_xticklabels([])
 
 ax1=plt.subplot(3,2,4)
 lyax=np.log(np.abs(x3-x1)/1e-9)
-plt.plot(t,lyax,color=colors[1,:])
+plt.plot(t,lyax,color='red')#colors[1,:])
 
 #plt.vlines(81,0,1,color='red',linestyle='dotted',linewidth=0.5)
 
@@ -223,7 +224,7 @@ plt.ylim(-1.1,1.1)
 
 ax1=plt.subplot(3,2,6)
 lyax=np.log(np.abs(x3-x1)/1e-9)
-plt.plot(t,lyax,color=colors[1,:])
+plt.plot(t,lyax,color='red')#colors[1,:])
 
 #plt.vlines(81,0,1,color='red',linestyle='dotted',linewidth=0.5)
 
@@ -243,9 +244,9 @@ plt.ylim(-9,22)
 
 savefilename='Timeseries_withLypExp_forpaper_3.eps'
 savefile = os.path.normpath(datadir+savefilename)
-plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
-plt.clf()
-plt.close()
+#plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
+#plt.clf()
+#plt.close()
 
 """
 fileheader = 'DoubPen_LsMsEq1_9p8_ICP1'

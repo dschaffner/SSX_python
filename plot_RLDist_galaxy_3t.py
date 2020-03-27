@@ -6,7 +6,7 @@ Created on Mon Jul 17 21:00:45 2017
 """
 import numpy as np
 import matplotlib.pylab as plt
-from loadnpzfile import loadnpzfile
+from loadnpyfile import loadnpyfile
 from calc_PE_SC import PE, CH, PE_dist, PE_calc_only
 #import Cmaxmin as cpl
 from collections import Counter
@@ -17,12 +17,85 @@ import os
 #calc_PESC_fluid.py
 
 #datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\GalpyData_July2018\\'
-datadir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\GalpyData_July2018\\resorted_data\\CR6_3t_Rg_Full\\'
-npy='.npz'
+#datadir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\GalpyData_July2018\\resorted_data\\CR6_3t_Rg_Full\\'
+#datadir = 'C:\\Users\\dschaffner\\Dropbox\\PESC_Chaos\\CR6_3t\\'
+datadir = 'C:\\Users\\dschaffner\\Dropbox\\PESC_Chaos\\Sorted_CR6_et\\'
+npy='.npy'
 #fileheader = 'PE_SC_IDdatabase_Type_1_data_249_delays_3000_orbits_galpy0718'
 #fileheader = 'PE_SC_IDdatabase_Type_1_data_249_delays_galpy0718'
+#fileheader = 'CR6_3t_Rg_Full'
+fileheader = 'CR6_1t_Rg_Full'
+datafile = loadnpyfile(datadir+fileheader+npy)
+#PEs = datafile['PEs']
+#SCs = datafile['SCs']
+
+plt.figure(1)
+plt.clf()
+hist1=np.histogram(datafile[:,0],bins=80,range=(2,9))
+hist2=np.histogram(datafile[:,3400],bins=80,range=(2,9))
+x=hist1[1][1:]
+y=hist2[0]-hist1[0]
+plt.plot(x,y,'black')
+
+plt.fill_between(x, y, 0, where=y >= 0, facecolor='green', interpolate=True)
+plt.fill_between(x, y, 0, where=y<0,facecolor='red',interpolate=True)
+plt.xlabel('R [kpc]')
+plt.ylabel(r'$\Delta$ Count')
+plt.title(r'$\Delta$ Count by Radius $T_{dyn}=0$ to $T_{dyn}=2$')
+plt.ylim(-1000,1000)
+
+#Resonance Lines
+#plt.vlines(5,-1000,1000)#CR
+#plt.vlines(4.12,-1000,1000,linestyle='dashed')#ULR
+#plt.vlines(5.88,-1000,1000,linestyle='dashed')#ULR
+#plt.vlines(3.23,-1000,1000,linestyle='dotted')#LR
+#plt.vlines(6.77,-1000,1000,linestyle='dotted')#LR
+plt.vlines(6,-1000,1000,color='blue')
+plt.vlines(4.94,-1000,1000,color='blue',linestyle='dashed')#ULR
+plt.vlines(7.06,-1000,1000,color='blue',linestyle='dashed')#ULR
+plt.vlines(3.88,-1000,1000,color='blue',linestyle='dotted')#LR
+plt.vlines(8.12,-1000,1000,color='blue',linestyle='dotted')#LR
+#plt.vlines(7,-1000,1000,color='purple')
+#plt.vlines(5.76,-1000,1000,color='purple',linestyle='dashed')#ULR
+#plt.vlines(8.24,-1000,1000,color='purple',linestyle='dashed')#ULR
+#plt.vlines(4.53,-1000,1000,color='purple',linestyle='dotted')#LR
+#plt.vlines(9.47,-1000,1000,color='purple',linestyle='dotted')#LR
 
 
+#savefilename='CR6_3t_Rg_Full_DeltaCount_tdyn0totdyn1.png'
+savefilename='CR6_1t_Rg_Full_DeltaCount_tdyn0totdyn2.png'
+savefile = os.path.normpath(datadir+savefilename)
+plt.savefig(savefile,dpi=200,facecolor='w',edgecolor='k')
+
+"""
+Both simulations have one spiral that has a spiral with R_CR = 6 kpc.  So,
+
+                R_CR =   6
+
+                R_ULR = 4.94      and        7.06
+
+                R_LR =    3.88     and        8.12
+
+ 
+
+3t has two more patterns where,
+
+                R_CR =   5
+
+                R_ULR = 4.12      and        5.88
+
+                R_LR =    3.23     and        6.77
+
+ 
+
+                R_CR =   7
+
+                R_ULR = 5.76      and        8.24
+
+                R_LR =    4.53     and        9.47
+"""
+
+"""
 fileheader='radiusAttimestep0_3t'
 datafile=loadnpzfile(datadir+fileheader+npy)
 radii1=datafile['radius']
@@ -436,6 +509,7 @@ plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
 
 
 #plt.ylim(0,40)
+"""
 """
 ax1=plt.subplot(2,1,2)
 plt.plot(timeindex,PEs1[1:500],color='blue',marker=points[0],markevery=(20,100),label='Type 1')

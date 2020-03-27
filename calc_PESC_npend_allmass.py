@@ -13,8 +13,8 @@ from math import factorial
 
 #calc_PESC_solarwind_chen.py
 datadir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\DoublePendulum\\nPend\\'
-fileheader = 'nPen_2masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
-shortheader = '2mass_135deg_0velIC'
+fileheader = 'nPen_20masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
+shortheader = '20mass_135deg_0velIC'
 
 npz='.npz'
 datafile = loadnpzfile(datadir+fileheader+npz)
@@ -44,8 +44,8 @@ SCys = np.zeros([num_delays,n])
 #PEsy5 = np.zeros([num_delays])
 #SCsy5 = np.zeros([num_delays])
 
-teststorelist=[]
-n=1
+#teststorelist=[]
+#n=1
 for mass in np.arange(n):   
     for loop_delay in np.arange(len(delay_array)):
         #for loop_delay in np.arange(150,151):
@@ -55,7 +55,7 @@ for mass in np.arange(n):
         tot_perms = 0
         arr,nperms = PE_dist(x[:,mass+1],embeddelay,delay=delay_array[loop_delay])
         permstore_counter = permstore_counter+arr
-        teststorelist.append(arr)
+        #teststorelist.append(arr)
         tot_perms = tot_perms+nperms
         PE_tot,PE_tot_Se = PE_calc_only(permstore_counter,tot_perms)
         C =  -2.*((PE_tot_Se - 0.5*PE_tot - 0.5*np.log2(nfac))
@@ -64,12 +64,29 @@ for mass in np.arange(n):
         PExs[loop_delay,mass]=PE_tot/np.log2(nfac)
         SCxs[loop_delay,mass]=C
         
+    for loop_delay in np.arange(len(delay_array)):
+        #for loop_delay in np.arange(150,151):
+        if (loop_delay%100)==0: print ('On Delay ',delay_array[loop_delay])
+        permstore_counter = []
+        permstore_counter = Counter(permstore_counter)
+        tot_perms = 0
+        arr,nperms = PE_dist(y[:,mass+1],embeddelay,delay=delay_array[loop_delay])
+        permstore_counter = permstore_counter+arr
+        #teststorelist.append(arr)
+        tot_perms = tot_perms+nperms
+        PE_tot,PE_tot_Se = PE_calc_only(permstore_counter,tot_perms)
+        C =  -2.*((PE_tot_Se - 0.5*PE_tot - 0.5*np.log2(nfac))
+                    /((1 + 1./nfac)*np.log2(nfac+1) - 2*np.log2(2*nfac) 
+                    + np.log2(nfac))*(PE_tot/np.log2(nfac)))
+        PEys[loop_delay,mass]=PE_tot/np.log2(nfac)
+        SCys[loop_delay,mass]=C
+        
     
     print( 'mass '+str(mass+1)+' completed')
-import pickle
-filename='counter_test'
-pickle.dump(teststorelist, open( datadir+filename+'.p', "wb" ) )
+#import pickle
+#filename='PE_SC_npend'+shortheader+'_embeddelay'+str(embeddelay)+'_'+str(num_delays)+'_delays'
+#pickle.dump(teststorelist, open( datadir+filename+'.p', "wb" ) )
 
 #np.savez(datadir+filename,perm=permstore_counter)
-#filename='PE_SC_npend'+shortheader+'_embeddelay'+str(embeddelay)+'_'+str(num_delays)+'_delays.npz'
-#np.savez(datadir+filename,PExs=PExs,SCxs=SCxs,PEys=PEys,SCys=SCys,delays=delay_array)
+filename='PE_SC_npend'+shortheader+'_embeddelay'+str(embeddelay)+'_'+str(num_delays)+'_delays.npz'
+np.savez(datadir+filename,PExs=PExs,SCxs=SCxs,PEys=PEys,SCys=SCys,delays=delay_array)
