@@ -29,7 +29,7 @@ nfac = factorial(embeddelay)
 #noise_array=np.random.uniform(1,10,size=10000)
 #noise_interp=np.interp(xaxis_full,xaxis,noise_array)    
 xaxis = np.linspace(1,1000,5000)
-xaxis_full = np.linspace(1,1000,100000)
+xaxis_full = np.linspace(1,1000,1000000)
 noise_array=np.random.uniform(1,1000,size=5000)
 noise_interp=np.interp(xaxis_full,xaxis,noise_array)        
     
@@ -39,8 +39,10 @@ num_delays = len(delay_array)
 
 PEs = np.zeros([num_delays])
 SCs = np.zeros([num_delays])
+PEs_interp = np.zeros([num_delays])
+SCs_interp = np.zeros([num_delays])
 
-    
+"""  
 for loop_delay in np.arange(len(delay_array)):
     #for loop_delay in np.arange(150,151):
     if (loop_delay%100)==0: print ('On Delay ',delay_array[loop_delay])
@@ -57,9 +59,16 @@ for loop_delay in np.arange(len(delay_array)):
     PEs[loop_delay]=PE_tot/np.log2(nfac)
     SCs[loop_delay]=C
 print( 'x1 completed')
+"""
 
-filename='PE_SC_interpolated_noise_100kInto5k_embeddelay'+str(embeddelay)+'_'+str(num_delays)+'_delays.npz'
+for loop_delay in delay_array:
+    print ('On Delay ', loop_delay)
+    PEs[loop_delay],SCs[loop_delay] = CH(noise_array,5,delay=loop_delay)
+    PEs_interp[loop_delay],SCs_interp[loop_delay] = CH(noise_interp,5,delay=loop_delay)
+
+filename='PE_SC_interpolated_noise_100MInto5k_embeddelay'+str(embeddelay)+'_'+str(num_delays)+'_delays.npz'
 np.savez(datadir+filename,PEs=PEs,SCs=SCs,
+         PEs_interp=PEs_interp,SCs_interp=SCs_interp,
                               #PEsx2=PEsx2,SCsx2=SCsx2,
                               #PEsx3=PEsx3,SCsx3=SCsx3, 
                               #PEsx4=PEsx4,SCsx4=SCsx4, 

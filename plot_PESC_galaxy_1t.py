@@ -404,6 +404,17 @@ plt.text(0.04,0.95,'(a)',fontsize=16,horizontalalignment='center',verticalalignm
 #savefile = os.path.normpath(datadir+savefilename)
 #plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
 
+# X, Y = np.meshgrid(xlist, ylist)
+# Z = np.sqrt(X**2 + Y**2)
+# fig,ax=plt.subplots(1,1)
+# cp = ax.contourf(X, Y, Z)
+# fig.colorbar(cp) # Add a colorbar to a plot
+# ax.set_title('Filled Contours Plot')
+# #ax.set_xlabel('x (cm)')
+# ax.set_ylabel('y (cm)')
+# plt.show()
+
+
 
 #fig=plt.figure(num=2,figsize=(5,3.5),dpi=300,facecolor='w',edgecolor='k')
 #plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
@@ -415,7 +426,12 @@ top = 0.96      # the top of the subplots of the figure
 wspace = 0.2   # the amount of width reserved for blank space between subplots
 hspace = 0.0   # the amount of height reserved for white space between subplots
 plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
-ax=fig.gca(projection='3d')
+
+
+
+
+#ax=fig.gca(projection='3d')
+ax=fig.gca()
 #bins=(np.arange(40)*0.1)+4.0
 bins=(np.arange(50)*0.1)+3.5
 x,y=np.meshgrid(bins,timeindex[1:400])

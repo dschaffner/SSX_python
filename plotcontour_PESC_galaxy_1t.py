@@ -6,7 +6,7 @@ Created on Mon Jul 17 21:00:45 2017
 """
 import numpy as np
 import matplotlib.pylab as plt
-from loadnpyfile import loadnpyfile
+from loadnpzfile import loadnpzfile
 from calc_PE_SC import PE, CH, PE_dist, PE_calc_only
 #import Cmaxmin as cpl
 from collections import Counter
@@ -17,255 +17,115 @@ import os
 #calc_PESC_fluid.py
 
 #datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\GalpyData_July2018\\'
-#datadir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\GalpyData_July2018\\resorted_data\\CR6_3t_Rg_Full\\'
-#datadir = 'C:\\Users\\dschaffner\\Dropbox\\PESC_Chaos\\CR6_3t\\'
-datadir = 'C:\\Users\\dschaffner\\Dropbox\\PESC_Chaos\\Sorted_CR6_et\\'
-npy='.npy'
+datadir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\GalpyData_July2018\\resorted_data\\CR6_3t_Rg_Full\\'
+npy='.npz'
 #fileheader = 'PE_SC_IDdatabase_Type_1_data_249_delays_3000_orbits_galpy0718'
 #fileheader = 'PE_SC_IDdatabase_Type_1_data_249_delays_galpy0718'
-#fileheader = 'CR6_3t_Rg_Full'
-fileheader = 'CR6_1t_Rg_Full'
-datafile = loadnpyfile(datadir+fileheader+npy)
-#PEs = datafile['PEs']
-#SCs = datafile['SCs']
-
-startindex=1700
-endindex=startindex+1700
-
-plt.figure(1)
-plt.clf()
-hist0=np.histogram(datafile[:,0],bins=80,range=(2,9))
-hist1=np.histogram(datafile[:,startindex],bins=80,range=(2,9))
-hist2=np.histogram(datafile[:,endindex],bins=80,range=(2,9))
-x=hist1[1][1:]
-y=hist2[0]-hist1[0]
-plt.plot(x,y,'black')
 
 
-
-
-plt.fill_between(x, y, 0, where=y >= 0, facecolor='green', interpolate=True)
-plt.fill_between(x, y, 0, where=y<0,facecolor='red',interpolate=True)
-plt.xlabel('R [kpc]')
-plt.ylabel(r'$\Delta$ Count')
-plt.title(r'$\Delta$ Count by Radius $T_{dyn}=1$ to $T_{dyn}=2$')
-plt.ylim(-1000,1000)
-
-#Resonance Lines
-#plt.vlines(5,-1000,1000)#CR
-#plt.vlines(4.12,-1000,1000,linestyle='dotted')#ULR
-#plt.vlines(5.88,-1000,1000,linestyle='dotted')#ULR
-#plt.vlines(3.23,-1000,1000,linestyle='dashed')#LR
-#plt.vlines(6.77,-1000,1000,linestyle='dashed')#LR
-#plt.vlines(6,-1000,1000,color='blue')
-plt.vlines(4.94,-1000,1000,color='blue',linestyle='dotted')#ULR
-plt.vlines(7.06,-1000,1000,color='blue',linestyle='dotted')#ULR
-plt.vlines(3.88,-1000,1000,color='blue',linestyle='dashed')#LR
-plt.vlines(8.12,-1000,1000,color='blue',linestyle='dashed')#LR
-#plt.vlines(7,-1000,1000,color='purple')
-#plt.vlines(5.76,-1000,1000,color='purple',linestyle='dotted')#ULR
-#plt.vlines(8.24,-1000,1000,color='purple',linestyle='dotted')#ULR
-#plt.vlines(4.53,-1000,1000,color='purple',linestyle='dashed')#LR
-#plt.vlines(9.47,-1000,1000,color='purple',linestyle='dashed')#LR
-
-ax2=plt.subplot(1,1,1)
-bins2=(np.arange(1000)*0.005)+3.5
-r5range=(np.arange(1000)*0.005)+3.5
-r=np.where(r5range<4.16)
-r2=np.where(r5range>5.98)
-r5range[r]=0.0
-r5range[r2]=0.0
-plt.plot(bins2,r5range,linewidth=0.0)
-ax2.fill_between(bins2, 0, 40, ec='none',where=r5range > 4.16 ,
-   color='black', alpha=0.15, transform=ax2.get_xaxis_transform())
-
-r6range=(np.arange(1000)*0.005)+3.5
-r=np.where(r6range<5.04)
-r2=np.where(r6range>7.1)
-r6range[r]=0.0
-r6range[r2]=0.0
-ax2.fill_between(bins2, 0, 40, ec='none',where=r6range > 5.04 ,
-   color='blue', alpha=0.15, transform=ax2.get_xaxis_transform())
-
-r7range=(np.arange(1000)*0.005)+3.5
-r=np.where(r7range<5.96)
-r2=np.where(r7range>8.18)
-r7range[r]=0.0
-r7range[r2]=0.0
-ax2.fill_between(bins2, 0, 40, ec='none',where=r7range > 5.96 ,
-   color='purple', alpha=0.15, transform=ax2.get_xaxis_transform())
-
-savefilename='CR6_3t_Rg_Full_DeltaCount_tdyn1totdyn2_wranges.png'
-#savefilename='CR6_1t_Rg_Full_DeltaCount_tdyn1totdyn2_wranges.png'
-savefile = os.path.normpath(datadir+savefilename)
-#plt.savefig(savefile,dpi=200,facecolor='w',edgecolor='k')
-
-
-#normalized to initial count
-plt.figure(2)
-plt.clf()
-n=hist0[0][:]#27:62]#[8:74]
-xn=hist1[1][1:]#[27:62]#[8:74]
-yn=hist2[0][:]-hist1[0][:]#[27:62]-hist1[0][27:62]
-plt.plot(xn,yn/n,'black')
-plt.fill_between(xn, yn/n, 0, where=(yn/n)>= 0, facecolor='green', interpolate=True)
-plt.fill_between(xn, yn/n, 0, where=(yn/n)<0,facecolor='red',interpolate=True)
-plt.xlabel('R [kpc]')
-plt.ylabel(r'$\Delta$ Count/$n_{0}$')
-plt.title(r'$\Delta$ Count by Radius $T_{dyn}=1$ to $T_{dyn}=2$')
-#plt.ylim(-1000,1000)
-
-
-#compute slope of initial distribution to use as normalization
-plt.figure(3)
-plt.clf()
-x=np.arange(80)
-z=np.polyfit(x[27:62],n[27:62],1)
-zn=z[1]+x*z[0]
-plt.plot(xn,yn/zn,'black')
-plt.fill_between(xn, yn/zn, 0, where=(yn/zn)>= 0, facecolor='green', interpolate=True)
-plt.fill_between(xn, yn/zn, 0, where=(yn/zn)<0,facecolor='red',interpolate=True)
-plt.xlabel('R [kpc]')
-plt.ylabel(r'$\Delta$ Count/$n_{0}$')
-plt.title(r'$\Delta$ Count by Radius $T_{dyn}=1$ to $T_{dyn}=2$')
-
-plt.figure(4)
-plt.clf()
-plt.plot(x,n)
-plt.plot(x,zn)
-
-"""
-Both simulations have one spiral that has a spiral with R_CR = 6 kpc.  So,
-
-                R_CR =   6
-
-                R_ULR = 4.94      and        7.06
-
-                R_LR =    3.88     and        8.12
-
- 
-
-3t has two more patterns where,
-
-                R_CR =   5
-
-                R_ULR = 4.12      and        5.88
-
-                R_LR =    3.23     and        6.77
-
- 
-
-                R_CR =   7
-
-                R_ULR = 5.76      and        8.24
-
-                R_LR =    4.53     and        9.47
-"""
-
-"""
-fileheader='radiusAttimestep0_3t'
+fileheader='radiusAttimestep0_1t'
 datafile=loadnpzfile(datadir+fileheader+npy)
 radii1=datafile['radius']
 plt.figure(1)
 plt.hist(radii1,bins=50,range=(3.5,8.5))
 plt.title('Radius Dist at 0ts')
-plt.ylim(0,900)
+plt.ylim(0,1500)
 
-fileheader='radiusAttimestep500_3t'
+fileheader='radiusAttimestep500_1t'
 datafile=loadnpzfile(datadir+fileheader+npy)
 radii2=datafile['radius']
 plt.figure(2)
 plt.hist(radii2,bins=50,range=(3.5,8.5))
 plt.title('Radius Dist at 500ts')
-plt.ylim(0,900)
+plt.ylim(0,1500)
 
-fileheader='radiusAttimestep1000_3t'
+fileheader='radiusAttimestep1000_1t'
 datafile=loadnpzfile(datadir+fileheader+npy)
 radii3=datafile['radius']
 plt.figure(3)
 plt.hist(radii3,bins=50,range=(3.5,8.5))
 plt.title('Radius Dist at 1000ts')
-plt.ylim(0,900)
+plt.ylim(0,1500)
 
-fileheader='radiusAttimestep1200_3t'
+fileheader='radiusAttimestep1200_1t'
 datafile=loadnpzfile(datadir+fileheader+npy)
 radii4=datafile['radius']
 plt.figure(4)
 plt.hist(radii4,bins=50,range=(3.5,8.5))
 plt.title('Radius Dist at 1200ts')
-plt.ylim(0,900)
+plt.ylim(0,1500)
 
-fileheader='radiusAttimestep1500_3t'
+fileheader='radiusAttimestep1500_1t'
 datafile=loadnpzfile(datadir+fileheader+npy)
 radii5=datafile['radius']
 plt.figure(5)
 plt.hist(radii5,bins=50,range=(3.5,8.5))
 plt.title('Radius Dist at 1500ts')
-plt.ylim(0,900)
+plt.ylim(0,1500)
 
-fileheader='radiusAttimestep1700_3t'
+fileheader='radiusAttimestep1700_1t'
 datafile=loadnpzfile(datadir+fileheader+npy)
 radii6=datafile['radius']
 plt.figure(6)
 plt.hist(radii6,bins=50,range=(3.5,8.5))
 plt.title('Radius Dist at 1700ts')
-plt.ylim(0,900)
+plt.ylim(0,1500)
 
-fileheader='radiusAttimestep2000_3t'
+fileheader='radiusAttimestep2000_1t'
 datafile=loadnpzfile(datadir+fileheader+npy)
 radii7=datafile['radius']
 plt.figure(7)
 plt.hist(radii7,bins=50,range=(3.5,8.5))
 plt.title('Radius Dist at 2000ts')
-plt.ylim(0,900)
+plt.ylim(0,1500)
 
-fileheader='radiusAttimestep2500_3t'
+fileheader='radiusAttimestep2500_1t'
 datafile=loadnpzfile(datadir+fileheader+npy)
 radii8=datafile['radius']
 plt.figure(8)
 plt.hist(radii8,bins=50,range=(3.5,8.5))
 plt.title('Radius Dist at 2500ts')
-plt.ylim(0,900)
+plt.ylim(0,1500)
 
-fileheader='radiusAttimestep3000_3t'
+fileheader='radiusAttimestep3000_1t'
 datafile=loadnpzfile(datadir+fileheader+npy)
 radii9=datafile['radius']
 plt.figure(9)
 plt.hist(radii9,bins=50,range=(3.5,8.5))
 plt.title('Radius Dist at 3000ts')
-plt.ylim(0,900)
+plt.ylim(0,1500)
 
-fileheader='radiusAttimestep3400_3t'
+fileheader='radiusAttimestep3400_1t'
 datafile=loadnpzfile(datadir+fileheader+npy)
 radii10=datafile['radius']
 plt.figure(10)
 plt.hist(radii10,bins=50,range=(3.5,8.5))
 plt.title('Radius Dist at 3400ts')
-plt.ylim(0,900)
+plt.ylim(0,1500)
 
-fileheader='radiusAttimestep4000_3t'
+fileheader='radiusAttimestep4000_1t'
 datafile=loadnpzfile(datadir+fileheader+npy)
 radii11=datafile['radius']
 plt.figure(11)
 plt.hist(radii11,bins=50,range=(3.5,8.5))
 plt.title('Radius Dist at 4000ts')
-plt.ylim(0,900)
+plt.ylim(0,1500)
 
-fileheader='radiusAttimestep5000_3t'
+fileheader='radiusAttimestep5000_1t'
 datafile=loadnpzfile(datadir+fileheader+npy)
 radii12=datafile['radius']
 plt.figure(12)
 plt.hist(radii12,bins=50,range=(3.5,8.5))
 plt.title('Radius Dist at 5000ts')
-plt.ylim(0,900)
+plt.ylim(0,1500)
 
-fileheader='radiusAttimestep6000_3t'
+fileheader='radiusAttimestep6000_1t'
 datafile=loadnpzfile(datadir+fileheader+npy)
 radii13=datafile['radius']
 plt.figure(13)
 plt.hist(radii13,bins=50,range=(3.5,8.5))
 plt.title('Radius Dist at 6000ts')
-plt.ylim(0,900)
+plt.ylim(0,1500)
 
 
 fig=plt.figure(num=14,figsize=(15,1.5),dpi=200,facecolor='w',edgecolor='k')
@@ -282,7 +142,7 @@ plt.xticks([4,5,6,7,8],fontsize=5)
 plt.xlabel('Radius [kpc]',fontsize=5)
 plt.yticks(fontsize=5)
 plt.ylabel('Count')
-plt.ylim(0,900)
+plt.ylim(0,1500)
 plt.title('0 ts',fontsize=10)
 
 ax2=plt.subplot(1,13,2)
@@ -291,7 +151,7 @@ plt.xticks([4,5,6,7,8],fontsize=5)
 plt.xlabel('Radius [kpc]',fontsize=5)
 plt.yticks(fontsize=5)
 ax2.set_yticklabels([])
-plt.ylim(0,900)
+plt.ylim(0,1500)
 plt.title('500 ts',fontsize=10)
 
 ax2=plt.subplot(1,13,3)
@@ -300,7 +160,7 @@ plt.xticks([4,5,6,7,8],fontsize=5)
 plt.xlabel('Radius [kpc]',fontsize=5)
 plt.yticks(fontsize=5)
 ax2.set_yticklabels([])
-plt.ylim(0,900)
+plt.ylim(0,1500)
 plt.title('1000 ts',fontsize=10)
 
 ax2=plt.subplot(1,13,4)
@@ -309,7 +169,7 @@ plt.xticks([4,5,6,7,8],fontsize=5)
 plt.xlabel('Radius [kpc]',fontsize=5)
 plt.yticks(fontsize=5)
 ax2.set_yticklabels([])
-plt.ylim(0,900)
+plt.ylim(0,1500)
 plt.title('1200 ts',fontsize=10)
 
 ax2=plt.subplot(1,13,5)
@@ -318,7 +178,7 @@ plt.xticks([4,5,6,7,8],fontsize=5)
 plt.xlabel('Radius [kpc]',fontsize=5)
 plt.yticks(fontsize=5)
 ax2.set_yticklabels([])
-plt.ylim(0,900)
+plt.ylim(0,1500)
 plt.title('1500 ts',fontsize=10)
 
 ax3=plt.subplot(1,13,6)
@@ -327,7 +187,7 @@ plt.xticks([4,5,6,7,8],fontsize=5)
 plt.xlabel('Radius [kpc]',fontsize=5)
 plt.yticks(fontsize=5)
 ax3.set_yticklabels([])
-plt.ylim(0,900)
+plt.ylim(0,1500)
 plt.title('1700 ts',fontsize=10)
 ax3.spines['bottom'].set_color('red')
 ax3.spines['top'].set_color('red') 
@@ -340,7 +200,7 @@ plt.xticks([4,5,6,7,8],fontsize=5)
 plt.xlabel('Radius [kpc]',fontsize=5)
 plt.yticks(fontsize=5)
 ax2.set_yticklabels([])
-plt.ylim(0,900)
+plt.ylim(0,1500)
 plt.title('2000 ts',fontsize=10)
 
 ax2=plt.subplot(1,13,8)
@@ -349,7 +209,7 @@ plt.xticks([4,5,6,7,8],fontsize=5)
 plt.xlabel('Radius [kpc]',fontsize=5)
 plt.yticks(fontsize=5)
 ax2.set_yticklabels([])
-plt.ylim(0,900)
+plt.ylim(0,1500)
 plt.title('2500 ts',fontsize=10)
 
 ax2=plt.subplot(1,13,9)
@@ -358,7 +218,7 @@ plt.xticks([4,5,6,7,8],fontsize=5)
 plt.xlabel('Radius [kpc]',fontsize=5)
 plt.yticks(fontsize=5)
 ax2.set_yticklabels([])
-plt.ylim(0,900)
+plt.ylim(0,1500)
 plt.title('3000 ts',fontsize=10)
 
 ax3=plt.subplot(1,13,10)
@@ -367,7 +227,7 @@ plt.xticks([4,5,6,7,8],fontsize=5)
 plt.xlabel('Radius [kpc]',fontsize=5)
 plt.yticks(fontsize=5)
 ax3.set_yticklabels([])
-plt.ylim(0,900)
+plt.ylim(0,1500)
 plt.title('3400 ts',fontsize=10)
 ax3.spines['bottom'].set_color('red')
 ax3.spines['top'].set_color('red') 
@@ -380,7 +240,7 @@ plt.xticks([4,5,6,7,8],fontsize=5)
 plt.xlabel('Radius [kpc]',fontsize=5)
 plt.yticks(fontsize=5)
 ax2.set_yticklabels([])
-plt.ylim(0,900)
+plt.ylim(0,1500)
 plt.title('4000 ts',fontsize=10)
 
 ax2=plt.subplot(1,13,12)
@@ -389,7 +249,7 @@ plt.xticks([4,5,6,7,8],fontsize=5)
 plt.xlabel('Radius [kpc]',fontsize=5)
 plt.yticks(fontsize=5)
 ax2.set_yticklabels([])
-plt.ylim(0,900)
+plt.ylim(0,1500)
 plt.title('5000 ts',fontsize=10)
 
 ax2=plt.subplot(1,13,13)
@@ -398,12 +258,15 @@ plt.xticks([4,5,6,7,8],fontsize=5)
 plt.xlabel('Radius [kpc]',fontsize=5)
 plt.yticks(fontsize=5)
 ax2.set_yticklabels([])
-plt.ylim(0,900)
+plt.ylim(0,1500)
 plt.title('6000 ts',fontsize=10)
 
-savefilename='CR6_3t_Rg_Full_OrbitDistbyTime.png'
+savefilename='CR6_1t_Rg_Full_OrbitDistbyTime.png'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=200,facecolor='w',edgecolor='k')
+
+
+
 
 
 
@@ -447,8 +310,7 @@ datafile = loadnpzfile(datadir+fileheader+npy)
 PEs = datafile['PEs']
 SCs = datafile['SCs']
 
-#fileheader = 'PE_SC_binnedBy0p1_3p5to8p5_50bins_start1700_length3400_499delays_499_delays'
-fileheader = 'PE_SC_binnedBy0p1_3p5to8p5_50bins_start0_length1700_499delays_499_delays'
+fileheader = 'PE_SC_1t_binnedBy0p1_3p5to8p5_50bins_start1700_length3400_499delays_499_delays'
 datafile = loadnpzfile(datadir+fileheader+npy)
 PEs = datafile['PEs']
 SCs = datafile['SCs']
@@ -493,22 +355,37 @@ plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspac
 delayindex = np.arange(1,501)
 timeindex=(delayindex*1e5)/(1e6)
 binlabels=['3.5-4.0kpc','4.0-4.5kpc','4.5-5.0kpc','5.0-5.5kpc','5.5-6.0kpc','6.0-6.5kpc','6.5-7.0kpc','7.0-7.5kpc','7.5-8.0kpc','8.0-8.5kpc']
+binlabels=['3.5','4.0','4.5','5.0','5.5','6.0','6.5','7.0','7.5','8.0']
 
 
-
+#Map bins to radii
+"""
+Both simulations have one spiral that has a spiral with R_CR = 6 kpc.  So,
+                R_CR =   6 = bins[25]
+                R_ULR = 4.94 ~bins[15] and  7.06~bins[35]
+                R_LR =    3.88 ~bins[4]    and  8.12~bins[46]
+3t has two more patterns where,
+                R_CR =   5
+                R_ULR = 4.12      and        5.88
+                R_LR =    3.23     and        6.77
+                R_CR =   7
+                R_ULR = 5.76      and        8.24
+                R_LR =    4.53     and        9.47
+"""
 
 
 ax1=plt.subplot(1,1,1)
-plt.plot(timeindex[1:450],SCs[1:450,0],color='blue',marker=points[0],markevery=(20,100),label=binlabels[0])
-plt.plot(timeindex[1:450],SCs[1:450,1],color='red',linestyle='solid',label=binlabels[1])
-plt.plot(timeindex[1:450],SCs[1:450,2],color='green',linestyle='solid',label=binlabels[2])
-plt.plot(timeindex[1:450],SCs[1:450,3],color='orange',linestyle='solid',label=binlabels[3])
-plt.plot(timeindex[1:450],SCs[1:450,4],color='purple',linestyle='solid',label=binlabels[4])
-plt.plot(timeindex[1:450],SCs[1:450,5],color='black',linestyle='solid',label=binlabels[5])
-plt.plot(timeindex[1:450],SCs[1:450,6],color='saddlebrown',linestyle='solid',label=binlabels[6])
-plt.plot(timeindex[1:450],SCs[1:450,7],color='teal',linestyle='solid',label=binlabels[7])
-plt.plot(timeindex[1:450],SCs[1:450,8],color='yellowgreen',linestyle='solid',label=binlabels[8])
-plt.plot(timeindex[1:450],SCs[1:450,9],color='magenta',linestyle='solid',label=binlabels[9])
+plt.plot(timeindex[1:450],SCs[1:450,4],color='blue',marker=points[0],markevery=(20,100),label='r=3.88')#binlabels[0])
+plt.plot(timeindex[1:450],SCs[1:450,15],color='red',linestyle='solid',label='r=4.94')#binlabels[1])
+plt.plot(timeindex[1:450],SCs[1:450,25],color='green',linestyle='solid',label='r=6.0')#binlabels[2])
+plt.plot(timeindex[1:450],SCs[1:450,35],color='orange',linestyle='solid',label='r=7.06')#binlabels[3])
+plt.plot(timeindex[1:450],SCs[1:450,40],color='darkorange',linestyle='solid',label='r=7.5')
+plt.plot(timeindex[1:450],SCs[1:450,46],color='purple',linestyle='solid',label='r=8.12')#binlabels[4])
+#plt.plot(timeindex[1:450],SCs[1:450,25],color='black',linestyle='solid',label=binlabels[5])
+#plt.plot(timeindex[1:450],SCs[1:450,30],color='saddlebrown',linestyle='solid',label=binlabels[6])
+#plt.plot(timeindex[1:450],SCs[1:450,35],color='teal',linestyle='solid',label=binlabels[7])
+#plt.plot(timeindex[1:450],SCs[1:450,40],color='yellowgreen',linestyle='solid',label=binlabels[8])
+#plt.plot(timeindex[1:450],SCs[1:450,45],color='magenta',linestyle='solid',label=binlabels[9])
 #plt.plot(timeindex,SCsT25[1:500],color=colors[1,:],label='Type 2 [Beyond CR]')
 #plt.plot(timeindex,SCs31[1:],color='green',label='Type 3-1')
 #plt.plot(timeindex,SCs32[1:],color='red',marker=points[1],markevery=(20,100),label='Type 3-2')
@@ -542,10 +419,20 @@ plt.text(0.04,0.95,'(a)',fontsize=16,horizontalalignment='center',verticalalignm
 #savefile = os.path.normpath(datadir+savefilename)
 #plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
 
+# X, Y = np.meshgrid(xlist, ylist)
+# Z = np.sqrt(X**2 + Y**2)
+# fig,ax=plt.subplots(1,1)
+# cp = ax.contourf(X, Y, Z)
+# fig.colorbar(cp) # Add a colorbar to a plot
+# ax.set_title('Filled Contours Plot')
+# #ax.set_xlabel('x (cm)')
+# ax.set_ylabel('y (cm)')
+# plt.show()
+
+
 
 #fig=plt.figure(num=2,figsize=(5,3.5),dpi=300,facecolor='w',edgecolor='k')
 #plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
-from mpl_toolkits import mplot3d
 fig=plt.figure(num=33,figsize=(7,9),dpi=300,facecolor='w',edgecolor='k')
 left  = 0.16  # the left side of the subplots of the figure
 right = 0.94    # the right side of the subplots of the figure
@@ -554,29 +441,37 @@ top = 0.96      # the top of the subplots of the figure
 wspace = 0.2   # the amount of width reserved for blank space between subplots
 hspace = 0.0   # the amount of height reserved for white space between subplots
 plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
-ax=fig.gca(projection='3d')
-#bins=(np.arange(40)*0.1)+4.0
+ax=plt.subplot(1,1,1)
 bins=(np.arange(50)*0.1)+3.5
 x,y=np.meshgrid(bins,timeindex[1:400])
-surf=ax.plot_surface(x,y,SCs[1:400,:],cmap=cm.coolwarm,vmin=0.15,linewidth=1,antialiased=False)
-ax.set_xlabel('radius [kpc]')
-ax.set_ylabel('time [Myr]')
-ax.set_zlabel('C')
+cp = ax.contourf(x,y,SCs[1:400,:],levels=50,cmap=cm.plasma,vmin=0.25)
+fig.colorbar(cp)
 
-ax.view_init(elev=52.475996508582966,azim=-142.58241758241738)
-savefilename='CR6_3t_Rg_Full_0to1700_0p1Myrbins_view1.png'
-savefile = os.path.normpath(datadir+savefilename)
-plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
+plt.vlines(6,1,40,color='blue')
+plt.vlines(4.94,1,40,color='blue',linestyle='dotted')#ULR
+plt.vlines(7.06,1,40,color='blue',linestyle='dotted')#ULR
+plt.vlines(3.88,1,40,color='blue',linestyle='dashed')#LR
+plt.vlines(8.12,1,40,color='blue',linestyle='dashed')#LR
+
+#ax=fig.gca(projection='3d')
+#ax=fig.gca()
+#bins=(np.arange(40)*0.1)+4.0
+
+#surf=ax.plot_surface(x,y,SCs[1:400,:],cmap=cm.coolwarm,vmin=0.15,linewidth=1,antialiased=False)
+#ax.set_xlabel('radius [kpc]')
+#ax.set_ylabel('time [Myr]')
+#ax.set_zlabel('C')
+
+#ax.view_init(elev=52.475996508582966,azim=-142.58241758241738)
+#savefilename='CR6_1t_Rg_Full_0p1Myrbins_view1.png'
+#savefile = os.path.normpath(datadir+savefilename)
+#plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
 
 
-ax.view_init(elev=80,azim=-90)
-savefilename='CR6_3t_Rg_Full_0to1700_0p1Myrbins_view2.png'
-savefile = os.path.normpath(datadir+savefilename)
-plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
-
-
-#plt.ylim(0,40)
-"""
+#ax.view_init(elev=80,azim=-90)
+#savefilename='CR6_1t_Rg_Full_0p1Myrbins_view2.png'
+#savefile = os.path.normpath(datadir+savefilename)
+#plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
 """
 ax1=plt.subplot(2,1,2)
 plt.plot(timeindex,PEs1[1:500],color='blue',marker=points[0],markevery=(20,100),label='Type 1')

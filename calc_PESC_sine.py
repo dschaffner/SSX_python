@@ -8,7 +8,7 @@ import numpy as np
 import matplotlib.pylab as plt
 from loadnpyfile import loadnpyfile
 from calc_PE_SC import PE, CH, PE_dist, PE_calc_only
-import Cmaxmin as cpl
+#import Cmaxmin as cpl
 from collections import Counter
 from math import factorial
 import os
@@ -16,8 +16,8 @@ import os
 x=np.arange(100000)
 y=np.sin(0.003*x)
 #y=np.random.normal(0,1,100000)
-import chaotichenonsave_davidmod as henon
-arr = henon.henonsave(1000)
+#import chaotichenonsave_davidmod as henon
+#arr = henon.henonsave(1000)
 #y = arr[0,:]#extrat data from function return
 
 x=np.arange(10000)*0.003
@@ -26,21 +26,30 @@ y2=np.sin(2*x)
 y3=np.sin(3*x)
 y10=np.sin(10*x)
 y20=np.sin(20*x)
+y100=np.sin(100*x)
 
 y = 10*y1+2*y2+4*y10
 y = 0.1*y1+10*y3+10*y10+20*y20
 y=y1+y2+y3
 
-datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\Codie Thesis Data\\'
-fileheader = 'qp_(m=4)_(th=30.0)_(t=1.0)_(CR=6.0)_(eps=0.4)_(x0=2.350639412)_(y0=6.62220828293)_(vx0=-243.996156434)_(vy0=40.276745914)_data'
-npy='.npy'
+#datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\Codie Thesis Data\\'
+#fileheader = 'qp_(m=4)_(th=30.0)_(t=1.0)_(CR=6.0)_(eps=0.4)_(x0=2.350639412)_(y0=6.62220828293)_(vx0=-243.996156434)_(vy0=40.276745914)_data'
+#npy='.npy'
 
-datafile = loadnpyfile(datadir+fileheader+npy)
-y=datafile[:,0]
+#datafile = loadnpyfile(datadir+fileheader+npy)
+#y=datafile[:,0]
 
-num_delays = 249
-PEs = np.zeros([num_delays+1])
-SCs = np.zeros([num_delays+1])
+num_delays = 999
+PEsy1 = np.zeros([num_delays+1])
+SCsy1 = np.zeros([num_delays+1])
+PEsy2 = np.zeros([num_delays+1])
+SCsy2 = np.zeros([num_delays+1])
+PEsy10 = np.zeros([num_delays+1])
+SCsy10 = np.zeros([num_delays+1])
+PEsy20 = np.zeros([num_delays+1])
+SCsy20 = np.zeros([num_delays+1])
+PEsy100 = np.zeros([num_delays+1])
+SCsy100 = np.zeros([num_delays+1])
 
 delay = 1
 embed_delay = 5
@@ -48,14 +57,19 @@ nfac = factorial(embed_delay)
 
 for loop_delay in np.arange(1,num_delays+1):
     
-    PEs[loop_delay],SCs[loop_delay] = CH(y,5,delay=loop_delay)
-    print 'On Delay ',loop_delay
+    PEsy1[loop_delay],SCsy1[loop_delay] = CH(y1,5,delay=loop_delay)
+    PEsy2[loop_delay],SCsy2[loop_delay] = CH(y2,5,delay=loop_delay)
+    PEsy10[loop_delay],SCsy10[loop_delay] = CH(y10,5,delay=loop_delay)
+    PEsy20[loop_delay],SCsy20[loop_delay] = CH(y20,5,delay=loop_delay)
+    PEsy100[loop_delay],SCsy100[loop_delay] = CH(y100,5,delay=loop_delay)
+
+    print ('On Delay ',loop_delay)
 
 
 #datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\'    
 #filename='PE_SC_sinewave_'+str(num_delays)+'_delays.npz'
 #np.savez(datadir+filename,PEs=PEs,SCs=SCs)#,delta_t=delta_t,taus=taus,delays=delays,freq=freq)
-
+"""
 fig=plt.figure(num=2,figsize=(3.5,1.5),dpi=300,facecolor='w',edgecolor='k')
 left  = 0.2  # the left side of the subplots of the figure
 right = 0.94    # the right side of the subplots of the figure
@@ -93,3 +107,4 @@ savefilename='C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\DSCOVR Data\\henon
 #savefile = os.path.normpath(datadir+savefilename)
 #plt.savefig(savefilename,dpi=300,facecolor='w',edgecolor='k')
 
+"""

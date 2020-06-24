@@ -76,24 +76,69 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 PEs_noise2=datafile['PEs']
 SCs_noise2=datafile['SCs']
 
+fileheader='nPen_2masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
+datafile = loadnpzfile(datadir+fileheader+npz)
+x2M=datafile['x']
+fileheader='nPen_3masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
+datafile = loadnpzfile(datadir+fileheader+npz)
+x3M=datafile['x']
+fileheader='nPen_4masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
+datafile = loadnpzfile(datadir+fileheader+npz)
+x4M=datafile['x']
+fileheader='nPen_5masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
+datafile = loadnpzfile(datadir+fileheader+npz)
+x5M=datafile['x']
+fileheader='nPen_6masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
+datafile = loadnpzfile(datadir+fileheader+npz)
+x6M=datafile['x']
+fileheader='nPen_7masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
+datafile = loadnpzfile(datadir+fileheader+npz)
+x7M=datafile['x']
+fileheader='nPen_8masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
+datafile = loadnpzfile(datadir+fileheader+npz)
+x8M=datafile['x']
+fileheader='nPen_9masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
+datafile = loadnpzfile(datadir+fileheader+npz)
+x9M=datafile['x']
+fileheader='nPen_10masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
+datafile = loadnpzfile(datadir+fileheader+npz)
+x10M=datafile['x']
+fileheader='nPen_20masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
+datafile = loadnpzfile(datadir+fileheader+npz)
+x20M=datafile['x']
 
+noise_array=np.random.uniform(-1,1,size=100000)
+delay_array = np.arange(1,1000)
+num_delays = len(delay_array)+1
+PEs_noise100k = np.zeros(num_delays)
+SCs_noise100k = np.zeros(num_delays)
+for loop_delay in delay_array:
+    print ('On Delay ', loop_delay)
+    PEs_noise100k[loop_delay],SCs_noise100k[loop_delay] = CH(noise_array,5,delay=loop_delay)
 
 tmax, dt = 100, 0.001
 t = np.arange(0, tmax+dt, dt)
 timeindex = delayindex*0.001
 
-plt.plot(SCsx_20M[:,10])
-plt.plot(SCsx_10M[:,5])
-plt.plot(SCsx_5M[:,2])
-plt.plot(SCsx_2M[:,1])
-plt.plot(SCs_noise)
+plt.plot(SCsx_20M[1:,0])
+plt.plot(SCsx_10M[1:,0])
+plt.plot(SCsx_5M[1:,0])
+plt.plot(SCsx_2M[1:,0])
+plt.plot(SCs_noise100k[1:])
 
 plt.figure(2)
-plt.plot(PEsx_20M[:,10])
-plt.plot(PEsx_10M[:,5])
-plt.plot(PEsx_5M[:,2])
-plt.plot(PEsx_2M[:,1])
-plt.plot(PEs_noise)
+plt.plot(PEsx_20M[1:,0])
+plt.plot(PEsx_10M[1:,0])
+plt.plot(PEsx_5M[1:,0])
+plt.plot(PEsx_2M[1:,0])
+plt.plot(PEs_noise100k[1:])
+
+plt.figure(3)
+plt.loglog(SCsx_2M[1:,0])
+plt.loglog(SCsx_5M[1:,0])
+plt.loglog(SCsx_10M[1:,0])
+plt.loglog(SCsx_20M[1:,0])
+plt.loglog(SCs_noise100k[1:])
 
 """
 import matplotlib.cm as cm

@@ -6,7 +6,7 @@ Created on Mon Jul 17 21:00:45 2017
 """
 import numpy as np
 import matplotlib.pylab as plt
-from loadnpyfile import loadnpyfile
+from loadnpzfile import loadnpzfile
 from calc_PE_SC import PE, CH, PE_dist, PE_calc_only
 #import Cmaxmin as cpl
 from collections import Counter
@@ -17,152 +17,12 @@ import os
 #calc_PESC_fluid.py
 
 #datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\GalpyData_July2018\\'
-#datadir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\GalpyData_July2018\\resorted_data\\CR6_3t_Rg_Full\\'
-#datadir = 'C:\\Users\\dschaffner\\Dropbox\\PESC_Chaos\\CR6_3t\\'
-datadir = 'C:\\Users\\dschaffner\\Dropbox\\PESC_Chaos\\Sorted_CR6_et\\'
-npy='.npy'
+datadir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\GalpyData_July2018\\resorted_data\\CR6_3t_Rg_Full\\'
+npy='.npz'
 #fileheader = 'PE_SC_IDdatabase_Type_1_data_249_delays_3000_orbits_galpy0718'
 #fileheader = 'PE_SC_IDdatabase_Type_1_data_249_delays_galpy0718'
-#fileheader = 'CR6_3t_Rg_Full'
-fileheader = 'CR6_1t_Rg_Full'
-datafile = loadnpyfile(datadir+fileheader+npy)
-#PEs = datafile['PEs']
-#SCs = datafile['SCs']
-
-startindex=1700
-endindex=startindex+1700
-
-plt.figure(1)
-plt.clf()
-hist0=np.histogram(datafile[:,0],bins=80,range=(2,9))
-hist1=np.histogram(datafile[:,startindex],bins=80,range=(2,9))
-hist2=np.histogram(datafile[:,endindex],bins=80,range=(2,9))
-x=hist1[1][1:]
-y=hist2[0]-hist1[0]
-plt.plot(x,y,'black')
 
 
-
-
-plt.fill_between(x, y, 0, where=y >= 0, facecolor='green', interpolate=True)
-plt.fill_between(x, y, 0, where=y<0,facecolor='red',interpolate=True)
-plt.xlabel('R [kpc]')
-plt.ylabel(r'$\Delta$ Count')
-plt.title(r'$\Delta$ Count by Radius $T_{dyn}=1$ to $T_{dyn}=2$')
-plt.ylim(-1000,1000)
-
-#Resonance Lines
-#plt.vlines(5,-1000,1000)#CR
-#plt.vlines(4.12,-1000,1000,linestyle='dotted')#ULR
-#plt.vlines(5.88,-1000,1000,linestyle='dotted')#ULR
-#plt.vlines(3.23,-1000,1000,linestyle='dashed')#LR
-#plt.vlines(6.77,-1000,1000,linestyle='dashed')#LR
-#plt.vlines(6,-1000,1000,color='blue')
-plt.vlines(4.94,-1000,1000,color='blue',linestyle='dotted')#ULR
-plt.vlines(7.06,-1000,1000,color='blue',linestyle='dotted')#ULR
-plt.vlines(3.88,-1000,1000,color='blue',linestyle='dashed')#LR
-plt.vlines(8.12,-1000,1000,color='blue',linestyle='dashed')#LR
-#plt.vlines(7,-1000,1000,color='purple')
-#plt.vlines(5.76,-1000,1000,color='purple',linestyle='dotted')#ULR
-#plt.vlines(8.24,-1000,1000,color='purple',linestyle='dotted')#ULR
-#plt.vlines(4.53,-1000,1000,color='purple',linestyle='dashed')#LR
-#plt.vlines(9.47,-1000,1000,color='purple',linestyle='dashed')#LR
-
-ax2=plt.subplot(1,1,1)
-bins2=(np.arange(1000)*0.005)+3.5
-r5range=(np.arange(1000)*0.005)+3.5
-r=np.where(r5range<4.16)
-r2=np.where(r5range>5.98)
-r5range[r]=0.0
-r5range[r2]=0.0
-plt.plot(bins2,r5range,linewidth=0.0)
-ax2.fill_between(bins2, 0, 40, ec='none',where=r5range > 4.16 ,
-   color='black', alpha=0.15, transform=ax2.get_xaxis_transform())
-
-r6range=(np.arange(1000)*0.005)+3.5
-r=np.where(r6range<5.04)
-r2=np.where(r6range>7.1)
-r6range[r]=0.0
-r6range[r2]=0.0
-ax2.fill_between(bins2, 0, 40, ec='none',where=r6range > 5.04 ,
-   color='blue', alpha=0.15, transform=ax2.get_xaxis_transform())
-
-r7range=(np.arange(1000)*0.005)+3.5
-r=np.where(r7range<5.96)
-r2=np.where(r7range>8.18)
-r7range[r]=0.0
-r7range[r2]=0.0
-ax2.fill_between(bins2, 0, 40, ec='none',where=r7range > 5.96 ,
-   color='purple', alpha=0.15, transform=ax2.get_xaxis_transform())
-
-savefilename='CR6_3t_Rg_Full_DeltaCount_tdyn1totdyn2_wranges.png'
-#savefilename='CR6_1t_Rg_Full_DeltaCount_tdyn1totdyn2_wranges.png'
-savefile = os.path.normpath(datadir+savefilename)
-#plt.savefig(savefile,dpi=200,facecolor='w',edgecolor='k')
-
-
-#normalized to initial count
-plt.figure(2)
-plt.clf()
-n=hist0[0][:]#27:62]#[8:74]
-xn=hist1[1][1:]#[27:62]#[8:74]
-yn=hist2[0][:]-hist1[0][:]#[27:62]-hist1[0][27:62]
-plt.plot(xn,yn/n,'black')
-plt.fill_between(xn, yn/n, 0, where=(yn/n)>= 0, facecolor='green', interpolate=True)
-plt.fill_between(xn, yn/n, 0, where=(yn/n)<0,facecolor='red',interpolate=True)
-plt.xlabel('R [kpc]')
-plt.ylabel(r'$\Delta$ Count/$n_{0}$')
-plt.title(r'$\Delta$ Count by Radius $T_{dyn}=1$ to $T_{dyn}=2$')
-#plt.ylim(-1000,1000)
-
-
-#compute slope of initial distribution to use as normalization
-plt.figure(3)
-plt.clf()
-x=np.arange(80)
-z=np.polyfit(x[27:62],n[27:62],1)
-zn=z[1]+x*z[0]
-plt.plot(xn,yn/zn,'black')
-plt.fill_between(xn, yn/zn, 0, where=(yn/zn)>= 0, facecolor='green', interpolate=True)
-plt.fill_between(xn, yn/zn, 0, where=(yn/zn)<0,facecolor='red',interpolate=True)
-plt.xlabel('R [kpc]')
-plt.ylabel(r'$\Delta$ Count/$n_{0}$')
-plt.title(r'$\Delta$ Count by Radius $T_{dyn}=1$ to $T_{dyn}=2$')
-
-plt.figure(4)
-plt.clf()
-plt.plot(x,n)
-plt.plot(x,zn)
-
-"""
-Both simulations have one spiral that has a spiral with R_CR = 6 kpc.  So,
-
-                R_CR =   6
-
-                R_ULR = 4.94      and        7.06
-
-                R_LR =    3.88     and        8.12
-
- 
-
-3t has two more patterns where,
-
-                R_CR =   5
-
-                R_ULR = 4.12      and        5.88
-
-                R_LR =    3.23     and        6.77
-
- 
-
-                R_CR =   7
-
-                R_ULR = 5.76      and        8.24
-
-                R_LR =    4.53     and        9.47
-"""
-
-"""
 fileheader='radiusAttimestep0_3t'
 datafile=loadnpzfile(datadir+fileheader+npy)
 radii1=datafile['radius']
@@ -432,7 +292,10 @@ datafile = loadnpzfile(datadir+fileheader+npy)
 PEs_5t7 = datafile['PEs']
 SCs_5t7 = datafile['SCs']
 
-#fileheader = 'PE_SC_binnedBy0p2_3p5to8p3_24bins_start1700_length3400_499delays_499_delays'
+fileheader = 'PE_SC_binnedBy0p2_3p5to8p5_25bins_start1700_length3400_499delays_499_delays'
+
+#fileheader = 'PE_SC_binnedBy0p1_3p5to8p5_50bins_start700_end2400_length1700_499delays_499_delays'
+fileheader = 'PE_SC_binnedBy0p1_3p5to8p5_50bins_start1000_end2700_length1700_499delays_499_delays'
 #datafile = loadnpzfile(datadir+fileheader+npy)
 #PEs = datafile['PEs']
 #SCs = datafile['SCs']
@@ -442,13 +305,13 @@ SCs_5t7 = datafile['SCs']
 #PEs = datafile['PEs']
 #SCs = datafile['SCs']
 
-fileheader = 'PE_SC_binnedBy0p1_4to8_40bins_start1700_length3400_499delays_499_delays'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs = datafile['PEs']
-SCs = datafile['SCs']
+#fileheader = 'PE_SC_binnedBy0p1_4to8_40bins_start1700_length3400_499delays_499_delays'
+#datafile = loadnpzfile(datadir+fileheader+npy)
+#PEs = datafile['PEs']
+#SCs = datafile['SCs']
 
 #fileheader = 'PE_SC_binnedBy0p1_3p5to8p5_50bins_start1700_length3400_499delays_499_delays'
-fileheader = 'PE_SC_binnedBy0p1_3p5to8p5_50bins_start0_length1700_499delays_499_delays'
+#fileheader = 'PE_SC_binnedBy0p1_3p5to8p5_50bins_start0_length1700_499delays_499_delays'
 datafile = loadnpzfile(datadir+fileheader+npy)
 PEs = datafile['PEs']
 SCs = datafile['SCs']
@@ -545,6 +408,96 @@ plt.text(0.04,0.95,'(a)',fontsize=16,horizontalalignment='center',verticalalignm
 
 #fig=plt.figure(num=2,figsize=(5,3.5),dpi=300,facecolor='w',edgecolor='k')
 #plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
+
+fig=plt.figure(num=33,figsize=(9,7),dpi=300,facecolor='w',edgecolor='k')
+left  = 0.16  # the left side of the subplots of the figure
+right = 0.94    # the right side of the subplots of the figure
+bottom = 0.2  # the bottom of the subplots of the figure
+top = 0.96      # the top of the subplots of the figure
+wspace = 0.2   # the amount of width reserved for blank space between subplots
+hspace = 0.0   # the amount of height reserved for white space between subplots
+plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
+ax=plt.subplot(1,1,1)
+bins=(np.arange(50)*0.1)+3.5
+#bins=(np.arange(25)*0.2)+3.5
+x,y=np.meshgrid(bins,timeindex[1:400])
+cp = ax.contourf(bins,timeindex[1:400],SCs[1:400,:],levels=50,cmap=cm.coolwarm,vmin=0.15)
+fig.colorbar(cp)
+ax2=plt.subplot(1,1,1)
+bins2=(np.arange(1000)*0.005)+3.5
+r5range=(np.arange(1000)*0.005)+3.5
+r=np.where(r5range<4.16)
+r2=np.where(r5range>5.98)
+r5range[r]=0.0
+r5range[r2]=0.0
+plt.plot(bins2,r5range,linewidth=0.0)
+
+#ax3=plt.subplot(1,1,1)
+r6range=(np.arange(1000)*0.005)+3.5
+r=np.where(r6range<5.04)
+r2=np.where(r6range>7.1)
+r6range[r]=0.0
+r6range[r2]=0.0
+#plt.plot(bins,r6range,'x')
+
+r7range=(np.arange(1000)*0.005)+3.5
+r=np.where(r7range<5.96)
+r2=np.where(r7range>8.18)
+r7range[r]=0.0
+r7range[r2]=0.0
+#plt.plot(bins,r7range,'x')
+
+#import matplotlib.path as mpath
+#import matplotlib.lines as mlines
+#import matplotlib.patches as mpatches
+#from matplotlib.collections import PatchCollection
+
+#rect = mpatches.Rectangle([4.16,0],1, 1, transform=ax.get_xaxis_transform(),ec="none")
+#rect = mpatches.Rectangle([0,0],1, 1,ec="none")
+#plt.show()
+
+#ax2.fill_between(bins,bins)
+
+ax2.fill_between(bins2, 0, 40, ec='none',where=r5range > 4.16 ,
+   color='black', alpha=0.15, transform=ax2.get_xaxis_transform())
+
+plt.vlines(4.12,-1000,1000,linestyle='dotted')#ULR
+plt.vlines(5.88,-1000,1000,linestyle='dotted')#ULR
+plt.vlines(3.23,-1000,1000,linestyle='dashed')#LR
+plt.vlines(6.77,-1000,1000,linestyle='dashed')#LR
+
+ax2.fill_between(bins2, 0, 40, ec='none',where=r6range > 5.04 ,
+   color='blue', alpha=0.15, transform=ax2.get_xaxis_transform())
+
+plt.vlines(4.94,-1000,1000,color='blue',linestyle='dotted')#ULR
+plt.vlines(7.06,-1000,1000,color='blue',linestyle='dotted')#ULR
+plt.vlines(3.88,-1000,1000,color='blue',linestyle='dashed')#LR
+plt.vlines(8.12,-1000,1000,color='blue',linestyle='dashed')#LR
+
+ax2.fill_between(bins2, 0, 40, ec='none',where=r7range > 5.96 ,
+   color='purple', alpha=0.15, transform=ax2.get_xaxis_transform())
+
+plt.vlines(5.76,-1000,1000,color='purple',linestyle='dotted')#ULR
+plt.vlines(8.24,-1000,1000,color='purple',linestyle='dotted')#ULR
+plt.vlines(4.53,-1000,1000,color='purple',linestyle='dashed')#LR
+plt.vlines(9.47,-1000,1000,color='purple',linestyle='dashed')#LR
+
+#The widths for each of the CR regions (rather than using a solid line) are $
+#R_{range}(R_{CR} = 5) = 4.16-5.98$, 
+#$R_{range}(R_{CR} = 6) = 5.04-7.1$, 
+#$R_{range}(R_{CR} = 7) = 5.96-8.18$ }}
+plt.xlim(3.5,8.5)
+plt.ylim(0,40)
+ax.set_xlabel('radius [kpc]')
+ax.set_ylabel('time [Myr]')
+
+
+
+savefilename='CR6_3t_Rg_Full_700to2400_0p1Myrbins_counter_wranges.png'
+savefile = os.path.normpath(datadir+savefilename)
+plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
+
+"""
 from mpl_toolkits import mplot3d
 fig=plt.figure(num=33,figsize=(7,9),dpi=300,facecolor='w',edgecolor='k')
 left  = 0.16  # the left side of the subplots of the figure
@@ -559,8 +512,7 @@ ax=fig.gca(projection='3d')
 bins=(np.arange(50)*0.1)+3.5
 x,y=np.meshgrid(bins,timeindex[1:400])
 surf=ax.plot_surface(x,y,SCs[1:400,:],cmap=cm.coolwarm,vmin=0.15,linewidth=1,antialiased=False)
-ax.set_xlabel('radius [kpc]')
-ax.set_ylabel('time [Myr]')
+
 ax.set_zlabel('C')
 
 ax.view_init(elev=52.475996508582966,azim=-142.58241758241738)
