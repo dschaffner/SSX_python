@@ -25,8 +25,8 @@ gs = [9.8]
 
 #for ic in np.arange(0,8):
 #for ic in np.arange(8,16):
-for ic in np.arange(24,25):
-    print 'Analyzing PESC for IC',ic
+for ic in np.arange(33,34):
+    print ('Analyzing PESC for IC',ic)
     #fileheader ='DoubPen_LsMsEq1_grav'+str(gravity)+'_ICC1'
     #fileheader ='DoubPen_LsEq100_MsEq1_grav9p8_ICC1'
     #fileheader ='DoubPen_LsEq100_MsEq1_grav9p8_ICC1'
@@ -57,9 +57,9 @@ for ic in np.arange(24,25):
     
     
     #delay_array = np.array([1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900,1000,2000,3000,4000,5000,6000,7000,8000,9000,10000,20000,30000,40000,50000])
-    delay_array = np.arange(1,1000)
+    delay_array = np.arange(1,10000)
     num_delays = len(delay_array)
-    """
+    
     PEs = np.zeros([num_thetas,num_delays])
     SCs = np.zeros([num_thetas,num_delays])
     
@@ -102,7 +102,7 @@ for ic in np.arange(24,25):
     
     for loop_delay in np.arange(len(delay_array)):
     #for loop_delay in np.arange(150,151):
-        if (loop_delay%100)==0: print 'On Delay ',delay_array[loop_delay]
+        if (loop_delay%100)==0: print ('On Delay ',delay_array[loop_delay])
         permstore_counter = []
         permstore_counter = Counter(permstore_counter)
         tot_perms = 0
@@ -115,7 +115,7 @@ for ic in np.arange(24,25):
                     + np.log2(nfac))*(PE_tot/np.log2(nfac)))
         PEsx1[loop_delay]=PE_tot/np.log2(nfac)
         SCsx1[loop_delay]=C
-    print 'x1 completed'
+    print ('x1 completed')
 
     filename='PE_SC_DP'+fileheader+'_embeddelay'+str(embeddelay)+'_'+str(num_delays)+'_delays.npz'
     np.savez(datadir+filename,PEsx1=PEsx1,SCsx1=SCsx1,

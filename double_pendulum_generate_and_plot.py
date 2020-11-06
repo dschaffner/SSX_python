@@ -69,13 +69,14 @@ for ic in np.arange(10):
 
 
 # Initial conditions.
-y0=[3.1, 20.0, 0.1, 20.1]#ICP1
+#y0=[3.1, 20.0, 0.1, 20.1]#ICP1
+y0=[3.1, 0.2, 0.1, 0.1]#ICscan #28
 # Do the numerical integration of the equations of motion
 y = odeint(deriv, y0, t, args=(L1, L2, m1, m2, 9.81))
 # Unpack z and theta as a function of time
 theta1, theta2 = y[:,0], y[:,2]
 y0[0]=y0[0]+1e-9#ICP1
-print y0
+print (y0)
 y = odeint(deriv, y0, t, args=(L1, L2, m1, m2, 9.81))
 theta3, theta4 = y[:,0], y[:,2]
 # Convert to Cartesian coordinates of the two bob positions.
@@ -100,20 +101,21 @@ plt.figure(4)
 plt.plot(t,lyax)
 fitlength=5000
 fittime=fitlength*dt
-idx = np.isfinite(t[0:fitlength]) & np.isfinite(lyax[0:fitlength])#clean up NaNs in lyax array
-z=np.polyfit(t[idx],lyax[idx],1)
-plt.plot(t[idx],z[1]+t[idx]*z[0],color='red',label='lyapunov exponent = '+str(round(z[0],4)/fittime))
+#idx = np.isfinite(t[0:fitlength]) & np.isfinite(lyax[0:fitlength])#clean up NaNs in lyax array
+z=np.polyfit(t[0:fitlength],lyax[0:fitlength],1)
+plt.plot(t[0:fitlength],z[1]+t[0:fitlength]*z[0],color='red',label='lyapunov exponent = '+str(round(z[0],4)/fittime))
 #idx = np.isfinite(t[0:7000]) & np.isfinite(lyax[0:8000])#clean up NaNs in lyax array
 #z=np.polyfit(t[idx],lyax[idx],1)
 #plt.plot(t[idx],z[1]+t[idx]*z[0],color='green',label='lyapunov exponent = '+str(round(z[0],4)))
 plt.legend(loc='lower right',fontsize=12,frameon=False,handlelength=5)
-plt.xlim(-20,120)
-plt.ylim(-10,20)
-plt.hlines(lmax,0,100,color='red')
-"""
-    
-    datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\DoublePendulum\\'
-    filename='DoubPen_LsEq1_MsEq1_grav'+str(gravity)+'_ICC1_tstep0p002.npz'
-    np.savez(datadir+filename,x1=x1,x2=x2,x3=x3,x4=x4,y1=y1,y2=y2,y3=y3,y4=y4,ic=y0) 
+#plt.xlim(-20,120)
+#plt.ylim(-10,20)
+#plt.hlines(lmax,0,100,color='red')
 
-"""
+    
+datadir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\DoublePendulum\\'
+#filename='DoubPen_LsEq1_MsEq1_grav'+str(gravity)+'_ICC1_tstep0p001.npz'
+filename='DoubPen_LsEq1_MsEq1_g9p81_tstep001_icscanIC33.npz'
+np.savez(datadir+filename,x1=x1,x2=x2,x3=x3,x4=x4,y1=y1,y2=y2,y3=y3,y4=y4,ic=y0) 
+
+

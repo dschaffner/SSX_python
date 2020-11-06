@@ -12,23 +12,28 @@ from collections import Counter
 from math import factorial
 
 #calc_PESC_solarwind_chen.py
-datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\DoublePendulum\\'
+datadir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\DoublePendulum\\'
+
 fileheader='DoubPen_L1-1_L2-1_m1-1_m2-1_9p8_scan_theta1_ic'
 fileheader='DoubPen_L1-1_L2-1_m1-1_m2-1_9p8_chaos'
 fileheader = 'DoubPen_LsMsEq1_9p8_ICQ4'
 fileheader ='DoubPen_LsMsEq1_9p8_ICC1'
-fileheader ='DoubPen_LsMsEq1_4p9_ICC1'
-fileheader = 'DoubPen_LsEq10_MsEq1_grav9.81_ICC1'
+#fileheader ='DoubPen_LsMsEq1_4p9_ICC1'
+#fileheader = 'DoubPen_LsEq10_MsEq1_grav9.81_ICC1'
 
 gs = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 gs = [9.8]
 
 for gravity in gs:
-    print 'Analyzing for gravity of ',gravity,' m/s^2'
+    print ('Analyzing for gravity of ',gravity,' m/s^2')
     #fileheader ='DoubPen_LsMsEq1_grav'+str(gravity)+'_ICC1'
     #fileheader ='DoubPen_LsEq100_MsEq1_grav9p8_ICC1'
     #fileheader ='DoubPen_LsEq100_MsEq1_grav9p8_ICC1'
-    fileheader = 'DoubPen_LsEq1_MsEq1_grav9p8_ICC1_tstep0p002'
+    #fileheader = 'DoubPen_LsEq1_MsEq1_grav9p8_ICC1_tstep0p002'
+    #fileheader ='DoubPen_LsMsEq1_9p8_ICC1'
+    #fileheader ='DoubPen_LsMsEq1_9p8_ICQ1'
+    #fileheader ='DoubPen_LsMsEq1_9p8_ICP1'
+    fileheader ='DoubPen_LsEq1_MsEq1_g9p81_tstep001_icscanIC33'
     npz='.npz'
     datafile = loadnpzfile(datadir+fileheader+npz)
     #initial_theta1s=datafile['initial_theta1s']
@@ -55,7 +60,7 @@ for gravity in gs:
     
     
     #delay_array = np.array([1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900,1000,2000,3000,4000,5000,6000,7000,8000,9000,10000,20000,30000,40000,50000])
-    delay_array = np.arange(1,1000)
+    delay_array = np.arange(1,10000)
     num_delays = len(delay_array)
     """
     PEs = np.zeros([num_thetas,num_delays])
@@ -100,7 +105,7 @@ for gravity in gs:
     
     for loop_delay in np.arange(len(delay_array)):
     #for loop_delay in np.arange(150,151):
-        if (loop_delay%100)==0: print 'On Delay ',delay_array[loop_delay]
+        if (loop_delay%100)==0: print( 'On Delay ',delay_array[loop_delay])
         permstore_counter = []
         permstore_counter = Counter(permstore_counter)
         tot_perms = 0
@@ -113,7 +118,7 @@ for gravity in gs:
                     + np.log2(nfac))*(PE_tot/np.log2(nfac)))
         PEsx1[loop_delay]=PE_tot/np.log2(nfac)
         SCsx1[loop_delay]=C
-    print 'x1 completed'
+    print ('x1 completed')
 """        
     for loop_delay in np.arange(len(delay_array)):
         if (loop_delay%100)==0: print 'On Delay ',delay_array[loop_delay]

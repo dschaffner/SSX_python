@@ -198,9 +198,9 @@ plt.plot(x,zn)
 from loadnpzfile import loadnpzfile
 datadir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\GalpyData_July2018\\resorted_data\\CR6_3t_Rg_Full\\'
 npy='.npz'
-#fileheader = 'PE_SC_1t_binnedBy0p1_3p5to8p5_50bins_start1700_length3400_499delays_499_delays'
+fileheader = 'PE_SC_1t_binnedBy0p1_3p5to8p5_50bins_start1700_length3400_499delays_499_delays'
 #fileheader = 'PE_SC_1t_binnedBy0p1_3p5to8p5_50bins_start0_end1700_length1700_499delays_499_delays'
-fileheader = 'PE_SC_1t_binnedBy0p1_3p5to8p5_50bins_start1700_length3400_499delays_499_delays_binnedbyfinalr'
+#fileheader = 'PE_SC_1t_binnedBy0p1_3p5to8p5_50bins_start1700_length3400_499delays_499_delays_binnedbyfinalr'
 datafile = loadnpzfile(datadir+fileheader+npy)
 PEs = datafile['PEs']
 SCs = datafile['SCs']
@@ -323,3 +323,42 @@ plt.vlines(4.94,-1,1,color='blue',linestyle='dotted')#ULR
 plt.vlines(7.06,-1,1,color='blue',linestyle='dotted')#ULR
 plt.vlines(3.88,-1,1,color='blue',linestyle='dashed')#LR
 plt.vlines(8.12,-1,1,color='blue',linestyle='dashed')#LR
+
+
+
+
+fig=plt.figure(num=50,figsize=(7,5),dpi=600,facecolor='w',edgecolor='k')
+left  = 0.2  # the left side of the subplots of the figure
+right = 0.94    # the right side of the subplots of the figure
+bottom = 0.2  # the bottom of the subplots of the figure
+top = 0.96      # the top of the subplots of the figure
+wspace = 0.2   # the amount of width reserved for blank space between subplots
+hspace = 0.2   # the amount of height reserved for white space between subplots
+plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
+
+
+ax=plt.subplot(1,1,1)
+bins=(np.arange(50)*0.1)+3.5
+x,y=np.meshgrid(bins,timeindex[1:400])
+cp = ax.contourf(x,y,SCs[1:400,:],levels=50,cmap=cm.plasma,vmin=0.25)
+#fig.colorbar(cp)
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+plt.ylabel(r'$C$',fontsize=15)
+plt.xlabel('R [kpc]',fontsize=15)
+
+plt.vlines(6,1,40,color='blue')
+plt.vlines(4.94,1,40,color='white',linestyle='dotted',linewidth=4)#ULR
+plt.vlines(7.06,1,40,color='white',linestyle='dotted',linewidth=4)#ULR
+plt.vlines(3.88,1,40,color='white',linestyle='dashed',linewidth=4)#LR
+plt.vlines(8.12,1,40,color='white',linestyle='dashed',linewidth=4)#LR
+
+plt.xlim(3.48,6.82)
+
+
+
+savefilename='1t_complexitycurves_Td1_to_Td2.png'
+savefile = os.path.normpath(datadir+savefilename)
+plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
+plt.clf()
+plt.close()

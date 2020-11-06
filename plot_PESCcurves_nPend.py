@@ -108,13 +108,13 @@ SCsx_20M=datafile['SCxs']
 
 fileheader = 'PE_SC_interpolated_noise_100kInto10k_embeddelay5_999_delays'
 datafile = loadnpzfile(datadir+fileheader+npz)
-PEs_noise=datafile['PEs']
-SCs_noise=datafile['SCs']
+PEs_noise_interp=datafile['PEs']
+SCs_noise_interp=datafile['SCs']
 
 fileheader = 'PE_SC_interpolated_noise_100kInto5k_embeddelay5_999_delays'
 datafile = loadnpzfile(datadir+fileheader+npz)
-PEs_noise2=datafile['PEs']
-SCs_noise2=datafile['SCs']
+PEs_noise_interp2=datafile['PEs']
+SCs_noise_interp2=datafile['SCs']
 
 fileheader='nPen_2masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
 datafile = loadnpzfile(datadir+fileheader+npz)
@@ -148,6 +148,7 @@ datafile = loadnpzfile(datadir+fileheader+npz)
 x20M=datafile['x']
 
 
+noise_array=np.random.uniform(-1,1,size=5000)
 
 
 points = ['o','v','s','p','*','h','^','D','+','>','H','d','x','<']
@@ -162,13 +163,13 @@ plt.rc('lines',markersize=8,markeredgewidth=0.0,linewidth=1.0)
 #plt.rcParams['ps.fonttype'] = 42
 #plt.rcParams['pdf.fonttype'] = 42
 
-fig=plt.figure(num=1,figsize=(4,6),dpi=300,facecolor='w',edgecolor='k',tight_layout=True)
+fig=plt.figure(num=1,figsize=(7,5),dpi=600,facecolor='w',edgecolor='k',tight_layout=False)
 plt.clf()
 left  = 0.1  # the left side of the subplots of the figure
 right = 0.94    # the right side of the subplots of the figure
 bottom = 0.12  # the bottom of the subplots of the figure
 top = 0.98      # the top of the subplots of the figure
-wspace = 0.2   # the amount of width reserved for blank space between subplots
+wspace = 0.5   # the amount of width reserved for blank space between subplots
 hspace = 0.2   # the amount of height reserved for white space between subplots
 plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
 
@@ -177,10 +178,10 @@ gs=gridspec.GridSpec(2,3)
 
 ax1=fig.add_subplot(gs[0,:])
 plt.plot(x2M[:,1],color='blue',label='m=2')
-plt.plot(x5M[:,1]+4,color='purple',label='m=5')
-plt.plot(x10M[:,1]+8,color='red',label='m=10')
-plt.plot(x20M[:,1]+12,color='orange',label='m=20')
-plt.plot(timeseries_noise+16,color='gray',label='white noise')
+plt.plot(x5M[:,1]+3,color='purple',label='m=5')
+plt.plot(x10M[:,1]+6,color='red',label='m=10')
+plt.plot(x20M[:,1]+9,color='orange',label='m=20')
+plt.plot(noise_array+50,color='gray',label='interp. noise')
 plt.xlabel('Time',fontsize=8)
 plt.ylabel('Amplitude',fontsize=8)
 ax1.set_xticklabels([])
@@ -188,47 +189,85 @@ ax1.set_xticks([])
 ax1.set_yticklabels([])
 ax1.set_yticks([])
 plt.xlim([1000,3000])
-plt.ylim([-2,20])
-plt.title('(a) Timeseries',fontsize=5)
-plt.legend(loc='upper center',fontsize=4,ncol=2,frameon=False,handlelength=5)
+plt.ylim([-2,13])
+#plt.title('(a) Timeseries',fontsize=5)
+plt.legend(loc='upper center',fontsize=7,ncol=5,frameon=False,handlelength=3)
+plt.text(0.99,0.95,'(a)',horizontalalignment='right',verticalalignment='center',transform=ax1.transAxes,fontsize=10)
+
 
 ax2=fig.add_subplot(gs[1,0])
-plt.plot(SCs_noise[1:],color='blue',label='White Noise')
-plt.plot(SCs_henon[1:],color='purple',label='Henon Map')
-plt.plot(SCs_sine1x[1:],color='red',label='sin(x)')
-plt.plot(SCs_sine20x[1:],color='orange',label='sin(20x')
-plt.xlim(0,25)
-plt.xlabel(r'$\tau$',fontsize=6)
-plt.xticks([0,5,10,15,20,25],[0,5,10,15,20,25],fontsize=5)
-plt.ylabel('C',fontsize=6)
-plt.yticks(fontsize=5)
-plt.title('(b) Complexity vs Delay',fontsize=5)
+plt.plot(SCsx_2M[:,0],color='blue',label='m=2')
+plt.plot(SCsx_5M[:,0],color='purple',label='m=5')
+plt.plot(SCsx_10M[:,0],color='red',label='m=10')
+plt.plot(SCsx_20M[:,0],color='orange',label='m=20')
+plt.plot(SCs_noise_interp,color='gray',label='white noise interp')
+#plt.plot(SCs_noise,color='black',label='white noise')
+plt.xlabel(r'$\tau_{\mu}$',fontsize=10)
+plt.xticks([1,10,20,30,40,50],[1,10,20,30,40,50],fontsize=8)
+plt.xlim(1,50)
+plt.ylim(0,0.41)
+plt.ylabel('C',fontsize=10)
+plt.yticks(fontsize=8)
+#plt.title('(b) Complexity vs Delay',fontsize=5)
+plt.text(1.15,0.98,'(b)',horizontalalignment='right',verticalalignment='center',transform=ax2.transAxes,fontsize=10)
+
 
 ax3=fig.add_subplot(gs[1,1])
-plt.loglog(SCs_noise,color='blue',label='White Noise')
-plt.loglog(SCs_henon,color='purple',label='Henon Map')
-plt.loglog(SCs_sine20x,color='orange',label='sin(20x')
-plt.loglog(SCs_sine1x,color='red',label='sin(x)')
-plt.xlabel(r'$\tau$',fontsize=6)
-plt.xticks([1e0,1e1,1e2,1e3],[1e0,1e1,1e2,1e3],fontsize=5)
-plt.xlim(1e0,1e3)
-plt.yticks([0.0001,0.001,0.01,0.1,0.4],[0.0001,0.001,0.01,0.1,0.4],fontsize=5)
-plt.ylim(1e-4,0.5)
-plt.ylabel('C',fontsize=6)
-plt.title('(c) Log-Log Complexity vs Delay',fontsize=5)
+plt.loglog(SCsx_2M[:,0],color='blue',label='m=2')
+plt.loglog(SCsx_5M[:,0],color='purple',label='m=5')
+plt.loglog(SCsx_10M[:,0],color='red',label='m=10')
+plt.loglog(SCsx_20M[:,0],color='orange',label='m=20')
+plt.loglog(SCs_noise_interp,color='gray',label='white noise interp')
+#plt.loglog(SCs_noise,color='black',label='white noise')
+plt.xlabel(r'$\tau_{\mu}$',fontsize=10)
+ax3.yaxis.set_label_coords(-0.25, 0.5)
+plt.xticks([1,10,100,500],[1,10,100,500],fontsize=8)
+plt.xlim(1,500)
+plt.yticks([0.001,0.01,0.1,0.4],[0.001,0.01,0.1,0.4],fontsize=8)
+plt.ylim(8e-4,0.5)
+plt.ylabel('C',fontsize=10)
+#plt.title('(c) Log-Log Complexity vs Delay',fontsize=5)
+plt.text(1.15,0.98,'(c)',horizontalalignment='right',verticalalignment='center',transform=ax3.transAxes,fontsize=10)
+
 
 ax4=fig.add_subplot(gs[1,2])
-plt.loglog(PEs_noise,color='blue',label='White Noise')
-plt.loglog(PEs_henon,color='purple',label='Henon Map')
-plt.loglog(PEs_sine20x,color='orange',label='sin(20x')
-plt.loglog(PEs_sine1x,color='red',label='sin(x)')
-plt.xlabel(r'$\tau$',fontsize=6)
-plt.xticks([1e0,1e1,1e2,1e3],[1e0,1e1,1e2,1e3],fontsize=5)
-plt.xlim(1e0,1e3)
-plt.yticks([0.1,0.4,1.0],[0.1,0.4,1.0],fontsize=5)
+plt.loglog(PEsx_2M[:,0],color='blue',label='m=2')
+plt.loglog(PEsx_5M[:,0],color='purple',label='m=5')
+plt.loglog(PEsx_10M[:,0],color='red',label='m=10')
+plt.loglog(PEsx_20M[:,0],color='orange',label='m=20')
+plt.loglog(PEs_noise_interp,color='gray',label='white noise interp')
+#plt.loglog(PEs_noise,color='black',label='white noise')
+plt.xlabel(r'$\tau_{\mu}$',fontsize=10)
+plt.xticks([1,10,100,500],[1,10,100,500],fontsize=8)
+plt.xlim(1,500)
+plt.yticks([0.1,0.2,0.3,0.4,0.6,1.0],[0.1,0.2,0.3,0.4,0.6,1.0],fontsize=10)
 #plt.ylim(0.1,1.0)
-plt.ylabel('H',fontsize=6)
-plt.title('(d) Log-Log Norm. PE vs Delay',fontsize=5)
+plt.ylabel('H',fontsize=10)
+plt.ylim(0.2,1.1)
+#plt.title('(d) Log-Log Norm. PE vs Delay',fontsize=5)
+plt.text(1.15,0.98,'(d)',horizontalalignment='right',verticalalignment='center',transform=ax4.transAxes,fontsize=10)
+
+filename = 'timeseries_PESC_curves_nPend.eps'
+savefile = os.path.normpath(savedir+filename)
+#plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
+plt.clf()
+plt.close()
+
+mass=10
+
+plt.figure(3)
+plt.plot(SCsx_20M[:,mass])
+plt.figure(4)
+plt.semilogy(SCsx_20M[:,mass])
+plt.figure(5)
+plt.semilogy(PEsx_20M[:,mass])
+import spectrum_wwind as spec
+spec20M = spec.spectrum_wwind(x20M[:,mass],np.arange(len(x20M[:,mass])),window='hanning')
+plt.figure(6)
+plt.semilogy(1.0/spec20M[0],spec20M[3])
+plt.xlim(1,1000)
+plt.figure(7)
+plt.plot(x20M[:,mass+1])
 
 
 """
@@ -310,7 +349,7 @@ wspace = 0.2   # the amount of width reserved for blank space between subplots
 hspace = 0.1   # the amount of height reserved for white space between subplots
 plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
 
-timestep = 86
+timestep = 86//
 
 plt.plot(Cminx,Cminy,'k-',Cmaxx,Cmaxy,'k-')
 plt.plot(PEs1[timestep],SCs1[timestep],color=colors[0,:],marker='o',label='Type 1')

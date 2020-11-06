@@ -30,17 +30,18 @@ def deriv(y, t, L1, L2, m1, m2, g):
 
 # Maximum time, time point spacings and the time grid (all in s).
 tmax, dt = 500, 0.001
+#tmax, dt = 1000, 0.001
 #tmax, dt = 50, 0.001
 #tmax, dt = 1000, 0.01
 t = np.arange(0, tmax+dt, dt)
 
 
-ics=[
+ics=np.array([
      #[0.5, 0.0, 1.2, 0.1]]#,	 #0.1037	50000
      #[0.7, 0.4, 1.9, 0.1]]#,	 #0.2211	50000
      #[1.5,0.4,0.4,0.9]]#,      #0.2715	50000
      #[0.2, 0.6, 2.1, 0.2],	 #0.288	50000
-     [1.0, 0.2, 2.3, 0.7]]#,	 #0.3481	50000
+     #[1.0, 0.2, 2.3, 0.7]]#,	 #0.3481	50000
      #[0.3, 0.3, 2.5, 0.9]]#,	#0.3602	50000
      #[0.7,0.8,0.3,0.3],      #0.3946	50000
      #[1.4, 0.6, 1.6, 0.3],	#0.4007	50000
@@ -58,25 +59,31 @@ ics=[
      #[2.5, 0.4, 0.1, 0.4]]#,	#1.0879	20000
      #[2.2,0.5,1.9,0.1],      #1.1	20000
      #[2.8,0.4,2.3,0.3],      #1.1702	15000
-     #[2.6,0.9,2.8,0.7],       #1.4466	15000
+     #[2.6,0.9,2.8,0.7]#,       #1.4466	15000
      #[2.1, 0.2, 2.3, 0.8],	#1.7489	15000
-     #[1.7, 0.9, 2.9, 0.7]]	#2.0921	10000
-
+     #[1.7, 0.9, 2.9, 0.7],
+     #[3.1e0, 0.2e0, 0.1e0, 0.1e0],#0921	10000
+     [1.57,0,0,0]
+     ]
+    )
 
 for ic in np.arange(len(ics)):
 
     # Initial conditions.
     y0=ics[ic]
-
+    print('Initial y0[0] ',y0[0])
+    yl0=y0
     # Do the numerical integration of the equations of motion
     y = odeint(deriv, y0, t, args=(L1, L2, m1, m2, 9.81))
     # Unpack z and theta as a function of time
     theta1, theta2 = y[:,0], y[:,2]
     
-    y0[0]=y0[0]+1e-9
-    
-    y = odeint(deriv, y0, t, args=(L1, L2, m1, m2, 9.81))
-    theta3, theta4 = y[:,0], y[:,2]
+    #y0[0]=y0[0]+1e-9
+    #y0[0]=y0[0]+1e-16
+    yl0[0]=y0[0]+1e-9
+    print('Initial yl0[0] ',yl0[0])
+    yl = odeint(deriv, yl0, t, args=(L1, L2, m1, m2, 9.81))
+    theta3, theta4 = yl[:,0], yl[:,2]
     
 
     # Convert to Cartesian coordinates of the two bob positions.
@@ -95,30 +102,30 @@ for ic in np.arange(len(ics)):
     #x6 = x5 + L2 * np.sin(theta6)
     #y6 = y5 - L2 * np.cos(theta6)
     
-    #plt.figure(3)
-    #plt.plot(t,x1)
-    #plt.plot(t,x3)
+    plt.figure(3)
+    plt.plot(t,x1)
+    plt.plot(t,x3)
     
-    #lyax = np.log(x3-x1)
-    #plt.figure(4)
-    #plt.plot(t,lyax)
+    lyax = np.log(x3-x1)
+    plt.figure(4)
+    plt.plot(t,lyax)
     
     #datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\DoublePendulum\\'
     #filename='DoubPen_LsEq1_MsEq1_g9p81_tstep001_icscanIC'+str(ic)+'.npz'
     #np.savez(datadir+filename,x1=x1,x2=x2,x3=x3,x4=x4,y1=y1,y2=y2,y3=y3,y4=y4,ic=y0) 
 
 
-    allfreqs,bisp,norm1,norm2=bispec.bispec(t,x1,x1,x1,1,auto=True)
-    import spectrum_wwind as spec
-    freq,freq2,comp,pwr,mag,phase,cos_phase,dt=spec.spectrum_wwind(x1[0:100000],t[0:100000])
-    freq3,freq2,comp3,pwr3,mag,phase,cos_phase,dt=spec.spectrum_wwind(x1,t)   
-    plt.clf()
-    plt.close()
-    plt.plot(freq,pwr*5)
-    plt.plot(freq3,pwr3)
-    plt.figure(2)
-    plt.contourf(allfreqs,allfreqs,(np.abs(np.rot90(bisp)))**2,100)
-    plt.colorbar()
+    #allfreqs,bisp,norm1,norm2=bispec.bispec(t,x1,x1,x1,1,auto=True)
+    #import spectrum_wwind as spec
+    #freq,freq2,comp,pwr,mag,phase,cos_phase,dt=spec.spectrum_wwind(x1[0:100000],t[0:100000])
+    #freq3,freq2,comp3,pwr3,mag,phase,cos_phase,dt=spec.spectrum_wwind(x1,t)   
+    #plt.clf()
+    #plt.close()
+    #plt.plot(freq,pwr*5)
+    #plt.plot(freq3,pwr3)
+    #plt.figure(2)
+    #plt.contourf(allfreqs,allfreqs,(np.abs(np.rot90(bisp)))**2,100)
+    #plt.colorbar()
     #plt.figure(3)
     #plt.contourf(allfreqs,allfreqs,(((np.abs(bisp))**2)/(((np.abs(norm1))**2)*(np.abs(norm2))**2)),100)
 """

@@ -338,7 +338,7 @@ plt.rc('xtick.major',width=2.0)
 plt.rc('ytick.major',width=2.0)
 plt.rc('xtick.minor',width=2.0)
 plt.rc('ytick.minor',width=2.0)
-plt.rc('lines',markersize=8,markeredgewidth=0.0,linewidth=2.0)
+plt.rc('lines',markersize=8,markeredgewidth=0.0,linewidth=3.0)
 
 numcolors=5
 colors=np.zeros([numcolors,4])
@@ -352,7 +352,7 @@ for i in np.arange(numcolors):
 fig=plt.figure(num=20,figsize=(9,6),dpi=600,facecolor='w',edgecolor='k')
 left  = 0.16  # the left side of the subplots of the figure
 right = 0.94    # the right side of the subplots of the figure
-bottom = 0.12  # the bottom of the subplots of the figure
+bottom = 0.15  # the bottom of the subplots of the figure
 top = 0.96      # the top of the subplots of the figure
 wspace = 0.2   # the amount of width reserved for blank space between subplots
 hspace = 0.0   # the amount of height reserved for white space between subplots
@@ -414,15 +414,15 @@ plt.plot(normtimeindex[1:450],SCs[1:450,30],color=colors[4,:],linestyle='solid',
 
 #plt.xticks(timearray,timelist,fontsize=12)
 #plt.yticks(np.array([0.0,0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40]),[0.0,0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40],fontsize=12)
-plt.xlabel(r'$\tau_{s}/T^{M6}_{dyn}$',fontsize=20)
-plt.xticks(fontsize=15)
+plt.xlabel(r'$\tau_{s}/T^{M6e}_{dyn}$',fontsize=20)
+plt.xticks(fontsize=18)
 #plt.xlabel('Delay Steps',fontsize=9)
 #ax1.set_xticklabels([])
 plt.ylabel(r'$C$',fontsize=20)
-plt.yticks(fontsize=15)
+plt.yticks(fontsize=18)
 plt.xlim(0.001,0.23)
 plt.ylim(0.11,0.4)
-plt.legend(loc='lower right',fontsize=12,frameon=False,handlelength=5,numpoints=2)
+plt.legend(loc='lower right',fontsize=14,frameon=False,handlelength=5,numpoints=2)
 #plt.text(0.04,0.95,'(a)',fontsize=16,horizontalalignment='center',verticalalignment='center',transform=ax1.transAxes)
 
 #savefilename='SC_galpy0718_1000timesteps_3000_orbits.png'
@@ -472,10 +472,10 @@ plt.vlines(3.88,0,40,color='antiquewhite',linestyle='dashed',linewidth=4.0)#LR
 plt.vlines(8.12,0,40,color='antiquewhite',linestyle='dashed',linewidth=4.0)#LR
 
 
-plt.xlabel('R [kpc]',fontsize=20)
+plt.xlabel(r'$R_{L}(t=1T_{dyn}^{M6e})$ [kpc]',fontsize=20)
 plt.ylabel(r'$\tau_{s}/T^{M6}_{dyn}$',fontsize=20)
-plt.xticks(fontsize=15)
-plt.yticks(fontsize=15)
+plt.xticks(fontsize=18)
+plt.yticks(fontsize=18)
 
 plt.xlim(3.5,6.82)
 plt.ylim(0.001,0.23)

@@ -64,10 +64,11 @@ delayindex = np.arange(1,500)
 timeindex=(delayindex*1e5)/(1e6)
 timeindex_normM6=timeindex/(M6dyn/10)
 
-#colors = np.zeros([5,4])
-#for i in np.arange(5):
-#    c = cm.spectral(i/5.,1)
-#    colors[i,:]=c
+numcolors=2
+colors=np.zeros([numcolors,4])
+for i in np.arange(numcolors):
+    c = plt.cm.plasma(i/(float(numcolors)),1)
+    colors[i,:]=c
 points = ['o','v','s','p','*','h','^','D','+','>','H','d','x','<']
         
 plt.rc('axes',linewidth=2.0)
@@ -75,7 +76,7 @@ plt.rc('xtick.major',width=2.0)
 plt.rc('ytick.major',width=2.0)
 plt.rc('xtick.minor',width=2.0)
 plt.rc('ytick.minor',width=2.0)
-plt.rc('lines',markersize=8,markeredgewidth=0.0,linewidth=2.0)
+plt.rc('lines',markersize=8,markeredgewidth=0.0,linewidth=3.0)
 
 #plt.rcParams['ps.fonttype'] = 42
 #plt.rcParams['pdf.fonttype'] = 42
@@ -91,11 +92,11 @@ plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspac
 
 
 ax1=plt.subplot(2,1,1)
-plt.plot(timeindex_normM6,SCs1[1:500],color='blue',marker=points[0],markevery=(20,100),label='Type 1')
+plt.plot(timeindex_normM6,SCs1[1:500],color=colors[0,:],label='Type 1')
 #plt.plot(timeindex,SCs1_resort[1:],color='blue',linestyle='dashed')
 #plt.plot(timeindex,SCsT25[1:500],color=colors[1,:],label='Type 2 [Beyond CR]')
 #plt.plot(timeindex,SCs31[1:],color='green',label='Type 3-1')
-plt.plot(timeindex_normM6,SCs32i[1:],color='red',marker=points[1],markevery=(20,100),label=r'Type 3$\rightarrow$2i')
+plt.plot(timeindex_normM6,SCs32i[1:],color=colors[1,:],label=r'Type 3$\rightarrow$2')
 #plt.plot(timeindex,SCs32_resort[1:],color='red',linestyle='dashed')
 #plt.plot(timeindex,SCs31[1:],color='green')
 #plt.plot(timeindex,SCs31_resort[1:],color='green',linestyle='dashed')
@@ -107,15 +108,15 @@ plt.plot(timeindex_normM6,SCs32i[1:],color='red',marker=points[1],markevery=(20,
 
 #plt.xticks(np.array([1,20,40,60,80,100,120,140,160,180,200,220,240]),[1,20,40,60,80,100,120,140,160,180,200,220,240],fontsize=9)
 
-plt.xticks(fontsize=15)
-plt.yticks(np.array([0.0,0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40]),[0.0,0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40],fontsize=12)
-plt.xlabel(r'$\tau_s/\tau_{dyn}$',fontsize=18)
+plt.xticks(fontsize=18)
+plt.yticks(np.array([0.10,0.20,0.30,0.40]),[0.10,0.20,0.30,0.40],fontsize=18)
+plt.xlabel(r'$\tau_s/T_{dyn}$',fontsize=18)
 #plt.xlabel('Delay Steps',fontsize=9)
 ax1.set_xticklabels([])
-plt.ylabel(r'$C$',fontsize=18)
+plt.ylabel(r'$C$',fontsize=20)
 plt.xlim(0,0.25)
 plt.ylim(0.11,0.4)
-plt.legend(loc='lower right',fontsize=12,frameon=False,handlelength=5,numpoints=2)
+plt.legend(loc='lower right',fontsize=14,frameon=False,handlelength=5,numpoints=2)
 plt.text(0.04,0.95,'(a)',fontsize=16,horizontalalignment='center',verticalalignment='center',transform=ax1.transAxes)
 
 #savefilename='SC_galpy0718_1000timesteps_3000_orbits.png'
@@ -129,25 +130,26 @@ plt.text(0.04,0.95,'(a)',fontsize=16,horizontalalignment='center',verticalalignm
 
 
 ax1=plt.subplot(2,1,2)
-plt.plot(timeindex_normM6,PEs1[1:500],color='blue',marker=points[0],markevery=(20,100),label='Type 1')
+plt.plot(timeindex_normM6,PEs1[1:500],color=colors[0,:],label='Type 1')
 #plt.plot(timeindex,PEsT25[1:500],color=colors[1,:],label='Type 2 [Beyond CR]')
 #plt.plot(timeindex,PEs31[1:],color='green',label='Type 3-1')
-plt.plot(timeindex_normM6,PEs32i[1:],color='red',marker=points[1],markevery=(20,100),label=r'Type 3$\rightarrow$2i')
+plt.plot(timeindex_normM6,PEs32i[1:],color=colors[1,:],label=r'Type 3$\rightarrow$2')
 #plt.plot(timeindex,PEs4[1:],color='purple',label='Type 4')
 #plt.plot(delayindex,PEsin[1:],color='black',label='Sine Wave')
 
-plt.xticks(fontsize=15)
-plt.xlabel(r'$\tau_s/\tau_{dyn}$',fontsize=18)
+plt.yticks([0.0,0.2,0.4,0.6,0.8,1.0],[0.0,0.2,0.4,0.6,0.8,1.0],fontsize=18)
+plt.xticks(fontsize=18)
+plt.xlabel(r'$\tau_s/T_{dyn}$',fontsize=20)
 #ax1.set_xticklabels([])
-plt.yticks(fontsize=15)
-plt.ylabel(r'$H$',fontsize=15)
+plt.yticks(fontsize=18)
+plt.ylabel(r'$H$',fontsize=20)
 plt.xlim(0,0.25)
-plt.ylim(0,0.95)
-plt.legend(loc='lower right',fontsize=15,frameon=False,handlelength=5)
+plt.ylim(0,1.1)
+plt.legend(loc='lower right',fontsize=14,frameon=False,handlelength=5)
 plt.text(0.04,0.95,'(b)',fontsize=16,horizontalalignment='center',verticalalignment='center',transform=ax1.transAxes)
 
-#savefilename='SC_and_PE_CR6_2000timesteps_Type1vsType32i_normdyntime_ApJver.png'
-savefilename='SC_and_PE_CR6_2000timesteps_Type1vsType32i_normdyntime_ApJver.eps'
+#savefilename='SC_and_PE_CR6_2000timesteps_Type1vsType32i_normdyntime_ApJver_newcolor.png'
+savefilename='SC_and_PE_CR6_2000timesteps_Type1vsType32i_normdyntime_ApJver_newcolor.eps'
 #savefilename='PE_galpy0718_1000timesteps_all_orbits.png'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')

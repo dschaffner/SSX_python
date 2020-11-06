@@ -126,8 +126,10 @@ npz='.npz'
 datafile = loadnpzfile(datadir+fileheader+npz)
 x1=datafile['x1']
 x3=datafile['x3']
-plt.plot(t,x1,color='orange',linestyle='dotted',linewidth=0.75)
+plt.plot(t,x1,color='orange',linestyle='dotted',linewidth=1.5)
 plt.plot(t,x3,color='blue',linewidth=2.0)
+
+
 ax1.set_xticklabels([])
 #plt.vlines(81,0,1,color='red',linestyle='dotted',linewidth=0.5)
 
@@ -147,24 +149,24 @@ plt.ylim(-1.1,1.1)
 
 ax1=plt.subplot(3,2,2)
 lyax=np.log(np.abs(x3-x1)/1e-9)
-plt.plot(t,lyax,color='red')#colors[1,:])
+plt.plot(t,lyax,color='blue')#colors[1,:])
 
 #plt.vlines(81,0,1,color='red',linestyle='dotted',linewidth=0.5)
 
 plt.xticks(fontsize=12)
 plt.yticks(fontsize=12)
 plt.xlabel('Time [s]',fontsize=15)
-plt.ylabel(r'Log $\frac{|\Delta x|}{\Delta x_{0}}$',fontsize=12)
+plt.ylabel(r'ln $\frac{|\delta x(t)|}{\delta x_{0}}$',fontsize=12)
 plt.xlim(0,100.0)
 ax1.set_xticklabels([])
 #plt.ylim(0,0.4)
 #plt.legend(loc='lower right',fontsize=5,frameon=False,handlelength=5)
 
 fitlength=100000
-fittime=1#fitlength*dt
+fittime=fitlength*dt
 #idx = np.isfinite(t[0:fitlength]) & np.isfinite(lyax[0:fitlength])#clean up NaNs in lyax array
 z=np.polyfit(t,lyax,1)
-plt.plot(t,z[1]+t*z[0],color='red',label='lyapunov exponent = '+str(round(1z[0],4)/fittime))
+plt.plot(t,z[1]+t*z[0],color='red',label=r'$t_{Lyp}$ = '+str(round(1/(z[0]),2))+'s')
 plt.legend(loc='upper right',fontsize=10,frameon=False,handlelength=5)
 plt.ylim(-9,22)
 ax1.set_xticklabels([])
@@ -175,7 +177,7 @@ npz='.npz'
 datafile = loadnpzfile(datadir+fileheader+npz)
 x1=datafile['x1']
 x3=datafile['x3']
-plt.plot(t,x1,color='orange',linestyle='dotted',linewidth=0.75)
+plt.plot(t,x1,color='orange',linestyle='dotted',linewidth=1.5)
 plt.plot(t,x3,color='blue',linewidth=2.0)
 
 plt.xticks(fontsize=12)
@@ -188,31 +190,31 @@ ax1.set_xticklabels([])
 
 ax1=plt.subplot(3,2,4)
 lyax=np.log(np.abs(x3-x1)/1e-9)
-plt.plot(t,lyax,color='red')#colors[1,:])
+plt.plot(t,lyax,color='blue')#colors[1,:])
 
 #plt.vlines(81,0,1,color='red',linestyle='dotted',linewidth=0.5)
 
 plt.xticks(fontsize=12)
 plt.yticks(fontsize=12)
 plt.xlabel('Time [s]',fontsize=15)
-plt.ylabel(r'Log $\frac{|\Delta x|}{\Delta x_{0}}$',fontsize=12)
+plt.ylabel(r'ln $\frac{|\delta x(t)|}{\delta x_{0}}$',fontsize=12)
 plt.xlim(0,100.0)
 ax1.set_xticklabels([])
 fitlength=100000
-fittime=1#fitlength*dt
+fittime=fitlength*dt
 #idx = np.isfinite(t[0:fitlength]) & np.isfinite(lyax[0:fitlength])#clean up NaNs in lyax array
 z=np.polyfit(t,lyax,1)
-plt.plot(t,z[1]+t*z[0],color='red',label='lyapunov exponent = '+str(round(z[0],4)/fittime))
+plt.plot(t,z[1]+t*z[0],color='red',label=r'$t_{Lyp}$ = '+str(round(1/(z[0]),2))+'s')
 plt.legend(loc='lower right',fontsize=10,frameon=False,handlelength=5)
 plt.ylim(-9,22)
-
+"""
 ax1=plt.subplot(3,2,5)
 fileheader = 'DoubPen_LsMsEq1_9p8_ICC1'
 npz='.npz'
 datafile = loadnpzfile(datadir+fileheader+npz)
 x1=datafile['x1']
 x3=datafile['x3']
-plt.plot(t,x1,color='orange',linestyle='solid',linewidth=0.75)
+plt.plot(t,x1,color='orange',linestyle='solid',linewidth=1.5)
 plt.plot(t,x3,color='blue',linewidth=2.0)
 
 plt.xticks(fontsize=12)
@@ -224,29 +226,44 @@ plt.ylim(-1.1,1.1)
 
 ax1=plt.subplot(3,2,6)
 lyax=np.log(np.abs(x3-x1)/1e-9)
-plt.plot(t,lyax,color='red')#colors[1,:])
+plt.plot(t,lyax,color='blue')#colors[1,:])
 
 #plt.vlines(81,0,1,color='red',linestyle='dotted',linewidth=0.5)
 
 plt.xticks(fontsize=12)
 plt.yticks(fontsize=12)
 plt.xlabel('Time [s]',fontsize=15)
-plt.ylabel(r'Log $\frac{|\Delta x|}{\Delta x_{0}}$',fontsize=12)
+plt.ylabel(r'Log $\frac{|\delta x(t)|}{\delta x_{0}}$',fontsize=12)
 plt.xlim(0,100.0)
 
 fitlength=20000
-fittime=1#fitlength*dt
+fittime=fitlength*dt
 #idx = np.isfinite(t[0:fitlength]) & np.isfinite(lyax[0:fitlength])#clean up NaNs in lyax array
 z=np.polyfit(t[0:fitlength],lyax[0:fitlength],1)
-plt.plot(t[0:fitlength],z[1]+t[0:fitlength]*z[0],color='red',label='lyapunov exponent = '+str(round(z[0],4)/fittime))
+plt.plot(t[0:fitlength],z[1]+t[0:fitlength]*z[0],color='red',label=r'$t_{Lyp}$ = '+str(round(1/(z[0]),2))+'s')
 plt.legend(loc='lower right',fontsize=10,frameon=False,handlelength=5)
 plt.ylim(-9,22)
 
-savefilename='Timeseries_withLypExp_forpaper_3_ApJupdate.png'
+savefilename='Timeseries_withLypExp_forpaper_3_ApJupdate.eps'
 savefile = os.path.normpath(datadir+savefilename)
 #plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
-#plt.clf()
-#plt.close()
+plt.clf()
+plt.close()
+"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 """
 fileheader = 'DoubPen_LsMsEq1_9p8_ICP1'

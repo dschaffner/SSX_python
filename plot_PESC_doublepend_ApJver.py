@@ -281,8 +281,6 @@ plt.rc('xtick.minor',width=2.0)
 plt.rc('ytick.minor',width=2.0)
 plt.rc('lines',markersize=8,markeredgewidth=0.0,linewidth=2.0)
 
-#plt.rcParams['text.usetex'] = True
-#plt.rcParams['text.latex.unicode'] = True
 #plt.rcParams['ps.fonttype'] = 42
 
 
@@ -306,12 +304,12 @@ plt.semilogx(timeindex,SCsx1_C,color=colors[2,:],label='Chaotic')
 
 
 #plt.xticks(np.array([1,40,80,120,160,200,240]),[1,40,80,120,160,200,240],fontsize=9)
-plt.yticks([0.0,0.1,0.2,0.3,0.4],[0.0,0.1,0.2,0.3,0.4],fontsize=18)
-#plt.xlabel(r'$\tau_s [s]$',fontsize=20)
+plt.yticks(fontsize=10)
+plt.xlabel(r'$\tau_s [s]$',fontsize=15)
 ax1.set_xticklabels([])
-plt.ylabel(r'$C$',fontsize=20)
+plt.ylabel(r'$C$',fontsize=15)
 #plt.xlim(1,250)
-plt.ylim(0.0,0.42)
+plt.ylim(0.0,0.45)
 #plt.legend(loc='best',fontsize=8,frameon=False,handlelength=5)
 plt.text(0.04,0.95,'(a)',fontsize=16,horizontalalignment='center',verticalalignment='center',transform=ax1.transAxes)
 
@@ -321,19 +319,18 @@ plt.semilogx(timeindex,PEsx1_P,color=colors[0,:],label='Periodic')
 plt.semilogx(timeindex,PEsx1_Q,color=colors[1,:],label='Quasi-Periodic')
 plt.semilogx(timeindex,PEsx1_C,color=colors[2,:],label='Chaotic')
 
-plt.yticks([0.0,0.2,0.4,0.6,0.8,1.0],[0.0,0.2,0.4,0.6,0.8,1.0],fontsize=18)
-plt.xticks(fontsize=18)
-plt.xlabel(r'$\tau_{s} [s]$',fontsize=20)
+plt.yticks(fontsize=16)
+plt.xticks(fontsize=16)
+plt.xlabel(r'$\tau_s [s]$',fontsize=15)
 #ax1.set_xticklabels([])
-plt.ylabel(r'$H$',fontsize=20)
+plt.ylabel(r'$H$',fontsize=15)
 #plt.xlim(1,250)
-plt.ylim(0,1.1)
-plt.legend(loc='center left',fontsize=12,frameon=False,handlelength=5)
+plt.ylim(0,0.985)
+plt.legend(loc='center left',fontsize=9,frameon=False,handlelength=5)
 plt.text(0.04,0.95,'(b)',fontsize=16,horizontalalignment='center',verticalalignment='center',transform=ax1.transAxes)
 
 
 #savefilename='SC_and_PE_DPx1_ICP1_ICQ1_ICC1_3.eps'
-#savefilename='SC_and_PE_DPx1_ICP1_ICQ1_ICC1_3_10kdelay.png'
 savefilename='SC_and_PE_DPx1_ICP1_ICQ1_ICC1_3_10kdelay.eps'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
