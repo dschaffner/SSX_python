@@ -10,14 +10,15 @@ day='010517'
 day='010617'
 day='051917'
 #day='012417'
-start_shot = 21
-end_shot = 23
+day='062321'
+start_shot = 2
+end_shot = 2
 nshots = (end_shot-start_shot)+1
 maxBs = np.zeros([25,nshots])
 
 for shot in np.arange(start_shot,end_shot+1):
     if shot == 57: continue
-    print 'Processing Shot ',shot
+    print( 'Processing Shot ',shot)
     time,Bdot,timeB,B,Bmod,bdat=pmd.process_mjmag_data(day+'r'+str(shot))
     for pos in np.arange(25):
         max_xyz = np.zeros([3])    

@@ -2,7 +2,7 @@ import numpy as np
 from math import factorial
 from collections import Counter
 
-def PE(data,n=5,delay=1):		
+def calcS(data,n=5,delay=1):		
     '''
     function Cjs - Returns the Shannon Permutation Energy
     Input:
@@ -41,23 +41,3 @@ def PE(data,n=5,delay=1):
         q=1./2/N
         Se += -q * np.log2(q)
     return S,Se
-
-
-def CH(data,n,delay=1):
-    '''
-    function Cjs - Returns the normalized Jensen-Shannon statistical complexity
-    Input:
-        data  - array
-        n     - permutation number
-        delay - integeter delay (default=1)
-    Output:
-        C - Normalized Jensen-Shannon complexity
-        H - Normalized Shannon Perumation Entropy
-    '''		
-    N  = factorial(n)
-    S, Se  = PE(data,n,delay)   
-    C = -2.*((Se - 0.5*S - 0.5*np.log2(N))
-            /((1 + 1./N)*np.log2(N+1) - 2*np.log2(2*N) 
-            + np.log2(N))*(S/np.log2(N)))
-
-    return S/np.log2(N), C

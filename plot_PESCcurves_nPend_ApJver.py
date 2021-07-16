@@ -177,10 +177,10 @@ import matplotlib.gridspec as gridspec
 gs=gridspec.GridSpec(2,3)
 
 ax1=fig.add_subplot(gs[0,:])
-plt.plot(x2M[:,1],color='blue',label='m=2')
-plt.plot(x5M[:,1]+3,color='purple',label='m=5')
-plt.plot(x10M[:,1]+6,color='red',label='m=10')
-plt.plot(x20M[:,1]+9,color='orange',label='m=20')
+plt.plot(x2M[:,1],color='blue',label='N=2')
+plt.plot(x5M[:,1]+3,color='purple',label='N=5')
+plt.plot(x10M[:,1]+6,color='red',label='N=10')
+plt.plot(x20M[:,1]+9,color='orange',label='N=20')
 plt.plot(noise_array+12,color='gray',label='interp. noise')
 plt.xlabel('Time',fontsize=8)
 plt.ylabel('Amplitude',fontsize=8)
@@ -189,7 +189,7 @@ ax1.set_xticks([])
 ax1.set_yticklabels([])
 ax1.set_yticks([])
 plt.xlim([1000,3000])
-plt.ylim([-2,13])
+plt.ylim([-2,16])
 #plt.title('(a) Timeseries',fontsize=5)
 plt.legend(loc='upper center',fontsize=7,ncol=5,frameon=False,handlelength=3)
 plt.text(0.99,0.95,'(a)',horizontalalignment='right',verticalalignment='center',transform=ax1.transAxes,fontsize=10)
@@ -247,11 +247,11 @@ plt.ylim(0.2,1.1)
 #plt.title('(d) Log-Log Norm. PE vs Delay',fontsize=5)
 plt.text(1.15,0.98,'(d)',horizontalalignment='right',verticalalignment='center',transform=ax4.transAxes,fontsize=10)
 
-filename = 'timeseries_PESC_curves_nPend_wnoise.png'
+filename = 'timeseries_PESC_curves_nPend_wnoise.eps'
 savefile = os.path.normpath(savedir+filename)
-#plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
-#plt.clf()
-#plt.close()
+plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
+plt.clf()
+plt.close()
 
 mass=10
 

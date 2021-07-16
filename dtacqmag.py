@@ -1217,7 +1217,7 @@ def processDay(runDate):
     runs = sdr.listRuns(runDate)
     for run in runs:
         try:
-            print run
+            print (run)
             m = getMagData(run)
             m.writeFullData()
             m = getMagData(run, 'm2')

@@ -71,21 +71,38 @@ y200=np.sin(200*x)
 y500=np.sin(500*x)
 y1000=np.sin(1000*x)
 
-y20py50 = (0.75*y20)+(0.25*y50)
+
 ysum1=0.333*y1+0.333*y20+0.333*y50#+0.25*y100
 
 #SINE plus noise
 y20noise1to1=noise_array+y20
+y20noise1p5to1=(noise_array/1.5)+y20
 y20noise2to1=(noise_array/2.0)+y20
+y20noise2p5to1=(noise_array/2.5)+y20
 y20noise3to1=(noise_array/3.0)+y20
+y20noise3p5to1=(noise_array/3.5)+y20
 y20noise4to1=(noise_array/4.0)+y20
+y20noise4p5to1=(noise_array/4.5)+y20
 y20noise5to1=(noise_array/5.0)+y20
+y20noise5p5to1=(noise_array/5.5)+y20
 y20noise6to1=(noise_array/6.0)+y20
+y20noise6p5to1=(noise_array/6.5)+y20
 y20noise7to1=(noise_array/7.0)+y20
+y20noise7p5to1=(noise_array/7.5)+y20
 y20noise8to1=(noise_array/8.0)+y20
+y20noise8p5to1=(noise_array/8.5)+y20
 y20noise9to1=(noise_array/9.0)+y20
+y20noise9p5to1=(noise_array/9.5)+y20
 y20noise10to1=(noise_array/10.0)+y20
+y20noise11to1=(noise_array/11.0)+y20
+y20noise12to1=(noise_array/12.0)+y20
+y20noise13to1=(noise_array/13.0)+y20
+y20noise14to1=(noise_array/14.0)+y20
 y20noise15to1=(noise_array/15.0)+y20
+y20noise16to1=(noise_array/16.0)+y20
+y20noise17to1=(noise_array/15.0)+y20
+y20noise18to1=(noise_array/15.0)+y20
+y20noise19to1=(noise_array/15.0)+y20
 y20noise20to1=(noise_array/20.0)+y20
 y20noise50to1=(noise_array/50.0)+y20
 y20noise100to1=(noise_array/100.0)+y20
@@ -173,51 +190,98 @@ print('H=',PE_tot/np.log2(120))
 print('Num of Permutations =',len(arr))
 print('Hmax=',np.log2(1/(len(arr)))/np.log2(120))
 
-CHvals1 = CH(y20,5,delay=1)
-CHvals2 = CH(y20noise500to1,5,delay=1)
-CHvals3 = CH(y20noise200to1,5,delay=1)
-CHvals4 = CH(y20noise100to1,5,delay=1)
-CHvals5 = CH(y20noise50to1,5,delay=1)
-CHvals6 = CH(y20noise20to1,5,delay=1)
-CHvals7 = CH(y20noise15to1,5,delay=1)
-CHvals8 = CH(y20noise10to1,5,delay=1)
-CHvals9 = CH(y20noise9to1,5,delay=1)
-CHvals10 = CH(y20noise8to1,5,delay=1)
-CHvals11 = CH(y20noise7to1,5,delay=1)
-CHvals12 = CH(y20noise6to1,5,delay=1)
-CHvals13 = CH(y20noise5to1,5,delay=1)
-CHvals14 = CH(y20noise4to1,5,delay=1)
-CHvals15 = CH(y20noise3to1,5,delay=1)
-CHvals16 = CH(y20noise2to1,5,delay=1)
-CHvals17 = CH(y20noise1to1,5,delay=1)
+numnoiselevels=1000
+CHvalues=np.zeros([numnoiselevels,2])
+for n in np.arange(1,numnoiselevels):
+    CHvalues[n,:]=CH(y20+noise_array/(float(n)/2),5,delay=1)
+    
+filename='PESC_y20plusNoise_curves.npz'
+np.savez(datadir+filename,CHvalues=CHvalues)
+
+#CHvals1 = CH(y20,5,delay=1)
+#CHvals2 = CH(y20noise500to1,5,delay=1)
+#CHvals3 = CH(y20noise200to1,5,delay=1)
+# CHvals4 = CH(y20noise100to1,5,delay=1)
+# CHvals5 = CH(y20noise50to1,5,delay=1)
+
+# CHvals6 = CH(y20noise20to1,5,delay=1)
+# CHvals7 = CH(y20noise19to1,5,delay=1)
+# CHvals7 = CH(y20noise18to1,5,delay=1)
+# CHvals7 = CH(y20noise17to1,5,delay=1)
+# CHvals7 = CH(y20noise16to1,5,delay=1)
+# CHvals7 = CH(y20noise15to1,5,delay=1)
+# CHvals8 = CH(y20noise14to1,5,delay=1)
+# CHvals9 = CH(y20noise13to1,5,delay=1)
+# CHvals10 = CH(y20noise12to1,5,delay=1)
+# CHvals11 = CH(y20noise11to1,5,delay=1)
+# CHvals12 = CH(y20noise10to1,5,delay=1)
+# CHvals13 = CH(y20noise9p5to1,5,delay=1)
+# CHvals14 = CH(y20noise9to1,5,delay=1)
+# CHvals15 = CH(y20noise8p5to1,5,delay=1)
+# CHvals16 = CH(y20noise8to1,5,delay=1)
+# CHvals17 = CH(y20noise7p5to1,5,delay=1)
+# CHvals18 = CH(y20noise7to1,5,delay=1)
+# CHvals19 = CH(y20noise6p5to1,5,delay=1)
+# CHvals20 = CH(y20noise6to1,5,delay=1)
+# CHvals21 = CH(y20noise5p5to1,5,delay=1)
+# CHvals22 = CH(y20noise5to1,5,delay=1)
+# CHvals23 = CH(y20noise4p5to1,5,delay=1)
+# CHvals24 = CH(y20noise4to1,5,delay=1)
+# CHvals25 = CH(y20noise3p5to1,5,delay=1)
+# CHvals26 = CH(y20noise3to1,5,delay=1)
+# CHvals27 = CH(y20noise2p5to1,5,delay=1)
+# CHvals28 = CH(y20noise2to1,5,delay=1)
+# CHvals29 = CH(y20noise1p5to1,5,delay=1)
+# CHvals30 = CH(y20noise1to1,5,delay=1)
 
 
 
 
 
 
-print('CH of y50:',CHvals1)
-print('CH of y50+500to1 noise:',CHvals7)
-print('CH of y50+200to1 noise:',CHvals6)
-print('CH of y50+100to1 noise:',CHvals5)
-print('CH of y50+50to1 noise:',CHvals4)
-print('CH of y50+20to1 noise:',CHvals3)
-print('CH of y50+15to1 noise:',CHvals2)
+# print('CH of y50:',CHvals1)
+# print('CH of y50+500to1 noise:',CHvals7)
+# print('CH of y50+200to1 noise:',CHvals6)
+# print('CH of y50+100to1 noise:',CHvals5)
+# print('CH of y50+50to1 noise:',CHvals4)
+# print('CH of y50+20to1 noise:',CHvals3)
+# print('CH of y50+15to1 noise:',CHvals2)
 
 
-x=np.array([CHvals1[0],CHvals2[0],CHvals3[0],CHvals4[0],CHvals5[0],CHvals6[0],CHvals7[0],
-            CHvals8[0],CHvals9[0],CHvals10[0],CHvals11[0],CHvals12[0],CHvals13[0],CHvals14[0],
-            CHvals15[0],CHvals16[0],CHvals17[0]])
-y=np.array([CHvals1[1],CHvals2[1],CHvals3[1],CHvals4[1],CHvals5[1],CHvals6[1],CHvals7[1],
-            CHvals8[1],CHvals9[1],CHvals10[1],CHvals11[1],CHvals12[1],CHvals13[1],CHvals14[1],
-            CHvals15[1],CHvals16[1],CHvals17[1]])
-print(x)
-print(y)
+# x=np.array([CHvals1[0],CHvals2[0],CHvals3[0],CHvals4[0],CHvals5[0],CHvals6[0],CHvals7[0],
+#             CHvals8[0],CHvals9[0],CHvals10[0],CHvals11[0],CHvals12[0],CHvals13[0],CHvals14[0],
+#             CHvals15[0],CHvals16[0],CHvals17[0],CHvals18[0],CHvals19[0],CHvals20[0],
+#             CHvals21[0],CHvals22[0],CHvals23[0],CHvals24[0],CHvals25[0],CHvals26[0],
+#             CHvals27[0],CHvals28[0],CHvals29[0],CHvals30[0]])
+# y=np.array([CHvals1[1],CHvals2[1],CHvals3[1],CHvals4[1],CHvals5[1],CHvals6[1],CHvals7[1],
+#             CHvals8[1],CHvals9[1],CHvals10[1],CHvals11[1],CHvals12[1],CHvals13[1],CHvals14[1],
+#             CHvals15[1],CHvals16[1],CHvals17[1],CHvals18[1],CHvals19[1],CHvals20[1],
+#             CHvals21[1],CHvals22[1],CHvals23[1],CHvals24[1],CHvals25[1],CHvals26[1],
+#             CHvals27[1],CHvals28[1],CHvals29[1],CHvals30[1]])
+# print(x)
+# print(y)
 
 
 
 
-CHy20_and_y50_half=CH(y20py50,5,delay=1)
+
+#CHy20_and_y50_half=CH(y20py50,5,delay=1)
+"""
+#Calculate embedding delay scan of 50/50 y20 and y50
+delay_array = np.arange(1,100)#0)
+num_delays = len(delay_array)+1
+y20py50 = (0.01*y20)+(0.99*y50)
+PEs_sum20p50 = np.zeros([num_delays])
+SCs_sum20p50 = np.zeros([num_delays])
+for loop_delay in delay_array:
+    print ('On Sine Sum Delay ', loop_delay)
+    PEs_sum20p50[loop_delay],SCs_sum20p50[loop_delay] = CH(y20py50,5,delay=loop_delay)
+filename='PESC_sum20p50_01-99_embed5_'+str(num_delays)+'_delays.npz'
+np.savez(datadir+filename,timeseries=y20py50,taus=delay_array,PEs=PEs_sum20p50,SCs=SCs_sum20p50)
+"""
+
+
+
 
 """
 #fbm 0.5

@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "C:\ProgramData\Anaconda3\envs\ssx_readin\lib\site-packages\spyder\app\mainwindow.py", line 3285, in main
+    mainwindow = run_spyder(app, options, args)
+  File "C:\ProgramData\Anaconda3\envs\ssx_readin\lib\site-packages\spyder\app\mainwindow.py", line 3138, in run_spyder
+    main = MainWindow(options)
+  File "C:\ProgramData\Anaconda3\envs\ssx_readin\lib\site-packages\spyder\app\mainwindow.py", line 377, in __init__
+    from spyder.plugins.shortcuts import ShortcutsConfigPage
+  File "C:\ProgramData\Anaconda3\envs\ssx_readin\lib\site-packages\spyder\plugins\shortcuts.py", line 835, in <module>
+    class ShortcutsConfigPage(GeneralConfigPage):
+  File "C:\ProgramData\Anaconda3\envs\ssx_readin\lib\site-packages\spyder\plugins\shortcuts.py", line 839, in ShortcutsConfigPage
+    ICON = ima.icon('keyboard')
+  File "C:\ProgramData\Anaconda3\envs\ssx_readin\lib\site-packages\spyder\utils\icon_manager.py", line 266, in icon
+    directory=_resource['directory'])
+  File "C:\ProgramData\Anaconda3\envs\ssx_readin\lib\site-packages\qtawesome\__init__.py", line 178, in load_font
+    return _instance().load_font(prefix, ttf_filename, charmap_filename, directory)
+  File "C:\ProgramData\Anaconda3\envs\ssx_readin\lib\site-packages\qtawesome\__init__.py", line 54, in _instance
+    'materialdesignicons-webfont-charmap.json')
+  File "C:\ProgramData\Anaconda3\envs\ssx_readin\lib\site-packages\qtawesome\iconic_font.py", line 206, in __init__
+    super().__init__()
+TypeError: super() takes at least 1 argument (0 given)

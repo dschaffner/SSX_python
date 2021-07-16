@@ -16,8 +16,6 @@ import os
 
 #datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\GalpyData_July2018\\'
 datadir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\Examples\\'
-savedir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\Examples\\'
-
 npz='.npz'
 
 delayindex = np.arange(1,501)#250
@@ -53,102 +51,84 @@ SCs_sine20x = datafile['SCs']
 taus_sine20x = datafile['taus']
 timeseries_sine20x = datafile['timeseries']
 
-datadir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\DoublePendulum\\nPend\\'
-fileheader = 'PE_SC_npend2mass_135deg_0velIC_embeddelay5_999_delays'
-npz='.npz'
+fileheader = 'PESC_sine50x_embed5_1000_delays'
 datafile = loadnpzfile(datadir+fileheader+npz)
-PEsx_2M=datafile['PExs']
-SCsx_2M=datafile['SCxs']
-delayindex=datafile['delays']
+PEs_sine50x = datafile['PEs']
+SCs_sine50x = datafile['SCs']
+taus_sine50x = datafile['taus']
+timeseries_sine50x = datafile['timeseries']
 
-fileheader = 'PE_SC_npend3mass_135deg_0velIC_embeddelay5_999_delays'
+fileheader = 'PESC_sum20p50_50-50_embed5_1000_delays'
 datafile = loadnpzfile(datadir+fileheader+npz)
-PEsx_3M=datafile['PExs']
-SCsx_3M=datafile['SCxs']
+PEs_sum20p50_5050 = datafile['PEs']
+SCs_sum20p50_5050 = datafile['SCs']
+taus_sum20p50_5050 = datafile['taus']
+timeseries_sum20p50_5050 = datafile['timeseries']
 
-fileheader = 'PE_SC_npend4mass_135deg_0velIC_embeddelay5_999_delays'
+fileheader = 'PESC_sum20p50_10-90_embed5_1000_delays'
 datafile = loadnpzfile(datadir+fileheader+npz)
-PEsx_4M=datafile['PExs']
-SCsx_4M=datafile['SCxs']
+PEs_sum20p50_1090 = datafile['PEs']
+SCs_sum20p50_1090 = datafile['SCs']
+taus_sum20p50_1090 = datafile['taus']
+timeseries_sum20p50_1090 = datafile['timeseries']
 
-fileheader = 'PE_SC_npend5mass_135deg_0velIC_embeddelay5_999_delays'
+fileheader = 'PESC_sum20p50_01-99_embed5_100_delays'
 datafile = loadnpzfile(datadir+fileheader+npz)
-PEsx_5M=datafile['PExs']
-SCsx_5M=datafile['SCxs']
-
-fileheader = 'PE_SC_npend6mass_135deg_0velIC_embeddelay5_999_delays'
-datafile = loadnpzfile(datadir+fileheader+npz)
-PEsx_6M=datafile['PExs']
-SCsx_6M=datafile['SCxs']
-
-fileheader = 'PE_SC_npend7mass_135deg_0velIC_embeddelay5_999_delays'
-datafile = loadnpzfile(datadir+fileheader+npz)
-PEsx_7M=datafile['PExs']
-SCsx_7M=datafile['SCxs']
-
-fileheader = 'PE_SC_npend8mass_135deg_0velIC_embeddelay5_999_delays'
-datafile = loadnpzfile(datadir+fileheader+npz)
-PEsx_8M=datafile['PExs']
-SCsx_8M=datafile['SCxs']
-
-fileheader = 'PE_SC_npend9mass_135deg_0velIC_embeddelay5_999_delays'
-datafile = loadnpzfile(datadir+fileheader+npz)
-PEsx_9M=datafile['PExs']
-SCsx_9M=datafile['SCxs']
-
-fileheader = 'PE_SC_npend10mass_135deg_0velIC_embeddelay5_999_delays'
-datafile = loadnpzfile(datadir+fileheader+npz)
-PEsx_10M=datafile['PExs']
-SCsx_10M=datafile['SCxs']
-
-fileheader = 'PE_SC_npend20mass_135deg_0velIC_embeddelay5_999_delays'
-datafile = loadnpzfile(datadir+fileheader+npz)
-PEsx_20M=datafile['PExs']
-SCsx_20M=datafile['SCxs']
-
-fileheader = 'PE_SC_interpolated_noise_100kInto10k_embeddelay5_999_delays'
-datafile = loadnpzfile(datadir+fileheader+npz)
-PEs_noise_interp=datafile['PEs']
-SCs_noise_interp=datafile['SCs']
-
-fileheader = 'PE_SC_interpolated_noise_100kInto5k_embeddelay5_999_delays'
-datafile = loadnpzfile(datadir+fileheader+npz)
-PEs_noise_interp2=datafile['PEs']
-SCs_noise_interp2=datafile['SCs']
-
-fileheader='nPen_2masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
-datafile = loadnpzfile(datadir+fileheader+npz)
-x2M=datafile['x']
-fileheader='nPen_3masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
-datafile = loadnpzfile(datadir+fileheader+npz)
-x3M=datafile['x']
-fileheader='nPen_4masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
-datafile = loadnpzfile(datadir+fileheader+npz)
-x4M=datafile['x']
-fileheader='nPen_5masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
-datafile = loadnpzfile(datadir+fileheader+npz)
-x5M=datafile['x']
-fileheader='nPen_6masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
-datafile = loadnpzfile(datadir+fileheader+npz)
-x6M=datafile['x']
-fileheader='nPen_7masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
-datafile = loadnpzfile(datadir+fileheader+npz)
-x7M=datafile['x']
-fileheader='nPen_8masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
-datafile = loadnpzfile(datadir+fileheader+npz)
-x8M=datafile['x']
-fileheader='nPen_9masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
-datafile = loadnpzfile(datadir+fileheader+npz)
-x9M=datafile['x']
-fileheader='nPen_10masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
-datafile = loadnpzfile(datadir+fileheader+npz)
-x10M=datafile['x']
-fileheader='nPen_20masses_LsEq1_MsEq1_g9p81_1000sec_tstep001_135degIC_0velIC'
-datafile = loadnpzfile(datadir+fileheader+npz)
-x20M=datafile['x']
+PEs_sum20p50_0199 = datafile['PEs']
+SCs_sum20p50_0199 = datafile['SCs']
+taus_sum20p50_0199 = datafile['taus']
+timeseries_sum20p50_0199 = datafile['timeseries']
 
 
-noise_array=np.random.uniform(-1,1,size=5000)
+
+
+
+
+
+
+
+
+fileheader = 'PESC_sine100x_embed5_1000_delays'
+datafile = loadnpzfile(datadir+fileheader+npz)
+PEs_sine100x = datafile['PEs']
+SCs_sine100x = datafile['SCs']
+taus_sine100x = datafile['taus']
+timeseries_sine100x = datafile['timeseries']
+
+fileheader = 'PESC_sine200x_embed5_1000_delays'
+datafile = loadnpzfile(datadir+fileheader+npz)
+PEs_sine200x = datafile['PEs']
+SCs_sine200x = datafile['SCs']
+taus_sine200x = datafile['taus']
+timeseries_sine200x = datafile['timeseries']
+
+fileheader = 'PESC_sine500x_embed5_1000_delays'
+datafile = loadnpzfile(datadir+fileheader+npz)
+PEs_sine500x = datafile['PEs']
+SCs_sine500x = datafile['SCs']
+taus_sine500x = datafile['taus']
+timeseries_sine500x = datafile['timeseries']
+
+fileheader = 'PESC_sine1000x_embed5_1000_delays'
+datafile = loadnpzfile(datadir+fileheader+npz)
+PEs_sine1000x = datafile['PEs']
+SCs_sine1000x = datafile['SCs']
+taus_sine1000x = datafile['taus']
+timeseries_sine1000x = datafile['timeseries']
+
+fileheader = 'PESC_triangle_embed5_1000_delays_rescaled'
+datafile = loadnpzfile(datadir+fileheader+npz)
+PEs_triangle = datafile['PEs']
+SCs_triangle = datafile['SCs']
+taus_triangle = datafile['taus']
+timeseries_triangle = datafile['timeseries']
+
+fileheader = 'PESC_fbm_p5_embed5_1000_delays'
+datafile = loadnpzfile(datadir+fileheader+npz)
+PEs_fbm = datafile['PEs']
+SCs_fbm = datafile['SCs']
+taus_fbm = datafile['taus']
+timeseries_fbm = datafile['timeseries']
 
 
 points = ['o','v','s','p','*','h','^','D','+','>','H','d','x','<']
@@ -158,7 +138,7 @@ plt.rc('xtick.major',width=1.0)
 plt.rc('ytick.major',width=1.0)
 plt.rc('xtick.minor',width=1.0)
 plt.rc('ytick.minor',width=1.0)
-plt.rc('lines',markersize=8,markeredgewidth=0.0,linewidth=1.0)
+plt.rc('lines',markersize=2,markeredgewidth=0.0,linewidth=0.5)
 
 #plt.rcParams['ps.fonttype'] = 42
 #plt.rcParams['pdf.fonttype'] = 42
@@ -177,97 +157,269 @@ import matplotlib.gridspec as gridspec
 gs=gridspec.GridSpec(2,3)
 
 ax1=fig.add_subplot(gs[0,:])
-plt.plot(x2M[:,1],color='blue',label='m=2')
-plt.plot(x5M[:,1]+3,color='purple',label='m=5')
-plt.plot(x10M[:,1]+6,color='red',label='m=10')
-plt.plot(x20M[:,1]+9,color='orange',label='m=20')
-plt.plot(noise_array+12,color='gray',label='interp. noise')
+plt.plot(timeseries_noise,color='blue',marker='d',label='White Noise (Stochastic)')
+plt.plot(timeseries_henon+3,color='purple',marker='d',label='Henon Map (Chaotic)')
+plt.plot(timeseries_sine20x+6,color='red',marker='d',label=r'$\sin(\omega_{1}t)$ (Periodic)')
+plt.plot(timeseries_sine50x+6,color='orange',marker='d',label=r'$\sin(\omega_{2}t)$ (Periodic)')
+#plt.plot(timeseries_sine1000x+,color='green',marker='d',label='sin(1000t) (Periodic)')
+plt.plot(timeseries_triangle+9,color='green',marker='d',label='Triangle (Periodic)')
 plt.xlabel('Time',fontsize=8)
 plt.ylabel('Amplitude',fontsize=8)
 ax1.set_xticklabels([])
 ax1.set_xticks([])
 ax1.set_yticklabels([])
 ax1.set_yticks([])
-plt.xlim([1000,3000])
-plt.ylim([-2,13])
+plt.xlim([0,200])
+plt.ylim([-1.5,13])
 #plt.title('(a) Timeseries',fontsize=5)
-plt.legend(loc='upper center',fontsize=7,ncol=5,frameon=False,handlelength=3)
+plt.legend(loc='upper center',fontsize=7,ncol=3,frameon=False,handlelength=3)
 plt.text(0.99,0.95,'(a)',horizontalalignment='right',verticalalignment='center',transform=ax1.transAxes,fontsize=10)
+
+import matplotlib.patches as matpat
+matpat.Rectangle(xy=(0.5,0.5),height=0.3,width=0.2)
+
+ax1.add_patch(
+     matpat.Rectangle(
+        (98, 1),
+        8,
+        3.5,
+        edgecolor = 'lightgray',
+        fill=False
+     ) )
+
+ax1.add_patch(
+     matpat.Rectangle(
+        (129, 1),
+        8,
+        3.5,
+        edgecolor = 'lightgray',
+        fill=False
+     ) )
+
+ax1.add_patch(
+     matpat.Rectangle(
+        (148, 1),
+        8,
+        3.5,
+        edgecolor = 'lightgray',
+        fill=False
+     ) )
+
+plt.rc('lines',markersize=2,markeredgewidth=0.0,linewidth=1.5)
 
 
 ax2=fig.add_subplot(gs[1,0])
-plt.plot(SCsx_2M[:,0],color='blue',label='m=2')
-plt.plot(SCsx_5M[:,0],color='purple',label='m=5')
-plt.plot(SCsx_10M[:,0],color='red',label='m=10')
-plt.plot(SCsx_20M[:,0],color='orange',label='m=20')
-plt.plot(SCs_noise_interp,color='gray',label='white noise interp')
-#plt.plot(SCs_noise,color='black',label='white noise')
+plt.plot(SCs_noise,color='blue',label='White Noise')
+plt.plot(SCs_henon,color='purple',label='Henon Map')
+plt.plot(SCs_sine20x,color='red',label='sin(20t)')
+plt.plot(SCs_sine50x,color='orange',label='sin(50t)')
+#plt.plot(SCs_sine1000x,color='green',label='sin(1000t)')
+plt.plot(SCs_triangle,color='green')
+#plt.plot(SCs_fbm,color='black')
 plt.xlabel(r'$\tau_{\mu}$',fontsize=10)
-plt.xticks([1,10,20,30,40,50],[1,10,20,30,40,50],fontsize=8)
-plt.xlim(1,50)
-plt.ylim(0,0.41)
+plt.xticks([1,2,4,6,8,10],[1,2,4,6,8,10],fontsize=8)
+plt.xlim(1,10)
 plt.ylabel('C',fontsize=10)
 plt.yticks(fontsize=8)
 #plt.title('(b) Complexity vs Delay',fontsize=5)
 plt.text(1.15,0.98,'(b)',horizontalalignment='right',verticalalignment='center',transform=ax2.transAxes,fontsize=10)
+#plt.text(11,0.4,'(b)',horizontalalignment='right',verticalalignment='center',fontsize=10)
+#plt.text(21,0./4,'(c)',horizontalalignment='right',verticalalignment='center',fontsize=10)
+#plt.text(31,0.4,'(d)',horizontalalignment='right',verticalalignment='center',fontsize=10)
+
 
 
 ax3=fig.add_subplot(gs[1,1])
-plt.loglog(SCsx_2M[:,0],color='blue',label='m=2')
-plt.loglog(SCsx_5M[:,0],color='purple',label='m=5')
-plt.loglog(SCsx_10M[:,0],color='red',label='m=10')
-plt.loglog(SCsx_20M[:,0],color='orange',label='m=20')
-plt.loglog(SCs_noise_interp,color='gray',label='white noise interp')
-#plt.loglog(SCs_noise,color='black',label='white noise')
+plt.loglog(SCs_noise,color='blue',label='White Noise')
+plt.loglog(SCs_henon,color='purple',label='Henon Map')
+plt.loglog(SCs_triangle,color='green')
+#plt.loglog(SCs_sine1000x,color='green',label='sin(1000t)')
+plt.loglog(SCs_sine50x,color='orange',label=r'$\sin(\omega_{2}t)$')
+plt.loglog(SCs_sine20x,color='red',label=r'$\sin(\omega_{1}t)$')
+#plt.loglog(SCs_fbm,color='black')
+
 plt.xlabel(r'$\tau_{\mu}$',fontsize=10)
-ax3.yaxis.set_label_coords(-0.25, 0.5)
-plt.xticks([1,10,100,500],[1,10,100,500],fontsize=8)
-plt.xlim(1,500)
-plt.yticks([0.001,0.01,0.1,0.4],[0.001,0.01,0.1,0.4],fontsize=8)
-plt.ylim(8e-4,0.5)
+plt.xticks([1,10,100,1000],[1,10,100,1000],fontsize=8)
+plt.xlim(1e0,1e2)
+plt.yticks([0.0001,0.001,0.01,0.1,0.4],[0.0001,0.001,0.01,0.1,0.4],fontsize=8)
+plt.ylim(1e-4,0.5)
 plt.ylabel('C',fontsize=10)
+ax3.yaxis.set_label_coords(-0.25, 0.5)
 #plt.title('(c) Log-Log Complexity vs Delay',fontsize=5)
+#plt.text(1100,0.4,'(c)',horizontalalignment='right',verticalalignment='center',fontsize=10)
 plt.text(1.15,0.98,'(c)',horizontalalignment='right',verticalalignment='center',transform=ax3.transAxes,fontsize=10)
 
 
 ax4=fig.add_subplot(gs[1,2])
-plt.loglog(PEsx_2M[:,0],color='blue',label='m=2')
-plt.loglog(PEsx_5M[:,0],color='purple',label='m=5')
-plt.loglog(PEsx_10M[:,0],color='red',label='m=10')
-plt.loglog(PEsx_20M[:,0],color='orange',label='m=20')
-plt.loglog(PEs_noise_interp,color='gray',label='white noise interp')
-#plt.loglog(PEs_noise,color='black',label='white noise')
+plt.loglog(PEs_noise,color='blue',label='White Noise')
+plt.loglog(PEs_henon,color='purple',label='Henon Map')
+plt.loglog(PEs_triangle,color='green')
+#plt.loglog(PEs_sine1000x,color='green',label='sin(1000t)')
+plt.loglog(PEs_sine50x,color='orange',label='sin(50t)')
+plt.loglog(PEs_sine20x,color='red',label='sin(20t)')
+#plt.loglog(PEs_fbm,color='black')
 plt.xlabel(r'$\tau_{\mu}$',fontsize=10)
-plt.xticks([1,10,100,500],[1,10,100,500],fontsize=8)
-plt.xlim(1,500)
-plt.yticks([0.1,0.2,0.3,0.4,0.6,1.0],[0.1,0.2,0.3,0.4,0.6,1.0],fontsize=10)
+plt.xticks([1,10,100,1000],[1,10,100,1000],fontsize=8)
+plt.xlim(1e0,1e2)
+plt.yticks([0.1,0.2,0.3,0.4,0.5,0.6,0.8,1.0],[0.1,0.2,0.3,0.4,0.5,0.6,0.8,1.0],fontsize=8)
 #plt.ylim(0.1,1.0)
 plt.ylabel('H',fontsize=10)
-plt.ylim(0.2,1.1)
 #plt.title('(d) Log-Log Norm. PE vs Delay',fontsize=5)
+#plt.text(1100,0.4,'(d)',horizontalalignment='right',verticalalignment='center',fontsize=10)
 plt.text(1.15,0.98,'(d)',horizontalalignment='right',verticalalignment='center',transform=ax4.transAxes,fontsize=10)
 
-filename = 'timeseries_PESC_curves_nPend_wnoise.png'
-savefile = os.path.normpath(savedir+filename)
-#plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
-#plt.clf()
-#plt.close()
 
-mass=10
+filename = 'timeseries_PESC_curves_sine_noise_henon_tringle_tri-rescaled.eps'
+savefile = os.path.normpath(datadir+filename)
+plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
+plt.clf()
+plt.close()
 
-plt.figure(3)
-plt.plot(SCsx_20M[:,mass])
-plt.figure(4)
-plt.semilogy(SCsx_20M[:,mass])
-plt.figure(5)
-plt.semilogy(PEsx_20M[:,mass])
-import spectrum_wwind as spec
-spec20M = spec.spectrum_wwind(x20M[:,mass],np.arange(len(x20M[:,mass])),window='hanning')
-plt.figure(6)
-plt.semilogy(1.0/spec20M[0],spec20M[3])
-plt.xlim(1,1000)
-plt.figure(7)
-plt.plot(x20M[:,mass+1])
+
+
+
+
+
+
+plt.rc('axes',linewidth=4.0)
+plt.rc('xtick.major',width=4.0)
+plt.rc('ytick.major',width=4.0)
+plt.rc('xtick.minor',width=4.0)
+plt.rc('ytick.minor',width=4.0)
+
+fig=plt.figure(num=3,figsize=(9,9),dpi=600,facecolor='w',edgecolor='k')
+left  = 0.16  # the left side of the subplots of the figure
+right = 0.9    # the right side of the subplots of the figure
+bottom = 0.15  # the bottom of the subplots of the figure
+top = 0.96      # the top of the subplots of the figure
+wspace = 0.2   # the amount of width reserved for blank space between subplots
+hspace = 0.0   # the amount of height reserved for white space between subplots
+plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
+spec2 = gridspec.GridSpec(ncols=1, nrows=1, figure=fig)
+
+ax1 = fig.add_subplot(spec2[:,:])
+points = ['o','v','s','p','*','h','^','D','+','>','H','d','x','<']
+import Cmaxmin as cpl
+ndim=5
+#Plot C vs H as a CHplane
+Cminx, Cminy, Cmaxx, Cmaxy = cpl.Cmaxmin(1000,ndim)
+plt.rc('lines',markersize=2,markeredgewidth=0.0)
+plt.plot(Cminx,Cminy,'k-',Cmaxx,Cmaxy,'k-')
+
+plt.rc('lines',markersize=10,markeredgewidth=0.0,linewidth=2.5)
+plt.scatter(PEs_noise[1],SCs_noise[1],marker='o',color='blue',label='White Noise')
+plt.scatter(PEs_henon[1],SCs_henon[1],marker='o',color='purple',label='Henon Map')
+plt.scatter(PEs_sine20x[1],SCs_sine20x[1],marker='o',color='red',label=r'$\sin(\omega_{1}t)$')
+plt.scatter(PEs_sine50x[1],SCs_sine50x[1],marker='o',color='orange',label=r'$\sin(\omega_{2}t)$')
+#plt.scatter(PEs_sine1000x[1],SCs_sine1000x[1],marker='o',color='green',label='sin(1000t)')
+plt.scatter(PEs_triangle[1],SCs_triangle[1],marker='o',color='green',label='Triangle')
+#plt.scatter(PEs_fbm[1],SCs_fbm[1],marker='o',color='black',label='FBM 0.5')
+
+plt.vlines(0.5512,0.21,0.417,color='gray',linewidth=1.5,linestyle='dashed')
+plt.vlines(0.14478,0.113,0.1370,color='gray',linewidth=1.5,linestyle='dashed')
+#plt.hline(0.417,)
+
+plt.xticks(fontsize=20)
+plt.xlabel(r'$H$',fontsize=25)
+plt.yticks(fontsize=20)
+plt.ylabel(r'$C$',fontsize=25)
+
+leg=plt.legend(loc='lower center',fontsize=15,frameon=False,handlelength=5,numpoints=1)
+
+
+savefilename='CH_plane_sine_noise_henon_tri-rescaled.png'
+savefile = os.path.normpath(datadir+savefilename)
+plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
+plt.clf()
+plt.close()
+
+#plot CH Plane with curves
+plt.rc('axes',linewidth=4.0)
+plt.rc('xtick.major',width=4.0)
+plt.rc('ytick.major',width=4.0)
+plt.rc('xtick.minor',width=4.0)
+plt.rc('ytick.minor',width=4.0)
+
+xaxis_label_fontsize=20
+xaxis_ticks_size=18
+yaxis_label_fontsize=20
+yaxis_ticks_size=18
+title_fontsize=15
+legend_fontsize=12
+legend_title_fontsize=9
+
+fig=plt.figure(num=33,figsize=(7,6),dpi=600,facecolor='w',edgecolor='k')
+left  = 0.15  # the left side of the subplots of the figure
+right = 0.94    # the right side of the subplots of the figure
+bottom = 0.1  # the bottom of the subplots of the figure
+top = 0.96      # the top of the subplots of the figure
+wspace = 0.1   # the amount of width reserved for blank space between subplots
+hspace = 0.17   # the amount of height reserved for white space between subplots
+plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
+
+
+ax1 = plt.subplot(1,1,1)
+points = ['o','v','s','p','*','h','^','D','+','>','H','d','x','<']
+import Cmaxmin as cpl
+ndim=5
+#Plot C vs H as a CHplane
+Cminx, Cminy, Cmaxx, Cmaxy = cpl.Cmaxmin(1000,ndim)
+plt.rc('lines',markersize=2,markeredgewidth=0.0)
+plt.plot(Cminx,Cminy,'k-',Cmaxx,Cmaxy,'k-')
+
+plt.rc('lines',markersize=10,markeredgewidth=0.0,linewidth=2.5)
+#plt.plot(PEs_noise[1:100],SCs_noise[1:100],color='blue',linestyle='dashed',linewidth=0.5)
+#plt.plot(PEs_henon[1:100],SCs_henon[1:100],color='purple',linestyle='dashed',linewidth=0.5)
+#plt.plot(PEs_sine20x[1:100],SCs_sine20x[1:100],color='red',linestyle='dashed',linewidth=0.5)
+#plt.plot(PEs_sine50x[1:100],SCs_sine50x[1:100],color='orange',linestyle='dashed',linewidth=0.5)
+#plt.plot(PEs_triangle[1:100],SCs_triangle[1:100],color='green',linestyle='dashed',linewidth=0.5)
+
+plt.scatter(PEs_noise[1],SCs_noise[1],marker='o',color='blue',label='White Noise')
+plt.scatter(PEs_henon[1],SCs_henon[1],marker='o',color='purple',label='Henon Map')
+plt.scatter(PEs_sine20x[1],SCs_sine20x[1],marker='o',color='red',label=r'$\sin(\omega_{1}t)$')
+plt.scatter(PEs_sine50x[1],SCs_sine50x[1],marker='o',color='orange',label=r'$\sin(\omega_{2}t)$')
+#plt.scatter(0.2675373911907693, 0.22673279498090865,marker='o',color='green')
+#plt.scatter(PEs_sine1000x[1],SCs_sine1000x[1],marker='o',color='green',label='sin(1000t)')
+plt.scatter(PEs_triangle[1],SCs_triangle[1],marker='o',color='green',label='Triangle')
+#plt.scatter(PEs_fbm[1],SCs_fbm[1],marker='o',color='black',label='FBM 0.5')
+
+plt.vlines(0.5512,0.21,0.417,color='gray',linewidth=1.5,linestyle='dashed')
+plt.vlines(0.14478,0.113,0.1370,color='gray',linewidth=1.5,linestyle='dashed')
+
+#plt.hline(0.417,)
+
+#sum of 20 and 50
+#plt.plot(PEs_sum20p50_5050[1:15],SCs_sum20p50_5050[1:15],color='orange',linestyle='dashed',linewidth=0.5)
+#plt.plot(PEs_sum20p50_1090[1:15],SCs_sum20p50_1090[1:15],color='green',linestyle='dashed',linewidth=0.5)
+#plt.plot(PEs_sum20p50_0199[1:15],SCs_sum20p50_0199[1:15],color='purple',linestyle='dashed',linewidth=0.5)
+
+
+fileheader = 'PESC_y20plusNoise_curves'
+datafile = loadnpzfile(datadir+fileheader+npz)
+noiseCHvalues = datafile['CHvalues']
+
+#noise+sine_curve
+#noisesineH=np.array([0.21207312,0.22150092,0.24801116,0.2987534,0.40203191,0.6919908,0.78491371,0.89380094,0.91525676,0.93586271,0.9547713,0.97044636,
+#                     0.98281417, 0.99151302, 0.99675078, 0.99910823, 0.99984078])
+#noisesineC=np.array([0.1900468,0.19249345,0.20373202,0.22498481,0.2590812,0.27652809,
+#                     0.23881749,0.14927042,0.12430245,0.09786303,0.07141123,0.04803036,
+#                     0.0287007,0.01451464,0.0056712,0.00157926,0.00028444])
+plt.rc('lines',markersize=1)
+plt.plot(noiseCHvalues[:,0],noiseCHvalues[:,1],color='red',linestyle='None',marker='o',linewidth=1.0)#,label='Sine+Noise')
+
+plt.xticks(np.arange(0,1.1,0.1),fontsize=xaxis_ticks_size)
+plt.xlabel(r'$H$',fontsize=xaxis_label_fontsize)
+plt.yticks(np.arange(0,0.45,0.05),fontsize=yaxis_ticks_size)
+plt.ylabel(r'$C$',fontsize=yaxis_label_fontsize)
+
+leg=plt.legend(loc='lower center',fontsize=15,frameon=False,handlelength=5,numpoints=1)
+
+
+savefilename='CH_plane_sine_noise_henon_whenon_tri-rescaled_withnoisetrack.png'
+savefile = os.path.normpath(datadir+savefilename)
+plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
+plt.clf()
+plt.close()
 
 
 """
@@ -349,7 +501,7 @@ wspace = 0.2   # the amount of width reserved for blank space between subplots
 hspace = 0.1   # the amount of height reserved for white space between subplots
 plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
 
-timestep = 86//
+timestep = 86
 
 plt.plot(Cminx,Cminy,'k-',Cmaxx,Cmaxy,'k-')
 plt.plot(PEs1[timestep],SCs1[timestep],color=colors[0,:],marker='o',label='Type 1')

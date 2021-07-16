@@ -12,6 +12,7 @@ from collections import Counter
 from math import factorial
 import os
 import get_corr as gc
+import spectrum_wwind as spec
 
 #calc_PESC_solarwind_chen.py
 datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\DoublePendulum\\'
@@ -128,7 +129,8 @@ x1=datafile['x1']
 x3=datafile['x3']
 plt.plot(t,x1,color='orange',linestyle='dotted',linewidth=1.5)
 plt.plot(t,x3,color='blue',linewidth=2.0)
-
+periodic1=x1
+periodic2=x3
 
 ax1.set_xticklabels([])
 #plt.vlines(81,0,1,color='red',linestyle='dotted',linewidth=0.5)
@@ -177,6 +179,9 @@ npz='.npz'
 datafile = loadnpzfile(datadir+fileheader+npz)
 x1=datafile['x1']
 x3=datafile['x3']
+quasi1=x1
+quasi2=x3
+
 plt.plot(t,x1,color='orange',linestyle='dotted',linewidth=1.5)
 plt.plot(t,x3,color='blue',linewidth=2.0)
 
@@ -207,13 +212,16 @@ z=np.polyfit(t,lyax,1)
 plt.plot(t,z[1]+t*z[0],color='red',label=r'$t_{Lyp}$ = '+str(round(1/(z[0]),2))+'s')
 plt.legend(loc='lower right',fontsize=10,frameon=False,handlelength=5)
 plt.ylim(-9,22)
-"""
+
 ax1=plt.subplot(3,2,5)
 fileheader = 'DoubPen_LsMsEq1_9p8_ICC1'
 npz='.npz'
 datafile = loadnpzfile(datadir+fileheader+npz)
 x1=datafile['x1']
 x3=datafile['x3']
+chaos1=x1
+chaos2=x3
+
 plt.plot(t,x1,color='orange',linestyle='solid',linewidth=1.5)
 plt.plot(t,x3,color='blue',linewidth=2.0)
 
@@ -243,7 +251,7 @@ z=np.polyfit(t[0:fitlength],lyax[0:fitlength],1)
 plt.plot(t[0:fitlength],z[1]+t[0:fitlength]*z[0],color='red',label=r'$t_{Lyp}$ = '+str(round(1/(z[0]),2))+'s')
 plt.legend(loc='lower right',fontsize=10,frameon=False,handlelength=5)
 plt.ylim(-9,22)
-
+"""
 savefilename='Timeseries_withLypExp_forpaper_3_ApJupdate.eps'
 savefile = os.path.normpath(datadir+savefilename)
 #plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
@@ -253,8 +261,42 @@ plt.close()
 
 
 
+#Spectrum of each timeseries
+
+freq1,freqa,comp,pwr1,mag,phase,cos_phase,dt = spec.spectrum_wwind(periodic1,t,window='hanning')
+freq2,freqa,comp,pwr2,mag,phase,cos_phase,dt = spec.spectrum_wwind(quasi1,t,window='hanning')
+freq3,freqa,comp,pwr3,mag,phase,cos_phase,dt = spec.spectrum_wwind(chaos1,t,window='hanning')
 
 
+
+fig=plt.figure(num=3,figsize=(5,3),dpi=300,facecolor='w',edgecolor='k')
+left  = 0.15  # the left side of the subplots of the figure
+right = 0.94    # the right side of the subplots of the figure
+bottom = 0.2  # the bottom of the subplots of the figure
+top = 0.96      # the top of the subplots of the figure
+wspace = 0.3   # the amount of width reserved for blank space between subplots
+hspace = 0.0   # the amount of height reserved for white space between subplots
+plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
+
+
+ax1=plt.subplot(1,1,1)
+#plt.semilogy(freq1,pwr1*10,label='Periodic x10',linewidth=1.0)
+#plt.semilogy(freq2,pwr2,label='Quasi-Periodic',linewidth=1.0)
+plt.semilogy(freq3,pwr3,label='Chaotic',linewidth=1.0)
+#plt.loglog(freq1,pwr1*10,label='Periodic x10',linewidth=1.0)
+#plt.loglog(freq2,pwr2,label='Quasi-Periodic',linewidth=1.0)
+#plt.loglog(freq3,pwr3,label='Chaotic',linewidth=1.0)
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+plt.xlabel('Frequency [Hz]',fontsize=12)
+plt.ylabel('FFT Power (arb)',fontsize=12)
+plt.xlim(0,2)
+plt.legend(loc='upper right',fontsize=10,frameon=False,handlelength=5)
+savefilename='spectra_periodic_quasi_chaotic_semilog.png'
+savefile = os.path.normpath(datadir+savefilename)
+#plt.savefig(savefile,dpi=300,facecolor='w',edgecolor='k')
+#plt.clf()
+#plt.close()
 
 
 

@@ -87,7 +87,7 @@ wspace = 0.1   # the amount of width reserved for blank space between subplots
 hspace = 0.17   # the amount of height reserved for white space between subplots
 plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
 
-timeindex=delayindex*dt
+timeindex=delayindex*dt*4
 ax1=plt.subplot(1,1,1)
 plt.semilogx(timeindex,SCsx1_Lp1,color=colors[0,:],label='L=0.1')
 plt.semilogx(timeindex,SCsx1_Lp5,color=colors[1,:],label='L=0.5')
@@ -101,14 +101,14 @@ plt.semilogx(timeindex,SCsx1_L100,color=colors[4,:],label='L=100.0')
 #plt.xticks(np.array([1,40,80,120,160,200,240]),[1,40,80,120,160,200,240],fontsize=9)
 plt.yticks(fontsize=16)
 plt.xticks(fontsize=15)
-plt.xlabel(r'$\tau_s [s]$',fontsize=15)
+plt.xlabel(r'$t_{pat} [s]$',fontsize=15)
 #ax1.set_xticklabels([])
 plt.ylabel(r'$C$',fontsize=15)
 #plt.xlim(1,250)
 plt.ylim(0,0.35)
 plt.legend(loc='lower left',fontsize=13,frameon=False,handlelength=5)
 
-savefilename='SC_DPx1_ICC1_Lscan_0p1to100_3_ApJver_newcolor.eps'
+savefilename='SC_DPx1_ICC1_Lscan_0p1to100_3_ApJver_newcolor_resubmit.eps'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
 plt.clf()

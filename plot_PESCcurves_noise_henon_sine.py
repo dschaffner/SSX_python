@@ -241,7 +241,7 @@ plt.text(1.15,0.98,'(d)',horizontalalignment='right',verticalalignment='center',
 
 filename = 'timeseries_PESC_curves_sine_noise_henon_tringle.eps'
 savefile = os.path.normpath(datadir+filename)
-plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
+#plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
 plt.clf()
 plt.close()
 
@@ -298,10 +298,67 @@ leg=plt.legend(loc='lower center',fontsize=15,frameon=False,handlelength=5,numpo
 
 savefilename='CH_plane_sine_noise_henon.eps'
 savefile = os.path.normpath(datadir+savefilename)
+#plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
+#plt.clf()
+#plt.close()
+
+#plot CH Plane with curves
+plt.rc('axes',linewidth=4.0)
+plt.rc('xtick.major',width=4.0)
+plt.rc('ytick.major',width=4.0)
+plt.rc('xtick.minor',width=4.0)
+plt.rc('ytick.minor',width=4.0)
+
+fig=plt.figure(num=3,figsize=(9,9),dpi=600,facecolor='w',edgecolor='k')
+left  = 0.16  # the left side of the subplots of the figure
+right = 0.9    # the right side of the subplots of the figure
+bottom = 0.15  # the bottom of the subplots of the figure
+top = 0.96      # the top of the subplots of the figure
+wspace = 0.2   # the amount of width reserved for blank space between subplots
+hspace = 0.0   # the amount of height reserved for white space between subplots
+plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
+spec2 = gridspec.GridSpec(ncols=1, nrows=1, figure=fig)
+
+ax1 = fig.add_subplot(spec2[:,:])
+points = ['o','v','s','p','*','h','^','D','+','>','H','d','x','<']
+import Cmaxmin as cpl
+ndim=5
+#Plot C vs H as a CHplane
+Cminx, Cminy, Cmaxx, Cmaxy = cpl.Cmaxmin(1000,ndim)
+plt.rc('lines',markersize=2,markeredgewidth=0.0)
+plt.plot(Cminx,Cminy,'k-',Cmaxx,Cmaxy,'k-')
+
+plt.rc('lines',markersize=10,markeredgewidth=0.0,linewidth=2.5)
+#plt.plot(PEs_noise[1:100],SCs_noise[1:100],color='blue',linestyle='dashed',linewidth=0.5)
+plt.plot(PEs_henon[1:100],SCs_henon[1:100],color='purple',linestyle='dashed',linewidth=0.5)
+plt.plot(PEs_sine20x[1:100],SCs_sine20x[1:100],color='red',linestyle='dashed',linewidth=0.5)
+#plt.plot(PEs_sine50x[1:100],SCs_sine50x[1:100],color='orange',linestyle='dashed',linewidth=0.5)
+#plt.plot(PEs_triangle[1:100],SCs_triangle[1:100],color='green',linestyle='dashed',linewidth=0.5)
+
+plt.scatter(PEs_noise[1],SCs_noise[1],marker='o',color='blue',label='White Noise')
+plt.scatter(PEs_henon[1],SCs_henon[1],marker='o',color='purple',label='Henon Map')
+plt.scatter(PEs_sine20x[1],SCs_sine20x[1],marker='o',color='red',label='sin(20t)')
+plt.scatter(PEs_sine50x[1],SCs_sine50x[1],marker='o',color='orange',label='sin(50t)')
+#plt.scatter(PEs_sine1000x[1],SCs_sine1000x[1],marker='o',color='green',label='sin(1000t)')
+plt.scatter(PEs_triangle[1],SCs_triangle[1],marker='o',color='green',label='Triangle')
+#plt.scatter(PEs_fbm[1],SCs_fbm[1],marker='o',color='black',label='FBM 0.5')
+
+plt.vlines(0.5512,0.21,0.417,color='gray',linewidth=1.5,linestyle='dashed')
+#plt.hline(0.417,)
+
+plt.xticks(fontsize=20)
+plt.xlabel(r'$H$',fontsize=25)
+plt.yticks(fontsize=20)
+plt.ylabel(r'$C$',fontsize=25)
+
+leg=plt.legend(loc='lower center',fontsize=15,frameon=False,handlelength=5,numpoints=1)
+
+
+savefilename='CH_plane_sine_noise_henon_whenon_sine_tracksonly.png'
+savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
 plt.clf()
 plt.close()
-
 
 
 """

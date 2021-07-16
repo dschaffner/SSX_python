@@ -657,27 +657,28 @@ class dtac_data(ssx_data):
             name = m.split(f+'-')[1]
             self.info[name] = s
 
-        if self.info.has_key('capturestats.txt'):
+        #if self.info.__contains__('capturestats.txt'):
+        if self.info.__contains__('capturestats.txt'):#.__contains__ has been replaced by __contains__ in Python 3
             tmp = self.info['capturestats.txt']
-            tmp = tmp.split('\n')
+            tmp = tmp.split(b'\n')#added b in front of '\n' to type cast as byte object
             for tm in tmp:
-                if 'getChannelMask' in tm:
-                    self.channelMaskstr = tm.split('=')[1]
+                if b'getChannelMask' in tm:
+                    self.channelMaskstr = tm.split(b'=')[1]
                     self.channelMask = [int(i) for i in
                         list(self.channelMaskstr)]
-                if 'getInternalClock' in tm:
-                    k = float(tm.split('=')[1].split()[0]) / 1e6
+                if b'getInternalClock' in tm:
+                    k = float(tm.split(b'=')[1].split()[0]) / 1e6
                     self.rclock = round(k) * 1e6
-                if 'decimate_clk' in tm:
+                if b'decimate_clk' in tm:
                     try:
-                        k = float(tm.split('=')[1].split()[0])
+                        k = float(tm.split(b'=')[1].split()[0])
                         self.clock = round(k) * 1e6
                     except:
                         self.clock = 0
-                if 'pre_post_mode' in tm:
-                    self.pre_post = tm.split('=')[1].split()
-                if 'SRS delay' in tm:
-                    k = tm.split('=')[1]
+                if b'pre_post_mode' in tm:
+                    self.pre_post = tm.split(b'=')[1].split()
+                if b'SRS delay' in tm:
+                    k = tm.split(b'=')[1]
                     self.delay_channel = k
 
         # if we have a real clock, but no effective clock, copy the real clock
@@ -709,9 +710,9 @@ class dtac_data(ssx_data):
             chans = arange(len(dats))
         chansl = len(chans)
         self.numberChannels = chansl
-        data = zeros((chansl, fileLen/2))
-        off_data = zeros((chansl, fileLen/2))
-        cdata = zeros((chansl, fileLen/2))
+        data = zeros((chansl, int(fileLen/2)))
+        off_data = zeros((chansl, int(fileLen/2)))
+        cdata = zeros((chansl, int(fileLen/2)))
         offsets = zeros(chansl)
         calib = zeros((chansl, 2))
 
@@ -719,24 +720,33 @@ class dtac_data(ssx_data):
         fn = "%s-vin.txt" % (f)
         fp = t.extractfile(fn)
         s = fp.read()
-        fcalib = array([float(x) for x in s.split(',')])
+        fcalib = array([float(x) for x in s.split(b',')])
         fcalib = fcalib.reshape(-1,2)
 
         # read in data
+        print('chans')
+        print(chans)
         for k,i in enumerate(chans):
+            print('k',k)
+            print('i',i)
             d = dats[i]
+            print('d',d)
             myf = t.getmember(d)
+            print('myf.size', myf.size)
             fn = d
             fp = t.extractfile(fn)
             s = fp.read()
-            a = struct.unpack('h'*(myf.size/2), s)
+            print('here is h','h')
+            a = struct.unpack('h'*(int(myf.size/2)), s)
             fp.close()
             a = array(a)
+            if (len(a) == 0): a=np.zeros(8192)
+            print(a.shape)
             data[k, :] = a
             calib[k, :] = fcalib[i, :]
 
         # apply calibration factors
-        for i in xrange(chansl):
+        for i in np.arange(chansl):
             tmp = calib[i][0] + (data[i,:] + 32768) * (calib[i][1] -
                 calib[i][0]) / 65535
             # simple offset removal
@@ -775,12 +785,12 @@ class dtac_data(ssx_data):
         """Assign channel names from channel-names.txt."""
         r = range(self.numberChannels)
         chans = ['ch' + str(i+1) for i in r]
-        if self.info.has_key('channel-names.txt'):
+        if self.info.__contains__('channel-names.txt'):
             tmp = self.info['channel-names.txt']
-            tmp = tmp.strip().split('\n')
+            tmp = tmp.strip().split(b'\n')
             ctmp = []
             for l in tmp:
-                if not l.startswith('#'):
+                if not l.startswith(b'#'):
                     ctmp.append(l)
             j = 0
             for i in where(self.channelMask)[0]:
@@ -840,7 +850,7 @@ class dtac_data(ssx_data):
         a = axes()
         numChannels = self.signal.shape[0]
         if chan:
-            if self.channelDict.has_key(chan):
+            if self.channelDict.__contains__(chan):
                 i = self.channelDict[chan]
                 chanlabel = chan
             elif type(chan) == type(1):
@@ -852,7 +862,7 @@ class dtac_data(ssx_data):
             a.plot(self.time, self.signal[i, :])
             title('channel %s' % chanlabel)
         else:
-            for i in xrange(numChannels):
+            for i in np.arange(numChannels):
                 a.plot(self.time, self.signal[i])
         ylabel('voltage (V)')
         xlabel('time (us)')
@@ -903,10 +913,11 @@ class dtac_diag(ssx_base):
             self.delay_channel = None
             self.delay = [None, 0]
         # TODO put in exception handling here
-        if not self.delays.type:
-            self.delays = None
-            self.delay_channel = None
-            self.delay = ['T', 0.1]
+        ### the if statement below is commented out. I assume it is an error check if there is no delays file.
+        #if not self.delays.type:
+        #    self.delays = None
+        #    self.delay_channel = None
+        #    self.delay = ['T', 0.1]
         
         if self.filestrings:
             self._getData()
@@ -958,10 +969,10 @@ class dtac_diag(ssx_base):
             k = self.filecontents[d]
             chanprefix = 'ch'
             for c in k.channelNames:
-                if c.startswith(self.probe):
+                if c.startswith(bytes(self.probe,'utf-8')):
                     chanprefix = self.probe
             for c in k.channelNames:
-                if c.startswith(chanprefix):
+                if c.startswith(bytes(chanprefix,'utf-8')):
                     tmp = [d, k.channelDict[c]]
                     channelDict[c] = tmp
         self.channelDict = channelDict
@@ -1028,7 +1039,7 @@ class dtac_diag(ssx_base):
             a.plot(self.time, dat[i, :])
             title('channel %s' % chanlabel)
         else:
-            for i in xrange(numChannels):
+            for i in np.arange(numChannels):
                 a.plot(self.time, dat[i])
         ylabel(self.ylabel)
         xlabel(self.xlabel)
@@ -1066,9 +1077,9 @@ class dtac_diag(ssx_base):
             data = d
 
         cols, rows = data.shape
-        for row in xrange(rows):
+        for row in np.arange(rows):
             tmpline = ["%.6f" % self.time[row]]
-            for col in xrange(cols):
+            for col in np.arange(cols):
                 tmpline.append("%.6f" % data[col,row])
             tmpline.append('\n')
             filecontents.append('\t'.join(tmpline))
@@ -1252,7 +1263,7 @@ class magnetics_data(ssx_data):
     def plotProbe(self, probe, axis):
         fig = figure(23)
         fig.clear()
-        for i in xrange(numChan):
+        for i in np.arange(numChan):
             probeNum = "m%i%s%i" % (int(probe), axis, i+1)
             plot(self.time[5:], getattr(self, probeNum)[5:], label='%s' %
                 probeNum)
@@ -1273,7 +1284,7 @@ class magnetics_data(ssx_data):
         fig = figure(24)
         fig.clear()
         n = self.fullData.shape[0]
-        for i in xrange(n):
+        for i in np.arange(n):
             plot(self.time[5:], self.fullData[i,5:])
         ylabel('voltage (V)')
         xlabel('time (us)')
@@ -1297,9 +1308,9 @@ class magnetics_data(ssx_data):
         header = '#t\t'+'\t'.join(self.fullDataOrder)+'\n'
         filecontents = [header]
         cols, rows = self.fullData.shape
-        for row in xrange(rows):
+        for row in np.arange(rows):
             tmpline = ["%.6f" % self.time[row]]
-            for col in xrange(cols):
+            for col in np.arange(cols):
                 tmpline.append("%.6f" % self.fullData[col,row])
             tmpline.append('\n')
             filecontents.append('\t'.join(tmpline))
@@ -1378,12 +1389,12 @@ class rga_data(ssx_data):
         if massCorrection:
             self.pressure2[0] = max(self.pressure[:binningNum - int(binningNum
                 * .2)])
-            for i in xrange(1,maxx):
+            for i in np.arange(1,maxx):
                 self.pressure2[i] = max(self.pressure[i * binningNum  -
                     int(binningNum * .2):i * binningNum + binningNum  -
                     int(binningNum * .2)])
         else:
-            for i in xrange(1,maxx):
+            for i in np.arange(1,maxx):
                 self.pressure2[i] = max(self.pressure[i * binningNum:i *
                     binningNum + binningNum])
         self.totalPressure = self.pressure2.sum()
@@ -1757,13 +1768,13 @@ def fileLinesToArray(lines):
         cols = len(tmpline.split())
         rows = len(lines)
     output = zeros((cols, rows), 'float')
-    for i in xrange(rows):
+    for i in np.arange(rows):
         tmpline = lines[i+offset].split()
         if tmpline[0][0] == "#":
             continue
         if tmpline[0][0] not in numbers:
             continue
-        for j in xrange(len(tmpline)):
+        for j in np.arange(len(tmpline)):
             output[j][i] = float(tmpline[j])
     if header:
         return output, header

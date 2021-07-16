@@ -25,46 +25,63 @@ timeindex = (delayindex*1e5)/(1e6)
 
 fileheader = 'PE_SC_Type_1_Rg_499_delays_3910orbits_of3910_total2000_timesteps_resorted_et'
 datafile = loadnpzfile(datadir+fileheader+npy)
-PEs1 = datafile['PEs']
-SCs1 = datafile['SCs']
-SCs1_endarray=500
-
-fileheader = 'PE_SC_Type_2o_Rg_499_delays_5684orbits_of5684_total2000_timesteps_resorted_et'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs2o = datafile['PEs']
-SCs2o = datafile['SCs']
-SCs2o_endarray=500
-
-fileheader = 'PE_SC_Type_2i_Rg_499_delays_23495orbits_of23495_total2000_timesteps_resorted_et'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs2i = datafile['PEs']
-SCs2i = datafile['SCs']
-SCs2i_endarray=500
-
-fileheader = 'PE_SC_Type_31_Rg_499_delays_3279orbits_of4547_total2000_timesteps_resorted_et'
-datafile = loadnpzfile(datadir+fileheader+npy)
-PEs31 = datafile['PEs']
-SCs31 = datafile['SCs']
-SCs31_endarray=500
+PEs_Rg1 = datafile['PEs']
+SCs_Rg1 = datafile['SCs']
+SCs_Rg1_endarray=500
 
 fileheader = 'PE_SC_Type_32i_Rg_499_delays_3145orbits_of3899_total2000_timesteps_resorted_et'
 datafile = loadnpzfile(datadir+fileheader+npy)
-PEs32i = datafile['PEs']
-SCs32i = datafile['SCs']
-SCs32i_endarray=500
+PEs_Rg32i = datafile['PEs']
+SCs_Rg32i = datafile['SCs']
+SCs_Rg32i_endarray=500
 
-fileheader = 'PE_SC_Type_32o_Rg_499_delays_2021orbits_of2458_total2000_timesteps_resorted_et'
+fileheader = 'PE_SC_Type_1_R_499_delays_3910orbits_of3910_total2000_timesteps_resorted_et'
 datafile = loadnpzfile(datadir+fileheader+npy)
-PEs32o = datafile['PEs']
-SCs32o = datafile['SCs']
-SCs32o_endarray=500
+PEs_R1 = datafile['PEs']
+SCs_R1 = datafile['SCs']
+SCs_R1_endarray=500
+
+fileheader = 'PE_SC_Type_32i_R_499_delays_3145orbits_of3899_total2000_timesteps_resorted_et'
+datafile = loadnpzfile(datadir+fileheader+npy)
+PEs_R32i = datafile['PEs']
+SCs_R32i = datafile['SCs']
+SCs_R32i_endarray=500
+
+fileheader = 'PE_SC_Type_1_EJ_499_delays_3910orbits_of3910_total2000_timesteps_resorted_et'
+datafile = loadnpzfile(datadir+fileheader+npy)
+PEs_EJ1 = datafile['PEs']
+SCs_EJ1 = datafile['SCs']
+SCs_EJ1_endarray=500
+
+fileheader = 'PE_SC_Type_32i_EJ_499_delays_3145orbits_of3899_total2000_timesteps_resorted_et'
+datafile = loadnpzfile(datadir+fileheader+npy)
+PEs_EJ32i = datafile['PEs']
+SCs_EJ32i = datafile['SCs']
+SCs_EJ32i_endarray=500
+
+fileheader = 'PE_SC_Type_1_EJt_499_delays_3910orbits_of3910_total2000_timesteps_resorted_et'
+datafile = loadnpzfile(datadir+fileheader+npy)
+PEs_EJt1 = datafile['PEs']
+SCs_EJt1 = datafile['SCs']
+SCs_EJt1_endarray=500
+
+fileheader = 'PE_SC_Type_32i_EJt_499_delays_3145orbits_of3899_total2000_timesteps_resorted_et'
+datafile = loadnpzfile(datadir+fileheader+npy)
+PEs_EJt32i = datafile['PEs']
+SCs_EJt32i = datafile['SCs']
+SCs_EJt32i_endarray=500
+
+
+
     
 M6dyn=1676
 delayindex = np.arange(1,500)
 timeindex=(delayindex*1e5)/(1e6)
+patterntime=timeindex*4
 timeindex_normM6=timeindex/(M6dyn/10)
+patterntime_normM6=patterntime/(M6dyn/10)
 
-numcolors=5
+numcolors=4
 colors=np.zeros([numcolors,4])
 for i in np.arange(numcolors):
     c = plt.cm.plasma(i/(float(numcolors)),1)
@@ -76,51 +93,48 @@ plt.rc('xtick.major',width=2.0)
 plt.rc('ytick.major',width=2.0)
 plt.rc('xtick.minor',width=2.0)
 plt.rc('ytick.minor',width=2.0)
-plt.rc('lines',markersize=12,markeredgewidth=0.0,linewidth=2.0)
+plt.rc('lines',markersize=8,markeredgewidth=0.0,linewidth=3.0)
 
 #plt.rcParams['ps.fonttype'] = 42
 #plt.rcParams['pdf.fonttype'] = 42
 
-fig=plt.figure(num=1,figsize=(7,6),dpi=600,facecolor='w',edgecolor='k')
-left  = 0.15  # the left side of the subplots of the figure
+fig=plt.figure(num=1,figsize=(7,9),dpi=600,facecolor='w',edgecolor='k')
+left  = 0.16  # the left side of the subplots of the figure
 right = 0.94    # the right side of the subplots of the figure
-bottom = 0.1  # the bottom of the subplots of the figure
+bottom = 0.08  # the bottom of the subplots of the figure
 top = 0.96      # the top of the subplots of the figure
-wspace = 0.1   # the amount of width reserved for blank space between subplots
-hspace = 0.17   # the amount of height reserved for white space between subplots
+wspace = 0.2   # the amount of width reserved for blank space between subplots
+hspace = 0.0   # the amount of height reserved for white space between subplots
 plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
 
 
-ax1=plt.subplot(1,1,1)
-plt.plot(timeindex_normM6,SCs1[1:500],color='blue',marker=points[0],markevery=(20,100),label='M6-Type 1')
-plt.plot(timeindex_normM6,SCs2i[1:500],color='purple',marker=points[4],markevery=(20,100),label='M6-Type 2 [Inside CR]')
-plt.plot(timeindex_normM6,SCs2o[1:500],color='teal',marker=points[7],markevery=(20,100),label='M6-Type 2 [Outside CR]')
-plt.plot(timeindex_normM6,SCs31[1:],color='orange',marker=points[2],markevery=(20,100),label='M6-Type 3-1')
-plt.plot(timeindex_normM6,SCs32i[1:],color='red',marker=points[1],markevery=(20,100),label='M6-Type 3-2i')
-plt.plot(timeindex_normM6,SCs32o[1:],color='green',marker=points[3],markevery=(20,100),label='M6-Type 3-2o')
-#plt.plot(timeindex,SCs4[1:],color='teal',marker=points[5],markevery=(20,100),label='M6-Type 4')
-#plt.plot(delayindex,SCsin[1:],color='black',label='Sine Wave')
+ax1=plt.subplot(2,1,1)
+plt.plot(patterntime_normM6,SCs_Rg1[1:500],color='black',label='Type CR-Rg')
+plt.plot(patterntime_normM6,SCs_R1[1:500],color='black',linestyle='solid',linewidth=0.5,label='Type CR-R')
+plt.plot(patterntime_normM6,SCs_EJ1[1:500],color='black',linestyle='dotted',label='Type CR-EJ')
+plt.plot(patterntime_normM6,SCs_EJt1[1:500],color='black',linestyle='dashed',label='Type CR-EJt')
+plt.plot(patterntime_normM6,SCs_Rg32i[1:500],color='red',label=r'Type RO-Rg')
+plt.plot(patterntime_normM6,SCs_R32i[1:500],color='red',linestyle='solid',linewidth=0.5,label=r'Type RO-R')
+plt.plot(patterntime_normM6,SCs_EJ32i[1:500],color='red',linestyle='dotted',label=r'Type RO-EJ')
+plt.plot(patterntime_normM6,SCs_EJt32i[1:500],color='red',linestyle='dashed',label=r'Type RO-EJt')
+
+plt.vlines(0.222,0,1,color='gray',linewidth=1.5,linestyle='dashed')
 
 #plt.vlines(85,0,1,color='red',linestyle='dotted',linewidth=0.5)
-plt.xticks(fontsize=12)
-plt.yticks(np.array([0.0,0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40]),[0.0,0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40],fontsize=12)
-plt.xlabel(r'$\tau_s/\tau_{dyn}^{M6}$',fontsize=15)
+
+#plt.xticks(np.array([1,20,40,60,80,100,120,140,160,180,200,220,240]),[1,20,40,60,80,100,120,140,160,180,200,220,240],fontsize=9)
+
+plt.xticks(fontsize=18)
+plt.yticks(np.array([0.10,0.20,0.30,0.40]),[0.10,0.20,0.30,0.40],fontsize=18)
+plt.xlabel(r'$\tau_s/T_{dyn}$',fontsize=18)
 #plt.xlabel('Delay Steps',fontsize=9)
-#ax1.set_xticklabels([])
-plt.ylabel(r'$C$',fontsize=15)
-plt.xlim(0,0.25)
-#plt.ylim(0,0.5)
-plt.legend(loc='lower left',fontsize=12,frameon=False,handlelength=5)
-#plt.text(0.07,0.92,'(a)',horizontalalignment='center',verticalalignment='center',transform=ax1.transAxes,fontsize=12)
+ax1.set_xticklabels([])
+plt.ylabel(r'$C$',fontsize=20)
+plt.xlim(0,1.0)
+plt.ylim(0.11,0.4)
+#plt.legend(loc='lower right',fontsize=14,frameon=False,handlelength=5,numpoints=2)
+plt.text(0.04,0.95,'(a)',fontsize=16,horizontalalignment='center',verticalalignment='center',transform=ax1.transAxes)
 
-
-#savefilename='SC_CR6_typescan_2000_et_normdyn_ApJver.png'
-savefilename='SC_CR6_typescan_2000_et_normdyn_ApJver.eps'
-#savefilename='PE_galpy0718_1000timesteps_all_orbits.png'
-savefile = os.path.normpath(datadir+savefilename)
-#plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
-plt.clf()
-plt.close()
 #savefilename='SC_galpy0718_1000timesteps_3000_orbits.png'
 #savefilename='SC_galpy0718_1000timesteps_all_orbits.png'
 #savefile = os.path.normpath(datadir+savefilename)
@@ -130,134 +144,86 @@ plt.close()
 #fig=plt.figure(num=2,figsize=(5,3.5),dpi=300,facecolor='w',edgecolor='k')
 #plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
 
-"""
+
 ax1=plt.subplot(2,1,2)
-plt.plot(timeindex,PEs1[1:500],color=colors[0,:],label='Type 1')
-plt.plot(timeindex,PEsT25[1:500],color=colors[1,:],label='Type 2 [Beyond CR]')
-plt.plot(timeindex,PEs31[1:],color='green',label='Type 3-1')
-plt.plot(timeindex,PEs32[1:],color='red',label='Type 3-2')
-plt.plot(timeindex,PEs4[1:],color='purple',label='Type 4')
-#plt.plot(delayindex,PEsin[1:],color='black',label='Sine Wave')
+plt.plot(patterntime_normM6,PEs_Rg1[1:500],color='black',label='Type CR Rg')
+plt.plot(patterntime_normM6,PEs_R1[1:500],color='black',linestyle='solid',linewidth=0.5,label='Type CR-R')
+plt.plot(patterntime_normM6,PEs_EJ1[1:500],color='black',linestyle='dotted',label='Type CR-EJ')
+plt.plot(patterntime_normM6,PEs_EJt1[1:500],color='black',linestyle='dashed',label='Type CR EJt')
+plt.plot(patterntime_normM6,PEs_Rg32i[1:500],color='red',label=r'Type RO Rg')
+plt.plot(patterntime_normM6,PEs_R32i[1:500],color='red',linestyle='solid',linewidth=0.5,label=r'Type RO-R')
+plt.plot(patterntime_normM6,PEs_EJ32i[1:500],color='red',linestyle='dotted',label=r'Type RO-EJ')
+plt.plot(patterntime_normM6,PEs_EJt32i[1:500],color='red',linestyle='dashed',label=r'Type RO EJt')
 
-#plt.vlines(81,0,1,color='red',linestyle='dotted',linewidth=0.5)
-delayarray = np.array([0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250])
-delayarray = np.array([0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340,360,380,400,420,440,460,480,500])
-timearray = (delayarray*1e5)/(1e6)
-timelist = list(timearray.astype(int))
-plt.xticks(timearray,timelist,fontsize=8)
-plt.xlabel('Delay Time [Myr]',fontsize=11)
+plt.yticks([0.0,0.2,0.4,0.6,0.8,1.0],[0.0,0.2,0.4,0.6,0.8,1.0],fontsize=18)
+plt.xticks(fontsize=18)
+plt.xlabel(r'$t_{pat}/T_{dyn}$',fontsize=20)
 #ax1.set_xticklabels([])
-plt.yticks(fontsize=9)
-plt.ylabel('Permutation Entropy',fontsize=9)
-#plt.xlim(1,250)
-plt.ylim(0,1.0)
-plt.legend(loc='lower right',fontsize=6,frameon=False,handlelength=5)
-plt.text(0.07,0.92,'(b)',horizontalalignment='center',verticalalignment='center',transform=ax1.transAxes)
+plt.yticks(fontsize=18)
+plt.ylabel(r'$H$',fontsize=20)
+plt.xlim(0,1.0)
+plt.ylim(0,1.1)
+plt.legend(loc='lower right',fontsize=8,frameon=False,handlelength=5)
+plt.text(0.04,0.95,'(b)',fontsize=16,horizontalalignment='center',verticalalignment='center',transform=ax1.transAxes)
 
-savefilename='SC_and_PE_galpy0718_CR6_2000plustimesteps_3000plusorbits.eps'
-#savefilename='PE_galpy0718_1000timesteps_all_orbits.png'
-savefile = os.path.normpath(datadir+savefilename)
-plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
-
-"""
+plt.vlines(0.222,0.0,1.1,color='gray',linewidth=1.5,linestyle='dashed')
+plt.hlines(0.55124,0,1,color='gray',linewidth=1.5,linestyle='dashed')
 
 
-plt.rc('text.latex', preamble=r'\usepackage{color}')
-import matplotlib.pyplot as plt
-
-#plt.figure()
-#plt.ylabel(r'\textcolor{red}{Today} '+
-#           r'\textcolor{green}{is} '+
-#           r'\textcolor{blue}{cloudy.}')
-
-
-
-numcolors=2
-colors=np.zeros([numcolors,4])
-for i in np.arange(numcolors):
-    c = plt.cm.plasma(i/(float(numcolors)),1)
-    colors[i,:]=c
-
-ndim=5
-#Plot C vs H as a CHplane
-Cminx, Cminy, Cmaxx, Cmaxy = cpl.Cmaxmin(1000,ndim)
-plt.rc('lines',markersize=10,markeredgewidth=0.0)
-
-fig=plt.figure(num=33,figsize=(7,6),dpi=600,facecolor='w',edgecolor='k')
-left  = 0.15  # the left side of the subplots of the figure
-right = 0.94    # the right side of the subplots of the figure
-bottom = 0.1  # the bottom of the subplots of the figure
-top = 0.96      # the top of the subplots of the figure
-wspace = 0.1   # the amount of width reserved for blank space between subplots
-hspace = 0.17   # the amount of height reserved for white space between subplots
-plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
-
-ax=plt.subplot(1,1,1)
-
-plt.plot(Cminx,Cminy,'k-',Cmaxx,Cmaxy,'k-')
-
-timestep10 = 1
-plt.plot(PEs32i[timestep10],SCs32i[timestep10],color='blue',marker='s')#,label=r'$\tau_{s}/T_{dyn}^{M6}=$'+str(np.round(timestep0/M6dyn,3)))
-
-plt.plot(PEs1[timestep10],SCs1[timestep10],color='red',marker='s')#,label=r'$\tau_{s}/T_{dyn}^{M6}=$'+str(np.round(timestep0/M6dyn,3)))
-#plt.plot(PEsT21[timestep0],SCsT21[timestep0],color='purple',marker='H')
-#plt.plot(PEsT25[timestep0],SCsT25[timestep0],color='teal',marker='H')
-#plt.plot(PEs31[timestep0],SCs31[timestep0],color='orange',marker='H')
-
-
-timestep93 = 93
-plt.plot(PEs1,SCs1,color='blue',linestyle='dashed',linewidth=0.5)
-plt.plot(PEs32i,SCs32i,color='red',linestyle='dashed',linewidth=0.5)
-plt.plot(PEs1[timestep93],SCs1[timestep93],color='blue',linestyle='solid',marker=points[0])#,label=r'$\tau_{s}/T_{dyn}^{M6}=$'+str(np.round(timestep93/M6dyn,3)))
-
-#plt.plot(PEsT21[timestep],SCsT21[timestep],color='purple',marker=points[4],label='Type 2 [Inside CR]')
-#plt.plot(PEsT25[timestep],SCsT25[timestep],color='teal',marker=points[7],label='Type 2 [Outside CR]')
-#plt.plot(PEs31[timestep],SCs31[timestep],color='orange',marker=points[2],label='Type 3-1')
-plt.plot(PEs32i[timestep93],SCs32i[timestep93],color='red',marker=points[0])#,label=r'$\tau_{s}/T_{dyn}^{M6}=$'+str(np.round(timestep93/M6dyn,3)))
-#plt.plot(PEs4[timestep],SCs4[timestep],color='purple',marker='o',label='Type 4')
-#plt.plot(PEsin[81],SCsin[81],color='black',marker='o',label='Sine Wave, Delay 81')
-
-timestep400 = 400
-plt.plot(PEs1[timestep400],SCs1[timestep400],color='blue',marker=points[1],label=r'$\tau_{s}/T_{dyn}^{M6}=$'+str(np.round(timestep400/M6dyn,3)))
-plt.plot(PEs32i[timestep400],SCs32i[timestep400],color='red',marker=points[1])#,label=r'$\tau_{s}/T_{dyn}^{M6}=$'+str(np.round(timestep400/M6dyn,3)))
-
-plt.xlabel(r'$H$', fontsize=20)
-plt.ylabel(r'$C$', fontsize=20)
-#plt.title('Delay Timescale '+str(timeindex[timestep])+' Myr',fontsize=9)
-plt.axis([0,1.0,0,0.45])
-plt.xticks(np.arange(0,1.1,0.1),fontsize=18)
-plt.yticks(np.arange(0,0.45,0.05),fontsize=18)
-#leg=plt.legend(loc='lower center',fontsize=9,ncol=1,frameon=False,handlelength=0)
-#leg._legend_box.align = "center"
-#leg.set_title('Type 1 (Blue), Type 3-2 (Red)',prop={'size':9})
-
-#leg.legendHandles[0].set_markerfacecolor('green')
-#leg.legendHandles[1].set_markerfacecolor('green')
-#leg.legendHandles[2].set_markerfacecolor('green')
-
-from matplotlib.lines import Line2D
-legend_elements = [Line2D([0], [0], linestyle=None,markerfacecolor='black', markersize=10,marker='s',label=r'  $\tau_{s}/T_{dyn}^{M6e}=$'+str(np.round(timestep10/M6dyn,4))),
-                   Line2D([0], [0], linestyle=None,markerfacecolor='black', markersize=10,marker=points[0],label=r'  $\tau_{s}/T_{dyn}^{M6e}=$'+str(np.round(timestep93/M6dyn,3))),
-                   Line2D([0], [0], linestyle=None,markerfacecolor='black', markersize=10,marker=points[1],label=r'  $\tau_{s}/T_{dyn}^{M6e}=$'+str(np.round(timestep400/M6dyn,3)))]
-
-# Create the figure
-#fig, ax = plt.subplots()
-leg=plt.legend(handles=legend_elements, loc='lower center',handlelength=0,frameon=False,fontsize=12)
-leg.set_title(r'Type 1 (blue), Type 3-2 (red)',prop={'size':12})
-
-plt.vlines(0.5512,0.21,0.417,color='gray',linewidth=1.5,linestyle='dashed')
-
-
-#leg.set_title(r'For $\tau_{s}/T_{dyn}^{M6}=$'+str(np.round(timestep/M6dyn,3)),prop={'size':12})
-#savefilename='CH_M6_timestep'+str(timestep)+'_ApJver.png'
-savefilename='CH_M6_3timesteps_start_peak_end_ApJver_newcolor_wtracks.png'
-#savefilename='CH_M6_timestep'+str(timestep)+'_ApJver_newcolor.eps'
-#savefilename='CH_galpy0718_1000timesteps_timestep'+str(timestep)+'_all_orbits.png'
+savefilename='SC_and_PE_CR6_2000timesteps_Type1vsType32i_RvsEJvsEJt.png'
+#savefilename='SC_and_PE_CR6_2000timesteps_Type1vsType32i_normdyntime_ApJver_newcolor_wtpat.eps'
+#savefilename='PE_galpy0718_1e000timesteps_all_orbits.png'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
 plt.clf()
 plt.close()
 
+"""
+ndim=5
+#Plot C vs H as a CHplane
+Cminx, Cminy, Cmaxx, Cmaxy = cpl.Cmaxmin(1000,ndim)
+plt.rc('lines',markersize=5,markeredgewidth=0.0)
+
+fig=plt.figure(num=33,figsize=(3.5,3.5),dpi=300,facecolor='w',edgecolor='k')
+left  = 0.25  # the left side of the subplots of the figure
+right = 0.94    # the right side of the subplots of the figure
+bottom = 0.17  # the bottom of the subplots of the figure
+top = 0.97      # the top of the subplots of the figure
+wspace = 0.2   # the amount of width reserved for blank space between subplots
+hspace = 0.1   # the amount of height reserved for white space between subplots
+plt.subplots_adjust(left=left, bottom=bottom, right=right, top=top, wspace=wspace, hspace=hspace)
+
+timestep = 86
+
+plt.plot(Cminx,Cminy,'k-',Cmaxx,Cmaxy,'k-')
+plt.plot(PEs1[timestep],SCs1[timestep],color=colors[0,:],marker='o',label='Type 1')
+plt.plot(PEsT25[timestep],SCsT25[timestep],color=colors[1,:],marker='o',label='Type 2')
+plt.plot(PEs31[timestep],SCs31[timestep],color='green',marker='o',label='Type 3-1')
+plt.plot(PEs32[timestep],SCs32[timestep],color='red',marker='o',label='Type 3-2')
+plt.plot(PEs4[timestep],SCs4[timestep],color='purple',marker='o',label='Type 4')
+#plt.plot(PEsin[81],SCsin[81],color='black',marker='o',label='Sine Wave, Delay 81')
+
+timestep0 = 1
+plt.plot(PEs1[timestep0],SCs1[timestep0],color=colors[0,:],marker='v')
+plt.plot(PEsT25[timestep0],SCsT25[timestep0],color=colors[1,:],marker='v')
+plt.plot(PEs31[timestep0],SCs31[timestep0],color='green',marker='v')
+plt.plot(PEs32[timestep0],SCs32[timestep0],color='red',marker='v')
+plt.plot(PEs4[timestep0],SCs4[timestep0],color='purple',marker='v')
+
+plt.xlabel("Permutation Entropy", fontsize=9)
+plt.ylabel("Statistical Complexity", fontsize=9)
+#plt.title('Delay Timescale '+str(timeindex[timestep])+' Myr',fontsize=9)
+plt.axis([0,1.0,0,0.45])
+plt.xticks(np.arange(0,1.1,0.1),fontsize=9)
+plt.yticks(np.arange(0,0.45,0.05),fontsize=9)
+leg=plt.legend(loc='lower center',fontsize=5,frameon=False,handlelength=0)
+leg.set_title(r'At Delay $\tau=$'+str(timeindex[timestep])+ 'Myr',prop={'size':4})
+
+savefilename='CH_galpy0718_2000plustimesteps_timestep'+str(timestep)+'_3000plusorbits.eps'
+#savefilename='CH_galpy0718_1000timesteps_timestep'+str(timestep)+'_all_orbits.png'
+savefile = os.path.normpath(datadir+savefilename)
+plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
+"""
 """
 fig=plt.figure(num=4,figsize=(3.5,3.5),dpi=300,facecolor='w',edgecolor='k')
 left  = 0.25  # the left side of the subplots of the figure

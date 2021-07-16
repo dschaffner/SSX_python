@@ -1,7 +1,6 @@
 #Function to calculate Cmin, Cmax with steps of size nsteps. Second function plots a blank CH plane.
 def Cmaxmin(nsteps,n):	
     import numpy as np
-    import matplotlib.pylab as plt
     import math
 	
     N = math.factorial(n)
@@ -40,21 +39,18 @@ def Cmaxmin(nsteps,n):
 			
     return Cminx, Cminy, Cmaxx, Cmaxy
 
-def blank():				# Creates a blank CH plane
-	import numpy as np
+def generateCurves(n=5):				# Creates a blank CH plane with maximum and minimum curves for the given embedding dimension, with n=5 as the default
 	import matplotlib.pylab as plt
-	import math
 	from Cmaxmin import Cmaxmin
 	
-	n=5
-	Cminx, Cminy, Cmaxx, Cmaxy = Cmaxmin(100,n)
+	Cminx, Cminy, Cmaxx, Cmaxy = Cmaxmin(1000,n)
 
-	fig1=plt.figure(1)
+	plt.figure(1)
 	plt.plot(Cminx,Cminy,'k-',Cmaxx,Cmaxy,'k-')
 	plt.xlabel("Entropy", fontsize=15)
 	plt.ylabel("Jensen-Shannon Complexity", fontsize=15)
-	plt.axis([0,1.0,0,0.45])
-	plt.xticks(np.arange(0,1.1,0.1))
-	plt.yticks(np.arange(0,0.45,0.05))
-	savefile='CHn5_blank'
-	plt.savefig(str(savefile)+'.png')
+	#plt.axis([0,1.0,0,0.45])
+	#plt.xticks(np.arange(0,1.1,0.1))
+	#plt.yticks(np.arange(0,0.45,0.05))
+	#savefile='CHn5_blank'
+	#plt.savefig(str(savefile)+'.png')

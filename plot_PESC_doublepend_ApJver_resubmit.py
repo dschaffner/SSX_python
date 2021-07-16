@@ -300,9 +300,11 @@ ax1=plt.subplot(2,1,1)
 ax1.tick_params(axis='x',direction='inout',top=True)
 ax1.tick_params(axis='y',direction='inout',top=True)
 
-plt.semilogx(timeindex,SCsx1_P,color=colors[0,:],label='Periodic')
-plt.semilogx(timeindex,SCsx1_Q,color=colors[1,:],label='Quasi-Periodic')
-plt.semilogx(timeindex,SCsx1_C,color=colors[2,:],label='Chaotic')
+plt.plot(timeindex,SCsx1_P,color=colors[0,:],label='Periodic')
+plt.plot(timeindex,SCsx1_Q,color=colors[1,:],label='Quasi-Periodic')
+plt.plot(timeindex,SCsx1_C,color=colors[2,:],label='Chaotic')
+
+plt.vlines(0.1584,0.0,0.42,color='gray',linewidth=1.5,linestyle='dashed')
 
 
 #plt.xticks(np.array([1,40,80,120,160,200,240]),[1,40,80,120,160,200,240],fontsize=9)
@@ -312,28 +314,33 @@ ax1.set_xticklabels([])
 plt.ylabel(r'$C$',fontsize=20)
 #plt.xlim(1,250)
 plt.ylim(0.0,0.42)
+plt.xlim(0,1.0)
 #plt.legend(loc='best',fontsize=8,frameon=False,handlelength=5)
 plt.text(0.04,0.95,'(a)',fontsize=16,horizontalalignment='center',verticalalignment='center',transform=ax1.transAxes)
 
 
 ax1=plt.subplot(2,1,2)
-plt.semilogx(timeindex,PEsx1_P,color=colors[0,:],label='Periodic')
-plt.semilogx(timeindex,PEsx1_Q,color=colors[1,:],label='Quasi-Periodic')
-plt.semilogx(timeindex,PEsx1_C,color=colors[2,:],label='Chaotic')
+plt.plot(timeindex,PEsx1_P,color=colors[0,:],label='Periodic')
+plt.plot(timeindex,PEsx1_Q,color=colors[1,:],label='Quasi-Periodic')
+plt.plot(timeindex,PEsx1_C,color=colors[2,:],label='Chaotic')
+
+plt.vlines(0.1584,0.0,1.1,color='gray',linewidth=1.5,linestyle='dashed')
+plt.hlines(0.55124,0,1,color='gray',linewidth=1.5,linestyle='dashed')
 
 plt.yticks([0.0,0.2,0.4,0.6,0.8,1.0],[0.0,0.2,0.4,0.6,0.8,1.0],fontsize=18)
-plt.xticks([1e-2,1e-1,1e0,1e1],[0.01,0.1,1.0,10],fontsize=18)
+plt.xticks(fontsize=18)
 plt.xlabel(r'$t_{pat}/T_{periodic}$',fontsize=20)
 #ax1.set_xticklabels([])
 plt.ylabel(r'$H$',fontsize=20)
 #plt.xlim(1,250)
 plt.ylim(0,1.1)
-plt.legend(loc='center left',fontsize=12,frameon=False,handlelength=5)
+plt.xlim(0,1.0)
+plt.legend(loc='lower center',fontsize=12,frameon=False,handlelength=5)
 plt.text(0.04,0.95,'(b)',fontsize=16,horizontalalignment='center',verticalalignment='center',transform=ax1.transAxes)
 
 
 #savefilename='SC_and_PE_DPx1_ICP1_ICQ1_ICC1_3.eps'
-savefilename='SC_and_PE_DPx1_ICP1_ICQ1_ICC1_3_10kdelay_withTpat.png'
+savefilename='SC_and_PE_DPx1_ICP1_ICQ1_ICC1_3_10kdelay_withTpat_ApJver_resub_linear.eps'
 #savefilename='SC_and_PE_DPx1_ICP1_ICQ1_ICC1_3_10kdelay.eps'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
@@ -347,10 +354,10 @@ plt.close()
 
 
 
-xaxis_label_fontsize=15
-xaxis_ticks_size=12
-yaxis_label_fontsize=18
-yaxis_ticks_size=12
+xaxis_label_fontsize=20
+xaxis_ticks_size=18
+yaxis_label_fontsize=20
+yaxis_ticks_size=18
 title_fontsize=15
 legend_fontsize=12
 legend_title_fontsize=9
@@ -374,31 +381,36 @@ import Cmaxmin as cpl
 ndim=5
 #Plot C vs H as a CHplane
 Cminx, Cminy, Cmaxx, Cmaxy = cpl.Cmaxmin(1000,ndim)
-plt.rc('lines',markersize=2,markeredgewidth=0.0)
+plt.rc('lines',markersize=5,markeredgewidth=0.0)
 plt.plot(Cminx,Cminy,'k-',Cmaxx,Cmaxy,'k-')
 
-
-numpoints=len(SCsx1_P[1:312])
+timecutoff=98#0.5Tperiod
+timeend=624
+numpoints=len(SCsx1_P[1:timecutoff])
 #plt.scatter(PEsx1_P[1:624],SCsx1_P[1:1000],marker='o',color=cm.Blues(np.arange(numpoints)),label='Periodic')
 #plt.scatter(PEsx1_Q[1:1000],SCsx1_Q[1:1000],marker='o',color=cm.Reds(np.arange(numpoints)),label='Quasi-Periodic')
 #plt.scatter(PEsx1_C[1:1000],SCsx1_C[1:1000],marker='o',color=cm.Greens(np.arange(numpoints)),label='Chaotic')
 #plt.plot(PEsx1_P[1:1000],SCsx1_P[1:1000],linestyle='dotted',color='blue',label='Periodic')
-plt.plot(PEsx1_P[1:312],SCsx1_P[1:312],color=colors[0,:],linewidth=1.0,label='Periodic')
-plt.plot(PEsx1_Q[1:312],SCsx1_Q[1:312],color=colors[1,:],linewidth=1.0,label='Quasi-Periodic')
-plt.plot(PEsx1_C[1:312],SCsx1_C[1:312],color=colors[2,:],linewidth=1.0,label='Chaotic')
-plt.plot(PEsx1_P[313:800],SCsx1_P[313:800],color=colors[0,:],linewidth=0.1)
-plt.plot(PEsx1_Q[313:800],SCsx1_Q[313:800],color=colors[1,:],linewidth=0.1)
-plt.plot(PEsx1_C[313:800],SCsx1_C[313:800],color=colors[2,:],linewidth=0.1)
+plt.plot(PEsx1_P[1:timecutoff],SCsx1_P[1:timecutoff],color=colors[0,:],linewidth=2.0,label='Periodic')
+plt.plot(PEsx1_Q[1:timecutoff],SCsx1_Q[1:timecutoff],color=colors[1,:],linewidth=2.0,label='Quasi-Periodic')
+plt.plot(PEsx1_C[1:timecutoff],SCsx1_C[1:timecutoff],color=colors[2,:],linewidth=2.0,label='Chaotic')
+plt.plot(PEsx1_P[timecutoff:timeend],SCsx1_P[timecutoff:timeend],color=colors[0,:],linewidth=0.75,linestyle='dashed')
+plt.plot(PEsx1_Q[timecutoff:timeend],SCsx1_Q[timecutoff:timeend],color=colors[1,:],linewidth=0.75,linestyle='dashed')
+plt.plot(PEsx1_C[timecutoff:timeend],SCsx1_C[timecutoff:timeend],color=colors[2,:],linewidth=0.75,linestyle='dashed')
+
+plt.scatter(PEsx1_P[timecutoff],SCsx1_P[timecutoff],marker=points[1],color=colors[0,:])
+plt.scatter(PEsx1_Q[timecutoff],SCsx1_Q[timecutoff],marker=points[1],color=colors[1,:])
+plt.scatter(PEsx1_C[timecutoff],SCsx1_C[timecutoff],marker=points[1],color=colors[2,:])
 
 
-
-plt.xticks(fontsize=xaxis_ticks_size)
+plt.xticks(np.arange(0,1.1,0.1),fontsize=xaxis_ticks_size)
 plt.xlabel(r'$H$',fontsize=xaxis_label_fontsize)
-plt.yticks(fontsize=yaxis_ticks_size)
+plt.yticks(np.arange(0,0.45,0.05),fontsize=yaxis_ticks_size)
 plt.ylabel(r'$C$',fontsize=yaxis_label_fontsize)
 
-plt.legend(loc='upper left',fontsize=9,numpoints=10,frameon=False,handlelength=5)
+plt.legend(loc='lower center',fontsize=12,numpoints=3,frameon=False,handlelength=5)
 
+plt.vlines(0.5512,0.21,0.417,color='gray',linewidth=1.5,linestyle='dashed')
 
 #ax2=fig.add_subplot(spec2[:,7])
 ##import matplotlib as mpl
@@ -407,7 +419,7 @@ plt.legend(loc='upper left',fontsize=9,numpoints=10,frameon=False,handlelength=5
 #cb1=mpl.colorbar.ColorbarBase(ax2,cmap=cmap,norm=norm,orientation='vertical')
 #cb1.set_label(r'$\tau_s$',fontsize=15)
 
-savefilename='SC_and_PE_DPx1_ICP1_ICQ1_ICC1_3_CHPlane_10kdelay_withTcutoff.png'
+savefilename='SC_and_PE_DPx1_ICP1_ICQ1_ICC1_3_CHPlane_10kdelay_withTcutoff_atChaostime_ApJver_resub.eps'
 savefile = os.path.normpath(datadir+savefilename)
 plt.savefig(savefile,dpi=600,facecolor='w',edgecolor='k')
 plt.clf()

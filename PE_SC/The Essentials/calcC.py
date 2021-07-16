@@ -7,8 +7,8 @@ def PE(data,n=5,delay=1):
     function Cjs - Returns the Shannon Permutation Energy
     Input:
         data  - 1-D array
-        n     - permutation number (default=5)
-        delay - integeter delay (default=1)
+        n     - embedding dimension (default=5)
+        delay - embedding delay (default=1)
     Output:
         Sp - Shannon permuation entropy
         Se - Shannon + Uniform permutation entropy

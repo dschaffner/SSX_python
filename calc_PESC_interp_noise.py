@@ -60,7 +60,7 @@ for loop_delay in np.arange(len(delay_array)):
     SCs[loop_delay]=C
 print( 'x1 completed')
 """
-
+"""
 for loop_delay in delay_array:
     print ('On Delay ', loop_delay)
     PEs[loop_delay],SCs[loop_delay] = CH(noise_array,5,delay=loop_delay)
@@ -77,3 +77,4 @@ np.savez(datadir+filename,PEs=PEs,SCs=SCs,
                               #PEsy3=PEsy3,SCsy3=SCsy3, 
                               #PEsy4=PEsy4,SCsy4=SCsy4, 
                               delays=delay_array)
+"""

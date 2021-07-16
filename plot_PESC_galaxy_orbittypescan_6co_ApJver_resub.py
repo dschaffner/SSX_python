@@ -196,30 +196,50 @@ ax=plt.subplot(1,1,1)
 
 plt.plot(Cminx,Cminy,'k-',Cmaxx,Cmaxy,'k-')
 
-timestep10 = 1
-plt.plot(PEs32i[timestep10],SCs32i[timestep10],color='blue',marker='s')#,label=r'$\tau_{s}/T_{dyn}^{M6}=$'+str(np.round(timestep0/M6dyn,3)))
+#timestep error
+#C_std_RO[1]=0.001
+#H_std_RO[1]=0.002
+#C_std_CR[1]=0.002
+#H_std_CR[1]=0.003
 
-plt.plot(PEs1[timestep10],SCs1[timestep10],color='red',marker='s')#,label=r'$\tau_{s}/T_{dyn}^{M6}=$'+str(np.round(timestep0/M6dyn,3)))
+#C_std_R0[93]=0.008
+#H_std_RO[93]=0.017
+#C_std_CR[93]=0.018
+#H_std_CR[93]=0.03
+
+#C_std_RO[400]=0.013
+#H_std_RO[400]=0.03
+#C_std_CR[400]=0.032
+#H_std_CR[400]=0.06
+
+#timestep10 = 1
+#plt.errorbar(PEs32i[timestep10],SCs32i[timestep10],xerr=0.002,yerr=0.001,elinewidth=0.5,color='blue',marker='s')#,label=r'$\tau_{s}/T_{dyn}^{M6}=$'+str(np.round(timestep0/M6dyn,3)))
+
+#plt.errorbar(PEs1[timestep10],SCs1[timestep10],xerr=0.003,yerr=0.002,elinewidth=0.5,color='red',marker='s')#,label=r'$\tau_{s}/T_{dyn}^{M6}=$'+str(np.round(timestep0/M6dyn,3)))
 #plt.plot(PEsT21[timestep0],SCsT21[timestep0],color='purple',marker='H')
 #plt.plot(PEsT25[timestep0],SCsT25[timestep0],color='teal',marker='H')
 #plt.plot(PEs31[timestep0],SCs31[timestep0],color='orange',marker='H')
 
 
 timestep93 = 93
-plt.plot(PEs1,SCs1,color='blue',linestyle='dashed',linewidth=0.5)
-plt.plot(PEs32i,SCs32i,color='red',linestyle='dashed',linewidth=0.5)
-plt.plot(PEs1[timestep93],SCs1[timestep93],color='blue',linestyle='solid',marker=points[0])#,label=r'$\tau_{s}/T_{dyn}^{M6}=$'+str(np.round(timestep93/M6dyn,3)))
+plt.plot(PEs1[0:93],SCs1[0:93],color=colors[0,:],linestyle='solid',linewidth=2.0,label='Type CR')
+plt.plot(PEs32i[0:93],SCs32i[0:93],color=colors[1,:],linestyle='solid',linewidth=2.0,label='Type RO')
+plt.errorbar(PEs1[timestep93],SCs1[timestep93],xerr=0.03,yerr=0.018,elinewidth=0.5,color=colors[0,:],linestyle='solid',marker=points[0])#,label=r'$\tau_{s}/T_{dyn}^{M6}=$'+str(np.round(timestep93/M6dyn,3)))
+
+plt.plot(PEs1[93:-1],SCs1[93:-1],linestyle='dashed',linewidth=0.75,color=colors[0,:])
+plt.plot(PEs32i[93:-1],SCs32i[93:-1],linestyle='dashed',linewidth=0.75,color=colors[1,:])
+
 
 #plt.plot(PEsT21[timestep],SCsT21[timestep],color='purple',marker=points[4],label='Type 2 [Inside CR]')
 #plt.plot(PEsT25[timestep],SCsT25[timestep],color='teal',marker=points[7],label='Type 2 [Outside CR]')
 #plt.plot(PEs31[timestep],SCs31[timestep],color='orange',marker=points[2],label='Type 3-1')
-plt.plot(PEs32i[timestep93],SCs32i[timestep93],color='red',marker=points[0])#,label=r'$\tau_{s}/T_{dyn}^{M6}=$'+str(np.round(timestep93/M6dyn,3)))
+plt.errorbar(PEs32i[timestep93],SCs32i[timestep93],xerr=0.017,yerr=0.008,elinewidth=0.5,color=colors[1,:],marker=points[0])#,label=r'$\tau_{s}/T_{dyn}^{M6}=$'+str(np.round(timestep93/M6dyn,3)))
 #plt.plot(PEs4[timestep],SCs4[timestep],color='purple',marker='o',label='Type 4')
 #plt.plot(PEsin[81],SCsin[81],color='black',marker='o',label='Sine Wave, Delay 81')
 
-timestep400 = 400
-plt.plot(PEs1[timestep400],SCs1[timestep400],color='blue',marker=points[1],label=r'$\tau_{s}/T_{dyn}^{M6}=$'+str(np.round(timestep400/M6dyn,3)))
-plt.plot(PEs32i[timestep400],SCs32i[timestep400],color='red',marker=points[1])#,label=r'$\tau_{s}/T_{dyn}^{M6}=$'+str(np.round(timestep400/M6dyn,3)))
+#timestep400 = 400
+#plt.errorbar(PEs1[timestep400],SCs1[timestep400],xerr=0.06,yerr=0.032,elinewidth=0.5,color='blue',marker=points[1],label=r'$t_{pat}/T_{dyn}^{M6e}=$'+str(np.round(timestep400/M6dyn,3)))
+#plt.errorbar(PEs32i[timestep400],SCs32i[timestep400],xerr=0.03,yerr=0.013,elinewidth=0.5,color='red',marker=points[1])#,label=r'$\tau_{s}/T_{dyn}^{M6}=$'+str(np.round(timestep400/M6dyn,3)))
 
 plt.xlabel(r'$H$', fontsize=20)
 plt.ylabel(r'$C$', fontsize=20)
@@ -227,7 +247,8 @@ plt.ylabel(r'$C$', fontsize=20)
 plt.axis([0,1.0,0,0.45])
 plt.xticks(np.arange(0,1.1,0.1),fontsize=18)
 plt.yticks(np.arange(0,0.45,0.05),fontsize=18)
-#leg=plt.legend(loc='lower center',fontsize=9,ncol=1,frameon=False,handlelength=0)
+plt.legend(loc='lower center',fontsize=12,numpoints=3,frameon=False,handlelength=5)
+
 #leg._legend_box.align = "center"
 #leg.set_title('Type 1 (Blue), Type 3-2 (Red)',prop={'size':9})
 
@@ -235,22 +256,22 @@ plt.yticks(np.arange(0,0.45,0.05),fontsize=18)
 #leg.legendHandles[1].set_markerfacecolor('green')
 #leg.legendHandles[2].set_markerfacecolor('green')
 
-from matplotlib.lines import Line2D
-legend_elements = [Line2D([0], [0], linestyle=None,markerfacecolor='black', markersize=10,marker='s',label=r'  $\tau_{s}/T_{dyn}^{M6e}=$'+str(np.round(timestep10/M6dyn,4))),
-                   Line2D([0], [0], linestyle=None,markerfacecolor='black', markersize=10,marker=points[0],label=r'  $\tau_{s}/T_{dyn}^{M6e}=$'+str(np.round(timestep93/M6dyn,3))),
-                   Line2D([0], [0], linestyle=None,markerfacecolor='black', markersize=10,marker=points[1],label=r'  $\tau_{s}/T_{dyn}^{M6e}=$'+str(np.round(timestep400/M6dyn,3)))]
+#from matplotlib.lines import Line2D
+#legend_elements = [Line2D([0], [0], linestyle=None,markerfacecolor='black', markersize=10,marker='s',label=r'  $t_{pat}/T_{dyn}^{M6e}=$'+str(np.round(4*timestep10/M6dyn,4))),
+#                   Line2D([0], [0], linestyle=None,markerfacecolor='black', markersize=10,marker=points[0],label=r'  $t_{pat}/T_{dyn}^{M6e}=$'+str(np.round(4*timestep93/M6dyn,3))),
+#                   Line2D([0], [0], linestyle=None,markerfacecolor='black', markersize=10,marker=points[1],label=r'  $t_{pat}/T_{dyn}^{M6e}=$'+str(np.round(4*timestep400/M6dyn,3)))]
 
 # Create the figure
 #fig, ax = plt.subplots()
-leg=plt.legend(handles=legend_elements, loc='lower center',handlelength=0,frameon=False,fontsize=12)
-leg.set_title(r'Type 1 (blue), Type 3-2 (red)',prop={'size':12})
+#leg=plt.legend(handles=legend_elements, loc='lower center',handlelength=0,frameon=False,fontsize=12)
+#leg.set_title(r'Type CR (blue), Type RO (red)',prop={'size':12})
 
 plt.vlines(0.5512,0.21,0.417,color='gray',linewidth=1.5,linestyle='dashed')
 
 
 #leg.set_title(r'For $\tau_{s}/T_{dyn}^{M6}=$'+str(np.round(timestep/M6dyn,3)),prop={'size':12})
 #savefilename='CH_M6_timestep'+str(timestep)+'_ApJver.png'
-savefilename='CH_M6_3timesteps_start_peak_end_ApJver_newcolor_wtracks.png'
+savefilename='CH_M6_3timesteps_start_peak_end_ApJver_newcolor_wtracks_wtpat_werrbarr.eps'
 #savefilename='CH_M6_timestep'+str(timestep)+'_ApJver_newcolor.eps'
 #savefilename='CH_galpy0718_1000timesteps_timestep'+str(timestep)+'_all_orbits.png'
 savefile = os.path.normpath(datadir+savefilename)
