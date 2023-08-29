@@ -71,8 +71,12 @@ y200=np.sin(200*x)
 y500=np.sin(500*x)
 y1000=np.sin(1000*x)
 
+ypi=np.sin(np.Pi*x)
+
 y20py50 = (0.75*y20)+(0.25*y50)
 ysum1=0.333*y1+0.333*y20+0.333*y50#+0.25*y100
+
+y1pPi = y1+ypi
 
 #SINE plus noise
 y20noise1to1=noise_array+y20

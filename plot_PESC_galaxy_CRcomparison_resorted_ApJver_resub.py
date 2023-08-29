@@ -304,7 +304,7 @@ ax1.tick_params(axis='x',direction='in',top=True)
 plt.ylabel(r'$t_{pat}^{max}/T_{dyn}$',fontsize=20)
 #plt.ylim(0,0.1)
 plt.text(0.07,0.92,'(a)',horizontalalignment='center',verticalalignment='center',transform=ax1.transAxes,fontsize=16)
-plt.legend(loc='upper center',fontsize=8,frameon=False,handlelength=5)
+plt.legend(loc='upper center',fontsize=11,frameon=False,handlelength=5)
 
 
 #savefilename='ComplexityPeak_vs_CR.png'
@@ -349,7 +349,7 @@ ax2.tick_params(axis='x',direction='in',top=True)
 plt.ylabel(r'Frac. of $T_{dyn}$',fontsize=20)
 #plt.ylim(0,2.2)
 plt.text(0.07,0.92,'(b)',horizontalalignment='center',verticalalignment='center',transform=ax2.transAxes,fontsize=16)
-plt.legend(loc='upper center',fontsize=8,frameon=False,handlelength=5)
+plt.legend(loc='upper center',fontsize=11,frameon=False,handlelength=5)
 #savefilename='OrbitDuration_vs_CR.png'
 #savefilename='PE_galpy0718_1000timesteps_all_orbits.png'
 #savefile = os.path.normpath(datadir+savefilename)
@@ -381,9 +381,9 @@ plt.ylabel(r'$T_{D}/t_{pat}^{max}$',fontsize=20)
 plt.ylim(0,10)
 
 plt.text(0.07,0.92,'(c)',horizontalalignment='center',verticalalignment='center',transform=ax3.transAxes,fontsize=16)
-plt.legend(loc='lower right',fontsize=8,frameon=False,handlelength=5)
+plt.legend(loc='lower right',fontsize=11,frameon=False,handlelength=5)
 
-savefilename='Peaks_OD_ratio_vs_CR_resorted_ApJver_wtpat.eps'
+savefilename='figure_19_Peaks_OD_ratio_vs_CR_resorted_ApJver_wtpat.eps'
 #savefilename='Peaks_OD_ratio_vs_CR_resorted_ApJver.eps'
 #savefilename='PE_galpy0718_1000timesteps_all_orbits.png'
 savefile = os.path.normpath(datadir+savefilename)

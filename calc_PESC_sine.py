@@ -27,10 +27,12 @@ y3=np.sin(3*x)
 y10=np.sin(10*x)
 y20=np.sin(20*x)
 y100=np.sin(100*x)
+ypi=np.sin(np.pi*x)
 
 y = 10*y1+2*y2+4*y10
 y = 0.1*y1+10*y3+10*y10+20*y20
 y=y1+y2+y3
+y1pPi=y1+ypi
 
 #datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\Codie Thesis Data\\'
 #fileheader = 'qp_(m=4)_(th=30.0)_(t=1.0)_(CR=6.0)_(eps=0.4)_(x0=2.350639412)_(y0=6.62220828293)_(vx0=-243.996156434)_(vy0=40.276745914)_data'
@@ -50,6 +52,8 @@ PEsy20 = np.zeros([num_delays+1])
 SCsy20 = np.zeros([num_delays+1])
 PEsy100 = np.zeros([num_delays+1])
 SCsy100 = np.zeros([num_delays+1])
+PEsy1pPi = np.zeros([num_delays+1])
+SCsy1pPi = np.zeros([num_delays+1])
 
 delay = 1
 embed_delay = 5
@@ -58,11 +62,11 @@ nfac = factorial(embed_delay)
 for loop_delay in np.arange(1,num_delays+1):
     
     PEsy1[loop_delay],SCsy1[loop_delay] = CH(y1,5,delay=loop_delay)
-    PEsy2[loop_delay],SCsy2[loop_delay] = CH(y2,5,delay=loop_delay)
-    PEsy10[loop_delay],SCsy10[loop_delay] = CH(y10,5,delay=loop_delay)
-    PEsy20[loop_delay],SCsy20[loop_delay] = CH(y20,5,delay=loop_delay)
-    PEsy100[loop_delay],SCsy100[loop_delay] = CH(y100,5,delay=loop_delay)
-
+    #PEsy2[loop_delay],SCsy2[loop_delay] = CH(y2,5,delay=loop_delay)
+    #PEsy10[loop_delay],SCsy10[loop_delay] = CH(y10,5,delay=loop_delay)
+    #PEsy20[loop_delay],SCsy20[loop_delay] = CH(y20,5,delay=loop_delay)
+    #PEsy100[loop_delay],SCsy100[loop_delay] = CH(y100,5,delay=loop_delay)
+    PEsy1pPi[loop_delay],SCsy1pPi[loop_delay] = CH(y1pPi,5,delay=loop_delay)
     print ('On Delay ',loop_delay)
 
 

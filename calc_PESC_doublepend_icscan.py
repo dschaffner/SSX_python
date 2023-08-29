@@ -12,7 +12,7 @@ from collections import Counter
 from math import factorial
 
 #calc_PESC_solarwind_chen.py
-datadir = 'C:\\Users\\dschaffner\\OneDrive - brynmawr.edu\\Galatic Dynamics Data\\DoublePendulum\\'
+datadir = 'C:\\Users\\dschaffner\\Dropbox\\From OneDrive\\Galatic Dynamics Data\\DoublePendulum\\'
 fileheader='DoubPen_L1-1_L2-1_m1-1_m2-1_9p8_scan_theta1_ic'
 fileheader='DoubPen_L1-1_L2-1_m1-1_m2-1_9p8_chaos'
 fileheader = 'DoubPen_LsMsEq1_9p8_ICQ4'
@@ -47,6 +47,7 @@ for ic in np.arange(33,34):
     y4=datafile['y4']
     embeddelay = 5
     nfac = factorial(embeddelay)
+
     
     ###Storage Arrays###
     #delta_t = 1.0
@@ -54,7 +55,7 @@ for ic in np.arange(33,34):
     #taus = delays*delta_t
     #freq = 1.0/taus
     
-    
+    """
     
     #delay_array = np.array([1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900,1000,2000,3000,4000,5000,6000,7000,8000,9000,10000,20000,30000,40000,50000])
     delay_array = np.arange(1,10000)
@@ -80,7 +81,7 @@ for ic in np.arange(33,34):
             PEs[theta,loop_delay]=PE_tot/np.log2(nfac)
             SCs[theta,loop_delay]=C
     """
-    
+    """
     
     PEsx1 = np.zeros([num_delays])
     SCsx1 = np.zeros([num_delays])
@@ -127,3 +128,4 @@ for ic in np.arange(33,34):
                               #PEsy3=PEsy3,SCsy3=SCsy3, 
                               #PEsy4=PEsy4,SCsy4=SCsy4, 
                               delays=delay_array)
+"""
