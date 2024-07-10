@@ -99,11 +99,15 @@ class Cwt:
         scaling: Linear or log
         """
         ndata = len(data)
+        
+
         self.order=order
         self.scale=largestscale
         self._setscales(ndata,largestscale,notes,scaling)
         self.cwt= NP.zeros((self.nscale,ndata), NP.complex64)
-        omega= NP.array(range(0,ndata/2)+range(-ndata/2,0))*(2.0*NP.pi/ndata)
+        ndata=float(ndata)
+        print(type(ndata))
+        omega= NP.array(NP.arange(0,ndata/2)+NP.arange(-ndata/2,0))*(2.0*NP.pi/ndata)
         datahat=NP.fft.fft(data)
         self.fftdata=datahat
         #self.psihat0=self.wf(omega*self.scales[3*self.nscale/4])
@@ -138,7 +142,7 @@ class Cwt:
             nmax=ndata/largestscale/2
             self.scales=NP.arange(float(2),float(nmax))
             self.nscale=len(self.scales)
-        else: raise ValueError, "scaling must be linear or log"
+        else: raise ValueError("scaling must be linear or log")
         return
     
     def getdata(self):
@@ -267,8 +271,8 @@ class DOG1(Cwt):
     """
     fourierwl=2.0* NP.pi/ NP.sqrt(1.5)
     def wf(self, s_omega):
-        dog1= NP.zeros(len(s_omega),complex64)
-        dog1.imag=s_omega* NP.exp(-s_omega**2/2.0)/sqrt(pi)
+        dog1= NP.zeros(len(s_omega),complex)
+        dog1.imag=s_omega* NP.exp(-s_omega**2/2.0)/NP.sqrt(NP.pi)
         return dog1
 
 class DOG(Cwt):
@@ -280,7 +284,7 @@ class DOG(Cwt):
         try:
             from scipy.special import gamma
         except ImportError:
-            print "Requires scipy gamma function"
+            print ("Requires scipy gamma function")
             raise ImportError
         Cwt.fourierwl=2* NP.pi/ NP.sqrt(self.order+0.5)
         m=self.order
@@ -298,7 +302,7 @@ class Haar(Cwt):
 
     fourierwl=1.0#1.83129  #2.0
     def wf(self, s_omega):
-        haar= NP.zeros(len(s_omega),complex64)
+        haar= NP.zeros(len(s_omega),complex)
         om = s_omega[:]/self.currentscale
         om[0]=1.0  #prevent divide error
         #haar.imag=4.0*sin(s_omega/2)**2/om
@@ -316,7 +320,7 @@ class HaarW(Cwt):
 
     fourierwl=1.83129*1.2  #2.0
     def wf(self, s_omega):
-        haar= NP.zeros(len(s_omega),complex64)
+        haar= NP.zeros(len(s_omega),complex)
         om = s_omega[:]#/self.currentscale
         om[0]=1.0  #prevent divide error
         #haar.imag=4.0*sin(s_omega/2)**2/om
